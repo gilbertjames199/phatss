@@ -41,12 +41,16 @@ class MapPlotterController extends Controller
     }
     public function heat_map(Request $request)
     {
-        return PhatssData::get()->map(function ($item) {
+        $data = PhatssData::where('id', '<>', '1')->get()->map(function ($item) {
             return [
-                "lng" => $item->_Location_longitude,
-                "lat" => $item->_Location_altitude,
-                "intensity" => $item->_Location_precision
+                (float) $item->_Location_longitude,
+                (float) $item->_Location_altitude,
+                (float) $item->_Location_precision
             ];
         });
+
+        return inertia('MapThem/heatMap', [
+            "data" => $data
+        ]);
     }
 }
