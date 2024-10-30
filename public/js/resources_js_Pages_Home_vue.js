@@ -44,6 +44,18 @@ __webpack_require__.r(__webpack_exports__);
         } else if (this.import_selection == "2") {
           alert("import file data");
           this.form.post('/import/file/data');
+        } else if (this.import_selection == "h") {
+          alert("import household data");
+          this.form.post('/import/house/hold/data/import/h');
+        } else if (this.import_selection == "a") {
+          alert("import school data");
+          this.form.post('/import/schools/ddo/data/import/sc/hool');
+        } else if (this.import_selection == "b") {
+          alert("import cdc data");
+          this.form.post('/import/child/development/center/data/import/child/care');
+        } else if (this.import_selection == "c") {
+          alert("import health facilities data");
+          this.form.post('/import/health/care/center/data/import/health/care/centers/hospitals');
         } else {
           this.form.post('/import/export/excel/phatts');
         }
@@ -101,28 +113,12 @@ var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-  value: "1"
-}, "PHATTS", -1
-/* HOISTED */
-);
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option value=\"1\">PHATTS</option><option value=\"2\">Municipalities/Barangays/Puroks</option><option value=\"h\">Households</option><option value=\"a\">Schools</option><option value=\"b\">Child Development Centers</option><option value=\"c\">Health Facilities</option><option value=\"3\">Export PhATSS</option>", 7);
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-  value: "2"
-}, "Municipalities/Barangays/Puroks", -1
-/* HOISTED */
-);
+var _hoisted_14 = [_hoisted_7];
+var _hoisted_15 = ["value"];
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-  value: "3"
-}, "Export PhATSS", -1
-/* HOISTED */
-);
-
-var _hoisted_10 = [_hoisted_7, _hoisted_8, _hoisted_9];
-var _hoisted_11 = ["value"];
-
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "submit",
   "class": "btn btn-primary btn-sm mL-2 text-white"
 }, "Submit", -1
@@ -149,7 +145,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $data.import_selection = $event;
     })
-  }, _hoisted_10, 512
+  }, _hoisted_14, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.import_selection]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "file",
@@ -168,7 +164,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     max: "100"
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.form.progress.percentage) + "% ", 9
   /* TEXT, PROPS */
-  , _hoisted_11)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button type=\"submit\" class=\"btn btn-primary btn-sm mL-2 text-white\" >Submit</button> ")], 32
+  , _hoisted_15)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button type=\"submit\" class=\"btn btn-primary btn-sm mL-2 text-white\" >Submit</button> ")], 32
   /* HYDRATE_EVENTS */
   )])])], 64
   /* STABLE_FRAGMENT */

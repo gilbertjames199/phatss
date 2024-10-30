@@ -65,6 +65,20 @@ createInertiaApp({
             .component("Notification", Notification)
             .component("FilePond", FilePond)
             .component("v-select", vSelect)
+            .mixin({
+                // data() {
+
+                // },
+                methods: {
+                    format_number(number, num_decimals, include_comma) {
+                        var numm = parseFloat(number);
+                        return numm.toLocaleString('en-US', { useGrouping: include_comma, minimumFractionDigits: num_decimals, maximumFractionDigits: num_decimals });
+                    },
+                    goBack() {
+                        window.history.back()
+                    },
+                }
+            })
             .mount(el)
     },
     title: title => 'PHATTS: ' + title

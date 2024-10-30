@@ -15,6 +15,7 @@ use App\Http\Controllers\InterventionController;
 use App\Http\Controllers\MapPlotterController;
 use App\Http\Controllers\OtherController;
 use App\Http\Controllers\SocialInclusionController;
+use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\TimeSheetController;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MessageMail;
@@ -35,6 +36,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/file/data', [ImportDataController::class, 'index']);
         Route::post('/phatts', [ImportDataController::class, 'import_phatts']);
         Route::post('/export/excel/phatts', [ImportDataController::class, 'export_phatts']);
+        Route::post('/house/hold/data/import/h', [ImportDataController::class, 'import_household']);
+        Route::post('/schools/ddo/data/import/sc/hool', [ImportDataController::class, 'import_schools']);
+        Route::post('/child/development/center/data/import/child/care', [ImportDataController::class, 'import_cdc']);
+        Route::post('/health/care/center/data/import/health/care/centers/hospitals', [ImportDataController::class, 'import_health']);
     });
     //Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::prefix('/home')->group(function () {
@@ -66,6 +71,13 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/map')->group(function () {
         Route::get('/', [MapPlotterController::class, 'index']);
         Route::get('/heat', [MapPlotterController::class, 'heat_map']);
+    });
+    Route::prefix('/survey')->group(function () {
+        Route::get('/', [SurveyController::class, 'index']);
+        Route::get('/household', [SurveyController::class, 'create']);
+        Route::post('/store', [SurveyController::class, 'store']);
+        Route::get('/household/edit/{id}', [SurveyController::class, 'edit']);
+        Route::patch('/household/update/{id}', [SurveyController::class, 'update']);
     });
     //Avatar file upload
     Route::post('/files/upload', [FileHandleController::class, 'uploadAvatar']);

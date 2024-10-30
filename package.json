@@ -20,6 +20,7 @@
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.32.11",
         "sass-loader": "^11.0.1",
+        "typescript": "^5.6.3",
         "vue-loader": "^16.8.3"
     },
     "dependencies": {
@@ -37,8 +38,11 @@
         "filepond-plugin-image-edit": "^1.6.3",
         "filepond-plugin-image-preview": "^4.6.11",
         "filepond-plugin-image-transform": "^3.8.7",
+        "heatmap.js": "^2.0.5",
         "jquery": "^3.6.0",
         "leaflet": "^1.9.4",
+        "leaflet-heatmap": "^1.0.0",
+        "leaflet.heat": "^0.2.0",
         "vue": "^3.2.33",
         "vue-chartjs": "^4.0.7",
         "vue-filepond": "^7.0.2",

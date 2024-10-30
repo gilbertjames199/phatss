@@ -14,6 +14,10 @@
                 <select v-model="import_selection" >
                     <option value="1">PHATTS</option>
                     <option value="2">Municipalities/Barangays/Puroks</option>
+                    <option value="h">Households</option>
+                    <option value="a">Schools</option>
+                    <option value="b">Child Development Centers</option>
+                    <option value="c">Health Facilities</option>
                     <option value="3">Export PhATSS</option>
                 </select>
                 <input type="file" @input="form.myfile = $event.target.files[0]" @change="onFileChanged()"/>
@@ -66,6 +70,19 @@ export default {
                 }else if(this.import_selection=="2"){
                     alert("import file data")
                     this.form.post('/import/file/data')
+                }else if(this.import_selection=="h"){
+                    alert("import household data")
+                    this.form.post('/import/house/hold/data/import/h')
+                }else if(this.import_selection=="a"){
+                    alert("import school data")
+                    this.form.post('/import/schools/ddo/data/import/sc/hool')
+                }else if(this.import_selection=="b"){
+                    alert("import cdc data")
+                    this.form.post('/import/child/development/center/data/import/child/care')
+
+                }else if(this.import_selection=="c"){
+                    alert("import health facilities data")
+                    this.form.post('/import/health/care/center/data/import/health/care/centers/hospitals')
                 }else{
                     this.form.post('/import/export/excel/phatts')
                 }

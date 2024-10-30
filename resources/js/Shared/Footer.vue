@@ -5,7 +5,7 @@
             >Developed by
             <a
                 href="https://cabahuggilbertjame.wixsite.com/mycv"
-                >GILBERT JAMES B. CABAHUG</a
+                >PICTO</a
             >
         </span>
     </footer>

@@ -41,16 +41,89 @@ class MapPlotterController extends Controller
     }
     public function heat_map(Request $request)
     {
-        $data = PhatssData::where('id', '<>', '1')->get()->map(function ($item) {
+        // 'lat' => (float) $item->_Location_longitude,
+        //             'lng' => (float) $item->_Location_altitude,
+        //             'count' => (float) $item->_Location_precision
+        // dd($request);
+        $mun = $request->mun;
+        $bar = $request->bar;
+        $pur = $request->purok;
+        // dd($request);
+
+        $relrisk = NULL;
+        if ($request->relrisk) {
+            $relrisk = $request->relrisk;
+            if ($relrisk == 'G0') {
+                // dd($relrisk);
+                $relrisk = 'G7';
+            }
+        }
+        // dd("heat");
+        // dd($relrisk);
+        $data = PhatssData::where('id', '<>', '1')
+            ->where('_Location_longitude', '<>', '')
+            ->where('_Location_latitude', '<>', '')
+            ->when($relrisk, function ($query, $relrisk) {
+                // dd($relrisk);
+                $query->where('relative_risk_assessment', 'LIKE', '%' . $relrisk . '%');
+            })
+            ->when($request->mun, function ($query, $mun) {
+                // dd($relrisk);
+                // dd($mun);
+                $query->where('municipality', 'LIKE', '%' . $mun . '%');
+            })
+            ->when($request->bar, function ($query, $bar) {
+                // dd($relrisk);
+                // dd($mun);
+                $query->where('barangay', 'LIKE', '%' . $bar . '%');
+            })
+            ->when($request->pur, function ($query, $pur) {
+                // dd($relrisk);
+                // dd($mun);
+                $query->where('purok_sitio', 'LIKE', '%' . $pur . '%');
+            })
+            ->distinct('_uuid');
+
+        $count = $data->count();
+        $data = $data->get()->map(function ($item) {
+            $count = (float) $item->risk_level * (float) $item->risk_level;
             return [
-                (float) $item->_Location_longitude,
-                (float) $item->_Location_altitude,
-                (float) $item->_Location_precision
+                'x' => (float) $item->_Location_latitude,
+                'y' => (float) $item->_Location_longitude,
+                'count' => $count
             ];
         });
-
+        $municipalities = PhatssData::where('municipality', '<>', 'MUNICIPALITY')
+            ->where('municipality', '<>', '')
+            ->distinct('municipality')
+            ->orderBy('municipality', 'ASC')
+            ->pluck('municipality');
+        // dd($municipalities);
+        $barangays = [];
+        if ($mun) {
+            $barangays = PhatssData::where('municipality', 'LIKE', '%' . $mun . '%')
+                ->distinct('barangay')
+                ->orderBy('barangay', 'ASC')
+                ->pluck('barangay');
+            // dd($bar);
+        }
+        $puroks = [];
+        if ($bar) {
+            $puroks = PhatssData::where('barangay', 'LIKE', '%' . $bar . '%')
+                ->distinct('purok_sitio')
+                ->orderBy('purok_sitio', 'ASC')
+                ->pluck('purok_sitio');
+        }
         return inertia('MapThem/heatMap', [
-            "data" => $data
+            "p_data" => $data,
+            "count" => $count,
+            "p_mun" => $request->mun,
+            "p_bar" => $request->bar,
+            "p_pur" => $request->pur,
+            "p_relrisk" => $request->relrisk,
+            "barangays" => $barangays,
+            "municipalities" => $municipalities,
+            "puroks" => $puroks
         ]);
     }
 }
