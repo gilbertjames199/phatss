@@ -15,8 +15,9 @@
                     <div class="layers bd bgc-white p-20">
                         <div class="layer w-100 mB-10">
                             <h6 class="lh-1">
+
                                 <table>
-                                    <tr>
+                                    <tr >
                                         <td>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-clipboard-data-fill" viewBox="0 0 16 16">
                                                 <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
@@ -28,7 +29,23 @@
                                 </table>
                             </h6>
                             <hr>
-                            <h2 style="color: red; font-weight: bold; text-align: center">{{ format_number(number_of_households,0,true) }}</h2>
+                            <h2 style="font-weight: bold; text-align: center">
+                                <span
+                                        class="
+                                            d-ib
+                                            lh-1
+                                            va-m
+                                            fw-600
+                                            bdrs-10em
+                                            pX-15
+                                            pY-15
+                                            bgc-red-50
+                                            c-red-500
+                                        "
+                                        >
+                                {{ format_number(number_of_households,0,true) }}
+                                </span>
+                            </h2>
                             <p style="text-align: center">{{ format_number(100*(with_toilets/190000),2,true) }}% of households in Davao de Oro have responded to the survey in 2023.</p>
                         </div>
                     </div>
@@ -51,7 +68,24 @@
                                 </table>
                             </h6>
                             <hr>
-                            <h2 style="color: #d7db0d; font-weight: bold;  text-align: center">{{ format_number(with_toilets,0,true) }}</h2>
+                            <h2 style="font-weight: bold;  text-align: center">
+                                <span
+                                        class="
+                                            d-ib
+                                            lh-1
+                                            va-m
+                                            fw-600
+                                            bdrs-10em
+                                            pX-15
+                                            pY-15
+                                            bgc-yellow-50
+                                            c-yellow-700
+                                        "
+                                        >
+                                    {{ format_number(with_toilets,0,true) }}
+                                </span>
+
+                            </h2>
 
                             <p>Of the {{ format_number(number_of_households,0,true) }} respondents, {{ format_number(with_toilets,0,true) }}
                                 ({{ format_number(100*(with_toilets/number_of_households),2,true) }}%) have toilets.<br>&nbsp;</p>
@@ -76,7 +110,22 @@
                                 </table>
                             </h6>
                             <hr>
-                            <h2 style="color: blue; font-weight: bold; text-align: center">{{ format_number(with_functional_toilet,0,true) }}</h2>
+                            <h2 style="color: blue; font-weight: bold; text-align: center">
+                                <span
+                                        class="
+                                            d-ib
+                                            lh-1
+                                            va-m
+                                            fw-600
+                                            bdrs-10em
+                                            pX-15
+                                            pY-15
+                                            bgc-blue-50
+                                            c-blue-700
+                                        "
+                                        >
+                                {{ format_number(with_functional_toilet,0,true) }}
+                                </span></h2>
                             <p>Of the {{ format_number(number_of_households,0,true) }} respondents, {{ format_number(with_toilets,0,true) }}
                                 ({{ format_number(100*(with_functional_toilet/number_of_households),2,true) }}%) have functional and well-maintained toilets.</p>
                         </div>
@@ -100,7 +149,23 @@
                                 </table>
                             </h6>
                             <hr>
-                            <h2 style="color: #1e80d6; font-weight: bold; text-align: center">{{ format_number(_8_composting,0,true) }}</h2>
+                            <h2 style="color: #1e80d6; font-weight: bold; text-align: center">
+                                <span
+                                        class="
+                                            d-ib
+                                            lh-1
+                                            va-m
+                                            fw-600
+                                            bdrs-10em
+                                            pX-15
+                                            pY-15
+                                            bgc-grey-200
+                                            c-grey-700
+                                        "
+                                        >
+                                    {{ format_number(_8_composting,0,true) }}
+                                </span>
+                            </h2>
                             <p style="text-align:center">Of the {{ format_number(number_of_households,0,true) }} respondents, {{ format_number(_8_composting,0,true) }}
                                 ({{ format_number(100*(_8_composting/number_of_households),2,true) }}%) practice segregation/composting.</p>
                         </div>
