@@ -29,7 +29,7 @@
                             </h6>
                             <hr>
                             <h2 style="color: red; font-weight: bold; text-align: center">{{ format_number(number_of_households,0,true) }}</h2>
-                            <p style="text-align: center">{{ format_number(100*(with_toilets/145000),2,true) }}% of households in Davao de Oro have responded to the survey in 2023.</p>
+                            <p style="text-align: center">{{ format_number(100*(with_toilets/190000),2,true) }}% of households in Davao de Oro have responded to the survey in 2023.</p>
                         </div>
                     </div>
                 </div>
@@ -131,7 +131,7 @@
                                             <b>RISK LEVEL DISTRIBUTION BY MUNICIPALITY</b>
                                         </th>
                                     </tr>
-                                    <tr >
+                                    <tr style="background-color: #c1c9c4">
                                         <th>Municipality</th>
                                         <th>Open Defecation -G0</th>
                                         <th>Zero Open Defecation -G1</th>

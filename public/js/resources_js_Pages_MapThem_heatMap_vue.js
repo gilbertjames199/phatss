@@ -16,6 +16,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_1__);
 
+ // import * as turf from "@turf/turf";
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {},
@@ -124,12 +125,20 @@ __webpack_require__.r(__webpack_exports__);
 
         var cfg = {
           radius: 30,
+          blur: 1,
           maxOpacity: 0.5,
           scaleRadius: false,
           useLocalExtrema: true,
           latField: "x",
           lngField: "y",
-          valueField: "count"
+          valueField: "count" // gradient: {
+          //     0.0: "#0eaae8",   // Cold color for very low density
+          //     0.25: "#098abd",  // Transition from cold to slightly warm
+          //     0.5: "#096fbd",   // Moderate density
+          //     0.75: "#023ba6", // Warm color for high density
+          //     1.0: "#010880"      // Bright color for very high density
+          // }
+
         }; // Create heatmap layer
 
         this.heatmapLayer = new (leaflet_heatmap__WEBPACK_IMPORTED_MODULE_0___default())(cfg); //SET Coordinates
@@ -276,7 +285,28 @@ __webpack_require__.r(__webpack_exports__);
       //     this.home_lang = 125.7844;
       // }
 
-    }
+    } // generateInterpolatedData() {
+    //     // Convert your data into a GeoJSON FeatureCollection
+    //     const points = this.myData.data.map((point) => {
+    //         return turf.point([point.y, point.x], { count: point.count });
+    //     });
+    //     const geojsonPoints = turf.featureCollection(points);
+    //     // Create a bounding box around your data points
+    //     const bbox = turf.bbox(geojsonPoints);
+    //     // Generate a grid of points for interpolation
+    //     const grid = turf.pointGrid(bbox, 0.01, { units: "kilometers" });
+    //     // Perform IDW interpolation
+    //     const options = { gridType: "point", property: "count", units: "kilometers" };
+    //     const interpolated = turf.interpolate(geojsonPoints, grid, options);
+    //     // Convert interpolated points back to the heatmap data format
+    //     this.myData.data = interpolated.features.map((feature) => {
+    //         const [y, x] = feature.geometry.coordinates;
+    //         return { x, y, count: feature.properties.count || 0 };
+    //     });
+    //     // Reinitialize the heatmap with the new interpolated data
+    //     this.initMap();
+    // }
+
   }
 });
 
