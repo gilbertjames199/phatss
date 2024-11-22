@@ -52,9 +52,11 @@ Route::middleware('auth')->group(function () {
 
     //Users
     Route::prefix('/users')->group(function () {
-        Route::get('/', [UserController::class, 'index'])->can('create', 'App\Model\User');
+        // ->can('create', 'App\Model\User');
+        Route::get('/', [UserController::class, 'index']);
         Route::post('/', [UserController::class, 'store']);
-        Route::get('/create', [UserController::class, 'create'])->can('create', 'App\Model\User');
+        // ->can('create', 'App\Model\User')
+        Route::get('/create', [UserController::class, 'create']);
         Route::get('/{id}/edit', [UserController::class, 'edit']);
         Route::delete('/{id}', [UserController::class, 'destroy']);
         Route::patch('/{id}', [UserController::class, 'update']);
