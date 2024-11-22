@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class HouseHold extends Model
 {
     use HasFactory;
+    protected $connection = "mysql";
+    protected $table = 'house_holds';
+    protected $guarded = [];
 }

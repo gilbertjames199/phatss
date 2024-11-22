@@ -11,9 +11,12 @@ use App\Http\Controllers\EducationController;
 use App\Http\Controllers\GovernmentController;
 use App\Http\Controllers\EconomicController;
 use App\Http\Controllers\HealthController;
+use App\Http\Controllers\HouseHoldController;
 use App\Http\Controllers\InterventionController;
 use App\Http\Controllers\MapPlotterController;
 use App\Http\Controllers\OtherController;
+use App\Http\Controllers\PlaceController;
+use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SocialInclusionController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\TimeSheetController;
@@ -33,6 +36,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [DashBoardController::class, 'index']);
     });
     Route::prefix('/import')->group(function () {
+        Route::get('/', [ImportDataController::class, 'importindex']);
         Route::post('/file/data', [ImportDataController::class, 'index']);
         Route::post('/phatts', [ImportDataController::class, 'import_phatts']);
         Route::post('/export/excel/phatts', [ImportDataController::class, 'export_phatts']);
@@ -85,5 +89,38 @@ Route::middleware('auth')->group(function () {
     //Intervention
     Route::prefix('/intervention')->group(function () {
         Route::get('/', [InterventionController::class, 'index']);
+        Route::get('/create', [InterventionController::class, 'create']);
+        Route::post('/store', [InterventionController::class, 'store']);
+        Route::get('/{id}/edit', [InterventionController::class, 'edit']);
+        Route::patch('/update', [InterventionController::class, 'update']);
+        Route::delete('/{id}', [InterventionController::class, 'destroy']);
+    });
+    //Schools
+    Route::prefix('/school')->group(function () {
+        Route::get('/', [SchoolController::class, 'index']);
+        Route::get('/create', [SchoolController::class, 'create']);
+        Route::post('/store', [SchoolController::class, 'store']);
+        Route::get('/{id}/edit', [SchoolController::class, 'edit']);
+        Route::patch('/update', [SchoolController::class, 'update']);
+        Route::delete('/{id}', [SchoolController::class, 'destroy']);
+    });
+    //Reg
+    Route::prefix('/reg')->group(function () {
+        Route::get('/analyze', [HouseHoldController::class, 'analyze_reg']);
+    });
+    //HOUSEHOLDS
+    Route::prefix('/households')->group(function () {
+        Route::get('/', [HouseHoldController::class, 'index']);
+        Route::get('/create', [HouseHoldController::class, 'create']);
+        Route::post('/store', [HouseHoldController::class, 'store']);
+        Route::get('/{id}/edit', [HouseHoldController::class, 'edit']);
+        Route::patch('/{id}/update', [HouseHoldController::class, 'update']);
+        Route::delete('/{id}', [HouseHoldController::class, 'destroy']);
+    });
+    //PLACES
+    Route::prefix('/places')->group(function () {
+        Route::get('/municipalities', [PlaceController::class, 'index']);
+        Route::get('/{mun}/barangays', [PlaceController::class, 'bar']);
+        Route::get('/barangay/{bar}/purok-sitio', [PlaceController::class, 'pur']);
     });
 });

@@ -16,7 +16,7 @@ class CreateInterventionsTable extends Migration
         Schema::create('interventions', function (Blueprint $table) {
             $table->id();
             $table->string('description');
-            $table->string('type')->comment('Services, goods, projects, resources, etc.');
+            // $table->string('type')->comment('Services, goods, projects, resources, etc.');
             $table->timestamps();
         });
     }

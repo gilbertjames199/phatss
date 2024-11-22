@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -9,9 +10,25 @@ use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use Symfony\Component\HttpFoundation\Response;
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Box\Spout\Common\Entity\Row;
+use Illuminate\Support\Facades\Auth;
 
 class ImportDataController extends Controller
 {
+    public function importindex(Request $request)
+    {
+        return inertia('Import/Index', [
+            "can" => [
+                'createUser' => Auth::user()->can('create', User::class),
+                'editUser' => Auth::user()->can('edit', User::class),
+                'deleteUser' => Auth::user()->can('delete', User::class),
+                'canViewUsers' => Auth::user()->can('can_view_users', User::class),
+                'canInsertUsers' => Auth::user()->can('can_insert_users', User::class),
+                'canEditUsers' => Auth::user()->can('can_edit_users', User::class),
+                'canDeleteUsers' => Auth::user()->can('can_delete_users', User::class),
+                'canUpdateUserPermissions' => Auth::user()->can('can_update_user_permissions', User::class),
+            ],
+        ]);
+    }
     public function index(Request $request)
     {
 
@@ -1141,98 +1158,108 @@ class ImportDataController extends Controller
             }
             $chunkSize = 500;
             $chunked = array_chunk($group1, $chunkSize);
-            // dd($chunked);
             foreach ($chunked as $key => $value) {
-                // Normalize the UUIDs
-                foreach ($value as &$row) {
-                    $row['_uuid'] = strtolower(trim($row['_uuid']));
-                }
-
-                foreach ($value as $row) {
-                    // Check if a record with the same _uuid already exists
-                    $existingRecord = DB::table('house_holds')
-                        ->where('_uuid', $row['_uuid'])
-                        ->first();
-
-                    if ($existingRecord) {
-                        // Update the existing record
-                        DB::table('house_holds')
-                            ->where('_uuid', $row['_uuid'])
-                            ->update([
-                                // 'ENUMERATOR' => $row['ENUMERATOR'],
-                                'date_survey' => $row['date_survey'],
-                                'time_started' => $row['time_started'],
-                                'ENUMERATOR' => $row['ENUMERATOR'],
-                                'district' => $row['district'],
-                                'municipality' => $row['municipality'],
-                                'barangay' => $row['barangay'],
-                                'purok_sitio' => $row['purok_sitio'],
-                                'street' => $row['street'],
-                                'housenumber' => $row['housenumber'],
-                                'unitnumber' => $row['unitnumber'],
-                                'Location' => $row['Location'],
-                                '_Location_latitude' => $row['_Location_latitude'],
-                                '_Location_longitude' => $row['_Location_longitude'],
-                                '_Location_altitude' => $row['_Location_altitude'],
-                                '_Location_precision' => $row['_Location_precision'],
-                                'LAST_NAME' => $row['LAST_NAME'],
-                                'FIRST_NAME' => $row['FIRST_NAME'],
-                                'MIDDLENAME' => $row['MIDDLENAME'],
-                                'SUFFIX' => $row['SUFFIX'],
-                                'LAST_NAME2' => $row['LAST_NAME2'],
-                                'FIRST_NAME2' => $row['FIRST_NAME2'],
-                                'MIDDLENAME2' => $row['MIDDLENAME2'],
-                                'SUFFIX2' => $row['SUFFIX2'],
-                                '_1_has_toilet' => $row['_1_has_toilet'],
-                                '_2_toilet_used' => $row['_2_toilet_used'],
-                                '_3_toilet_functional' => $row['_3_toilet_functional'],
-                                '_4_soap' => $row['_4_soap'],
-                                '_5_children' => $row['_5_children'],
-                                '_6_spaces' => $row['_6_spaces'],
-                                '_7_feces' => $row['_7_feces'],
-                                '_8_composting' => $row['_8_composting'],
-                                '_9_dispose' => $row['_9_dispose'],
-                                '_10_emptied' => $row['_10_emptied'],
-                                '_11_do_sludge' => $row['_11_do_sludge'],
-                                '_12_do_tank' => $row['_12_do_tank'],
-                                '_13_sewer' => $row['_13_sewer'],
-                                '_14_check' => $row['_14_check'],
-                                '_14_check_flush_pour_to_sewer' => $row['_14_check_flush_pour_to_sewer'],
-                                '_14_check_flush_pour_to_septic_tank' => $row['_14_check_flush_pour_to_septic_tank'],
-                                '_14_check_flush_pour_to_pit' => $row['_14_check_flush_pour_to_pit'],
-                                '_14_check_ventilated_imrpoved_pit_Latrine' => $row['_14_check_ventilated_imrpoved_pit_Latrine'],
-                                '_14_check_pit_latrine' => $row['_14_check_pit_latrine'],
-                                '_15_household' => $row['_15_household'],
-                                '_15_1_people' => $row['_15_1_people'],
-                                '_16_household' => $row['_16_household'],
-                                '_17_using' => $row['_17_using'],
-                                '_18_If_the_household_mediate_surroundings' => $row['_18_If_the_household_mediate_surroundings'],
-                                'Take_a_photo_for_question_18' => $row['Take_a_photo_for_question_18'],
-                                'Take_a_photo_for_question_18_url' => $row['Take_a_photo_for_question_18_url'],
-                                '_19_materials' => $row['_19_materials'],
-                                'Name_of_MRF' => $row['Name_of_MRF'],
-                                'location_mrf' => $row['location_mrf'],
-                                'risk_level' => $row['risk_level'],
-                                'risk_level_value' => $row['risk_level_value'],
-                                'relative_risk_assessment' => $row['relative_risk_assessment'],
-                                'Relative_risk_is_re_tive_risk_assessment' => $row['Relative_risk_is_re_tive_risk_assessment'],
-                                '_id' => $row['_id'],
-                                '_uuid' => $row['_uuid'],
-                                '_submission_time' => $row['_submission_time'],
-                                '_validation_status' => $row['_validation_status'],
-                                '_notes' => $row['_notes'],
-                                '_status' => $row['_status'],
-                                '_submitted_by' => $row['_submitted_by'],
-                                '__version__' => $row['__version__'],
-                                '_tags' => $row['_tags'],
-                                '_index' => $row['_index'],
-                            ]);
-                    } else {
-                        // Insert the new record
-                        DB::table('house_holds')->insert($row);
-                    }
-                }
+                DB::table('house_holds')->insertOrIgnore($value, ['_uuid']);
             }
+            // dd($chunked);
+            // $existingRecords = DB::table('house_holds')
+            //     ->pluck('_uuid', '_uuid') // Retrieves all _uuid values and uses them as keys for quick lookup
+            //     ->toArray();
+            // foreach ($chunked as $key => $value) {
+            // Normalize the UUIDs
+            // foreach ($value as &$row) {
+            //     $row['_uuid'] = strtolower(trim($row['_uuid']));
+            // }
+
+            //     foreach ($value as $row) {
+            //         $row['_uuid'] = strtolower(trim($row['_uuid']));
+            //         // Check if a record with the same _uuid already exists
+            //         // $existingRecord = DB::table('house_holds')
+            //         //     ->where('_uuid', $row['_uuid'])
+            //         //     ->first();
+
+            //         // if ($existingRecord) {
+            //         if (array_key_exists($row['_uuid'], $existingRecords)) {
+            //             // Update the existing record
+            //             dd("found");
+            //             DB::table('house_holds')
+            //                 ->where('_uuid', $row['_uuid'])
+            //                 ->update([
+            //                     // 'ENUMERATOR' => $row['ENUMERATOR'],
+            //                     'date_survey' => $row['date_survey'],
+            //                     'time_started' => $row['time_started'],
+            //                     'ENUMERATOR' => $row['ENUMERATOR'],
+            //                     'district' => $row['district'],
+            //                     'municipality' => $row['municipality'],
+            //                     'barangay' => $row['barangay'],
+            //                     'purok_sitio' => $row['purok_sitio'],
+            //                     'street' => $row['street'],
+            //                     'housenumber' => $row['housenumber'],
+            //                     'unitnumber' => $row['unitnumber'],
+            //                     'Location' => $row['Location'],
+            //                     '_Location_latitude' => $row['_Location_latitude'],
+            //                     '_Location_longitude' => $row['_Location_longitude'],
+            //                     '_Location_altitude' => $row['_Location_altitude'],
+            //                     '_Location_precision' => $row['_Location_precision'],
+            //                     'LAST_NAME' => $row['LAST_NAME'],
+            //                     'FIRST_NAME' => $row['FIRST_NAME'],
+            //                     'MIDDLENAME' => $row['MIDDLENAME'],
+            //                     'SUFFIX' => $row['SUFFIX'],
+            //                     'LAST_NAME2' => $row['LAST_NAME2'],
+            //                     'FIRST_NAME2' => $row['FIRST_NAME2'],
+            //                     'MIDDLENAME2' => $row['MIDDLENAME2'],
+            //                     'SUFFIX2' => $row['SUFFIX2'],
+            //                     '_1_has_toilet' => $row['_1_has_toilet'],
+            //                     '_2_toilet_used' => $row['_2_toilet_used'],
+            //                     '_3_toilet_functional' => $row['_3_toilet_functional'],
+            //                     '_4_soap' => $row['_4_soap'],
+            //                     '_5_children' => $row['_5_children'],
+            //                     '_6_spaces' => $row['_6_spaces'],
+            //                     '_7_feces' => $row['_7_feces'],
+            //                     '_8_composting' => $row['_8_composting'],
+            //                     '_9_dispose' => $row['_9_dispose'],
+            //                     '_10_emptied' => $row['_10_emptied'],
+            //                     '_11_do_sludge' => $row['_11_do_sludge'],
+            //                     '_12_do_tank' => $row['_12_do_tank'],
+            //                     '_13_sewer' => $row['_13_sewer'],
+            //                     '_14_check' => $row['_14_check'],
+            //                     '_14_check_flush_pour_to_sewer' => $row['_14_check_flush_pour_to_sewer'],
+            //                     '_14_check_flush_pour_to_septic_tank' => $row['_14_check_flush_pour_to_septic_tank'],
+            //                     '_14_check_flush_pour_to_pit' => $row['_14_check_flush_pour_to_pit'],
+            //                     '_14_check_ventilated_imrpoved_pit_Latrine' => $row['_14_check_ventilated_imrpoved_pit_Latrine'],
+            //                     '_14_check_pit_latrine' => $row['_14_check_pit_latrine'],
+            //                     '_15_household' => $row['_15_household'],
+            //                     '_15_1_people' => $row['_15_1_people'],
+            //                     '_16_household' => $row['_16_household'],
+            //                     '_17_using' => $row['_17_using'],
+            //                     '_18_If_the_household_mediate_surroundings' => $row['_18_If_the_household_mediate_surroundings'],
+            //                     'Take_a_photo_for_question_18' => $row['Take_a_photo_for_question_18'],
+            //                     'Take_a_photo_for_question_18_url' => $row['Take_a_photo_for_question_18_url'],
+            //                     '_19_materials' => $row['_19_materials'],
+            //                     'Name_of_MRF' => $row['Name_of_MRF'],
+            //                     'location_mrf' => $row['location_mrf'],
+            //                     'risk_level' => $row['risk_level'],
+            //                     'risk_level_value' => $row['risk_level_value'],
+            //                     'relative_risk_assessment' => $row['relative_risk_assessment'],
+            //                     'Relative_risk_is_re_tive_risk_assessment' => $row['Relative_risk_is_re_tive_risk_assessment'],
+            //                     '_id' => $row['_id'],
+            //                     '_uuid' => $row['_uuid'],
+            //                     '_submission_time' => $row['_submission_time'],
+            //                     '_validation_status' => $row['_validation_status'],
+            //                     '_notes' => $row['_notes'],
+            //                     '_status' => $row['_status'],
+            //                     '_submitted_by' => $row['_submitted_by'],
+            //                     '__version__' => $row['__version__'],
+            //                     '_tags' => $row['_tags'],
+            //                     '_index' => $row['_index'],
+            //                 ]);
+            //         } else {
+            //             dd("not found");
+            //             // Insert the new record
+            //             DB::table('house_holds')->insert($row);
+            //         }
+            //     }
+            // }
             // foreach ($chunked as $key => $value) {
             //     // dd($value);
             //     DB::table('house_holds')->upsert(
