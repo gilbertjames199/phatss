@@ -124,7 +124,7 @@ __webpack_require__.r(__webpack_exports__);
         }); // Heatmap configuration
 
         var cfg = {
-          radius: 30,
+          radius: 10,
           blur: 1,
           maxOpacity: 0.5,
           scaleRadius: false,

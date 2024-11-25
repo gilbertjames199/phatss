@@ -26,6 +26,7 @@ __webpack_require__.r(__webpack_exports__);
     PermissionsModal: _PermissionsModal_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   props: {
+    auth: Object,
     users: Object,
     filters: Object //can: Object,
     //permissions_all: Object,
@@ -64,11 +65,15 @@ __webpack_require__.r(__webpack_exports__);
     }, 300)
   },
   methods: {
-    deleteUser: function deleteUser(id) {
-      var text = "WARNING!\nAre you sure you want to delete the record?";
+    deleteUser: function deleteUser(id, uname) {
+      if (this.auth.user.username == uname) {
+        var text = "WARNING!\nAre you sure you want to delete the record?";
 
-      if (confirm(text) == true) {
-        this.$inertia["delete"]("/users/" + id);
+        if (confirm(text) == true) {
+          this.$inertia["delete"]("/users/" + id);
+        }
+      } else {
+        alert("You can't delete your account");
       }
     },
     getPermissionAll: function getPermissionAll() {
@@ -407,7 +412,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     , _hoisted_20)]), _hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
       "class": "text-danger dropdown-item",
       onClick: function onClick($event) {
-        return $options.deleteUser(user.id);
+        return $options.deleteUser(user.id, user.name);
       }
     }, {
       "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -426,7 +431,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     prev: $props.users.prev_page_url
   }, null, 8
   /* PROPS */
-  , ["next", "prev"])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <PermissionsModal v-if=\"displayModal\" @close-modal-event=\"hideModal\" >\n            permission array\n            My Value {{ form.my_id }}\n                <span style=\"font-weight: bold\">Name: </span>{{ this.my_name }}\n                <input  v-model=\"form.my_id\" type=\"hidden\" >\n                <multiselect v-model=\"form.value\"\n                            :options=\"permission_particular\"\n                            mode=\"tags\"\n                            :searchable=\"true\"\n                />\n                <br>\n                <button type=\"button\" class=\"btn btn-primary\" style=\"font-weight: bold; color: white\" @click=\"submitChanges()\">SAVE</button>&nbsp;\n                <button type=\"button\" class=\"btn btn-danger\" style=\"font-weight: bold; color: white\" @click=\"hideModal()\">CANCEL</button>\n            <form @submit.prevent=\"submit()\">\n\n            </form>\n        </PermissionsModal> ")])], 64
+  , ["next", "prev"])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.auth), 1
+  /* TEXT */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <PermissionsModal v-if=\"displayModal\" @close-modal-event=\"hideModal\" >\n            permission array\n            My Value {{ form.my_id }}\n                <span style=\"font-weight: bold\">Name: </span>{{ this.my_name }}\n                <input  v-model=\"form.my_id\" type=\"hidden\" >\n                <multiselect v-model=\"form.value\"\n                            :options=\"permission_particular\"\n                            mode=\"tags\"\n                            :searchable=\"true\"\n                />\n                <br>\n                <button type=\"button\" class=\"btn btn-primary\" style=\"font-weight: bold; color: white\" @click=\"submitChanges()\">SAVE</button>&nbsp;\n                <button type=\"button\" class=\"btn btn-danger\" style=\"font-weight: bold; color: white\" @click=\"hideModal()\">CANCEL</button>\n            <form @submit.prevent=\"submit()\">\n\n            </form>\n        </PermissionsModal> ")])], 64
   /* STABLE_FRAGMENT */
   );
 }

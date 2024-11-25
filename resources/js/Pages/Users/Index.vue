@@ -48,7 +48,7 @@
                                     <li ><Link class="dropdown-item" :href="`/users/${user.id}/edit`">Edit</Link></li>
                                     <li ><button class="dropdown-item" @click="showModal(user.id, user.name)">Permissions</button></li>
                                     <li ><hr class="dropdown-divider action-divider"></li>
-                                    <li ><Link class="text-danger dropdown-item" @click="deleteUser(user.id)">Delete</Link></li>
+                                    <li ><Link class="text-danger dropdown-item" @click="deleteUser(user.id, user.name)">Delete</Link></li>
                                   </ul>
                                 </div>
                             </td>
@@ -64,6 +64,7 @@
                 </div>
             </div>
         </div>
+        {{ auth }}
         <!-- <PermissionsModal v-if="displayModal" @close-modal-event="hideModal" >
             permission array
             My Value {{ form.my_id }}
@@ -92,6 +93,7 @@ import PermissionsModal from './PermissionsModal.vue'
 export default {
     components: { Pagination, Filtering, PermissionsModal },
     props: {
+        auth: Object,
         users: Object,
         filters: Object,
         //can: Object,
@@ -133,11 +135,16 @@ export default {
         }, 300),
     },
     methods: {
-        deleteUser(id) {
-            let text = "WARNING!\nAre you sure you want to delete the record?";
-              if (confirm(text) == true) {
-                this.$inertia.delete("/users/" + id);
-              }
+        deleteUser(id, uname) {
+            if(this.auth.user.username==uname){
+                let text = "WARNING!\nAre you sure you want to delete the record?";
+                if (confirm(text) == true) {
+                    this.$inertia.delete("/users/" + id);
+                }
+            }else{
+                alert("You can't delete your account")
+            }
+
         },
         getPermissionAll(){
             this.permission_particular =[];

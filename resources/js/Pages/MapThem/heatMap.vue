@@ -202,7 +202,7 @@ export default {
 
             // Heatmap configuration
             const cfg = {
-                radius: 30,
+                radius: 10,
                 blur: 1,
                 maxOpacity: 0.5,
                 scaleRadius: false,

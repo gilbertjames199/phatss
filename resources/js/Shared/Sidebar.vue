@@ -91,7 +91,7 @@
 
 
                 <!--Interventions  -->
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <Link class="sidebar-link" href="/intervention">
                         <span></span>
                         <span class="icon-holder">
@@ -102,7 +102,7 @@
                         </span>
                         <span class="title">Interventions</span>
                     </Link>
-                </li>
+                </li> -->
 
                 <!--Schools  -->
                 <!-- <li class="nav-item">
