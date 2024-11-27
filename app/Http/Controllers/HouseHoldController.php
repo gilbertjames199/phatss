@@ -63,6 +63,14 @@ class HouseHoldController extends Controller
                     return \Illuminate\Support\Facades\DB::raw("TRIM($column) AS $column");
                 })->toArray()
             )
+            ->when($request->search, function ($query, $searchItem) {
+                $query->where('LAST_NAME', 'like', '%' . $searchItem . '%')
+                    ->orWhere('FIRST_NAME', 'like', '%' . $searchItem . '%')
+                    ->orWhere('MIDDLENAME', 'like', '%' . $searchItem . '%')
+                    ->where('LAST_NAME2', 'like', '%' . $searchItem . '%')
+                    ->orWhere('FIRST_NAME2', 'like', '%' . $searchItem . '%')
+                    ->orWhere('MIDDLENAME2', 'like', '%' . $searchItem . '%');
+            })
             ->when($request->mun, function ($query, $mun) {
                 $query->where('municipality', 'LIKE', '%' . $mun . '%');
             })
@@ -82,11 +90,12 @@ class HouseHoldController extends Controller
                         ->orWhereRaw('TRIM(MIDDLENAME2) LIKE ?', ['%' . $search . '%']);
                 });
             })
-            ->orderBy('LAST_NAME', 'ASC')
+            ->orderBy('updated_at', 'DESC')
             ->paginate($pages)
             ->withQueryString();
         return inertia('Household/Index', [
             'data' => $hh,
+            "filters" => $request->only(['search']),
             // ''
         ]);
     }
