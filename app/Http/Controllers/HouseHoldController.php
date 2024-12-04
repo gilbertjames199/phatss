@@ -82,7 +82,7 @@ class HouseHoldController extends Controller
                         ->orWhereRaw('TRIM(MIDDLENAME2) LIKE ?', ['%' . $search . '%']);
                 });
             })
-            ->orderBy('LAST_NAME', 'ASC')
+            ->orderBy('updated_at', 'DESC')
             ->paginate($pages)
             ->withQueryString();
         return inertia('Household/Index', [

@@ -16,21 +16,25 @@ use App\Http\Controllers\InterventionController;
 use App\Http\Controllers\MapPlotterController;
 use App\Http\Controllers\OtherController;
 use App\Http\Controllers\PlaceController;
+use App\Http\Controllers\PythonController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SocialInclusionController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\TimeSheetController;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MessageMail;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-Auth::routes(['verify' => true]);
+Auth::routes();
+// Auth::routes(['verify' => false]);
 /*
 Route::get('/email', function(){
     Mail::to('email@email.com')->send(new MessageMail());
     return new MessageMail();
 });
 */
+
 Route::middleware('auth')->group(function () {
     Route::prefix('/')->group(function () {
         Route::get('/', [DashBoardController::class, 'index']);
@@ -75,6 +79,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/map')->group(function () {
         Route::get('/', [MapPlotterController::class, 'index']);
         Route::get('/heat', [MapPlotterController::class, 'heat_map']);
+        Route::get('/route/optimize', [MapPlotterController::class, 'route_optimize']);
     });
     Route::prefix('/survey')->group(function () {
         Route::get('/', [SurveyController::class, 'index']);
@@ -123,4 +128,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/{mun}/barangays', [PlaceController::class, 'bar']);
         Route::get('/barangay/{bar}/purok-sitio', [PlaceController::class, 'pur']);
     });
+    //PYTHON
+    Route::prefix('python')->group(function () {
+        Route::get('get', [PythonController::class, 'all_households']);
+    });
+    //
 });
