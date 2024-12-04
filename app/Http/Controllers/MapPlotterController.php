@@ -126,4 +126,11 @@ class MapPlotterController extends Controller
             "puroks" => $puroks
         ]);
     }
+    public function route_optimize(Request $request)
+    {
+        // dd("route optimization");
+        return inertia(
+            'Route/Index'
+        );
+    }
 }
