@@ -11,7 +11,7 @@
                     <input v-model="search" type="text" class="form-control form-control-sm" placeholder="Search...">
                 </div>
                 <div class="peer">
-                    <Link v-if="can.canInsertUsers" class="btn btn-primary btn-sm" href="/users/create">Add User</Link>
+                    <Link class="btn btn-primary btn-sm" href="/users/create">Add User</Link>
                     <button class="btn btn-primary btn-sm mL-2 text-white" @click="showFilter()">Filter</button>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                         <tr v-for="(user, index) in users.data" :key="index">
                             <td>{{ user.name }}</td>
                             <!--<td>{{ user.id }}</td>-->
-                            <td style="text-align: right">
+                           <td style="text-align: right">
                                 <div class="dropdown dropstart" >
                                   <button class="btn btn-secondary btn-sm action-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
@@ -44,11 +44,11 @@
                                     </svg>
                                   </button>
                                   <ul class="dropdown-menu action-dropdown"  aria-labelledby="dropdownMenuButton1">
-                                    <!--<li>v-if="verifyPermissions(user.can.canEditUsers, user.can.canUpdateUserPermissions, user.can.canDeleteUsers)"<Link class="dropdown-item" :href="`/users/${user.id}/edit`">Permissions</Link></li>-->
-                                    <li v-if="user.can.canEditUsers"><Link class="dropdown-item" :href="`/users/${user.id}/edit`">Edit</Link></li>
-                                    <li v-if="user.can.canUpdateUserPermissions"><button class="dropdown-item" @click="showModal(user.id, user.name)">Permissions</button></li>
-                                    <li v-if="user.can.canDeleteUsers"><hr class="dropdown-divider action-divider"></li>
-                                    <li v-if="user.can.canDeleteUsers"><Link class="text-danger dropdown-item" @click="deleteUser(user.id)">Delete</Link></li>
+                                    <!-- <li>v-if="verifyPermissions(user.can.canEditUsers, user.can.canUpdateUserPermissions, user.can.canDeleteUsers)"<Link class="dropdown-item" :href="`/users/${user.id}/edit`">Permissions</Link></li> -->
+                                    <li ><Link class="dropdown-item" :href="`/users/${user.id}/edit`">Edit</Link></li>
+                                    <li ><button class="dropdown-item" @click="showModal(user.id, user.name)">Permissions</button></li>
+                                    <li ><hr class="dropdown-divider action-divider"></li>
+                                    <li ><Link class="text-danger dropdown-item" @click="deleteUser(user.id, user.name)">Delete</Link></li>
                                   </ul>
                                 </div>
                             </td>
@@ -64,23 +64,24 @@
                 </div>
             </div>
         </div>
-        <PermissionsModal v-if="displayModal" @close-modal-event="hideModal" >
-            <!--permission array
-            My Value {{ form.my_id }}-->
+        {{ auth }}
+        <!-- <PermissionsModal v-if="displayModal" @close-modal-event="hideModal" >
+            permission array
+            My Value {{ form.my_id }}
                 <span style="font-weight: bold">Name: </span>{{ this.my_name }}
                 <input  v-model="form.my_id" type="hidden" >
-                <multiselect v-model="form.value" 
-                            :options="permission_particular" 
-                            mode="tags" 
+                <multiselect v-model="form.value"
+                            :options="permission_particular"
+                            mode="tags"
                             :searchable="true"
                 />
-                <br>                    
+                <br>
                 <button type="button" class="btn btn-primary" style="font-weight: bold; color: white" @click="submitChanges()">SAVE</button>&nbsp;
                 <button type="button" class="btn btn-danger" style="font-weight: bold; color: white" @click="hideModal()">CANCEL</button>
-            <!--<form @submit.prevent="submit()">
-                
-            </form>    -->       
-        </PermissionsModal>
+            <form @submit.prevent="submit()">
+
+            </form>
+        </PermissionsModal> -->
     </div>
 </template>
 
@@ -92,13 +93,14 @@ import PermissionsModal from './PermissionsModal.vue'
 export default {
     components: { Pagination, Filtering, PermissionsModal },
     props: {
+        auth: Object,
         users: Object,
         filters: Object,
-        can: Object,
-        permissions_all: Object,
+        //can: Object,
+        //permissions_all: Object,
     },
     mounted(){
-        this.getPermissionAll();
+        // this.getPermissionAll();
     },
     data() {
         return {
@@ -133,11 +135,16 @@ export default {
         }, 300),
     },
     methods: {
-        deleteUser(id) {
-            let text = "WARNING!\nAre you sure you want to delete the record?";
-              if (confirm(text) == true) {
-                this.$inertia.delete("/users/" + id);
-              }
+        deleteUser(id, uname) {
+            if(this.auth.user.username==uname){
+                let text = "WARNING!\nAre you sure you want to delete the record?";
+                if (confirm(text) == true) {
+                    this.$inertia.delete("/users/" + id);
+                }
+            }else{
+                alert("You can't delete your account")
+            }
+
         },
         getPermissionAll(){
             this.permission_particular =[];

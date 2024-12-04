@@ -558,7 +558,7 @@ export default {
         submit() {
             this.calculateRiskLevel();
             if (this.editData !== undefined) {
-                alert(this.form.y01);
+                // alert(this.form.y01);
                 this.form.patch("/households/" + this.form.id + "/update", this.form);
             } else {
                 this.form.post("/households/store", this.form);

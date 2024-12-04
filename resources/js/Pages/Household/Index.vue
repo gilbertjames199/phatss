@@ -6,8 +6,9 @@
         <div class="peers fxw-nw jc-sb ai-c">
             <h3>Households</h3>
             <div class="peers">
+                <div class="peer mR-10"><input v-model="search" type="text" class="form-control form-control-sm" placeholder="Search..."></div>
                 <div class="peer mR-10">
-                    <!-- <input v-model="search" type="text" class="form-control form-control-sm" placeholder="Search..."> -->
+
                      <Link :href="`/households/create`" class="btn btn-primary text-white">New Household</Link>
                      Results per page
                      <select v-model="count_per_page" @click="filterData">
@@ -87,7 +88,8 @@ import Filtering from "@/Shared/Filter";
 import Pagination from "@/Shared/Pagination";
 export default{
     props: {
-        data: Object
+        data: Object,
+        filters: Object,
     },
     components:{
         Pagination, Filtering
@@ -101,7 +103,21 @@ export default{
             bar: "",
             mun: "",
             pur: "",
+            search: this.$props.filters.search,
         }
+    },
+    watch: {
+        search: _.debounce(function (value) {
+            this.$inertia.get(
+                "/households",
+                { search: value },
+                {
+                    preserveScroll: true,
+                    preserveState: true,
+                    replace: true,
+                }
+            );
+        }, 300),
     },
     methods: {
         async filterData() {
