@@ -29,28 +29,17 @@ __webpack_require__.r(__webpack_exports__);
     p_data: Object,
     barangays: Object,
     municipalities: Object,
-    puroks: Object
+    puroks: Object,
+    g0: Object,
+    g1: Object,
+    g2: Object,
+    g3: Object
   },
   data: function data() {
     return {
       myData: {
-        max: 1000,
+        max: 5,
         data: this.$props.p_data,
-        // data: [
-        //     { "x": 7.6165921, "y": 126.0364403, "count": 11 },
-        //     { "x": 7.6165206, "y": 126.036465, "count": 11 },
-        //     { "x": 7.6162185, "y": 126.0365919, "count": 12 },
-        //     { "x": 7.6162216, "y": 126.0364438, "count": 12 },
-        //     { "x": 7.6164219, "y": 126.0361991, "count": 12 }
-        // ],
-        // data: this.p_data,
-        // data: [
-        //   { 'x': 50.32638, 'y': 9.81727, 'count': 38 },
-        //   { 'x': 50.31009, 'y': 9.57019, 'count': 100 },
-        //   { 'x': 50.31257, 'y': 9.44102, 'count': 250 },
-        //   { 'x': 50.34057, 'y': 9.24102, 'count': 21 },
-        //   { 'x': 50.43057, 'y': 9.04102, 'count': 250 },
-        // ],
         lat_val: 0,
         lng_val: 0
       },
@@ -132,6 +121,12 @@ __webpack_require__.r(__webpack_exports__);
           latField: "x",
           lngField: "y",
           valueField: "count" // gradient: {
+          //     0.1: '#0000ff',  // Blue for 10
+          //     0.2: '#008000',  // Green for 20
+          //     0.3: '#ffa500',  // Orange for 30
+          //     0.4: '#ff0000',  // Red for 40
+          // }
+          // gradient: {
           //     0.0: "#0eaae8",   // Cold color for very low density
           //     0.25: "#098abd",  // Transition from cold to slightly warm
           //     0.5: "#096fbd",   // Moderate density
@@ -209,15 +204,46 @@ __webpack_require__.r(__webpack_exports__);
 
       // Loop through the data and create markers with tooltips for each point
       this.myData.data.forEach(function (point) {
+        var color = '#99bccb'; // Default to blue for count = 10
+        // if (point.count === 20) color = '#a7f174'; // Green for 20
+        // else if (point.count === 30) color = '#e0df6d'; // Orange for 30
+        // else if (point.count === 40) color = '#fa7d74'; // Red for 40
+
         var marker = leaflet__WEBPACK_IMPORTED_MODULE_1___default().circleMarker([point.x, point.y], {
           radius: 5,
           // You can adjust the radius as needed
           color: 'transparent',
-          // Makes the marker itself invisible
+          //color: 'transparent', // Makes the marker itself invisible
+          // colorOpacity: 0.5,
+          // fillColor: color,
           fillOpacity: 0 // Makes the fill transparent
 
         });
-        marker.bindTooltip("Coordinates: (".concat(point.x.toFixed(6), ", ").concat(point.y.toFixed(6), ")"), {
+        var tooltipContent = "\n                <div style=\"text-align: left; font-size: 14px; line-height: 1.5;\">\n                    <span style='text-align: center'><h4>Household Details</h4></span><hr>\n                    <strong>Name:</strong> <u>".concat(point.name || "N/A", "</u><br>\n                    <strong>Address:</strong> <u>").concat(point.address || "N/A", "</u><br>\n                    <strong>Coordinates:</strong> <u>(").concat(point.x.toFixed(6), ", ").concat(point.y.toFixed(6), ")</u><br>\n                </div>\n            "); //  <table class="table table-sm table-borderless table-hover">
+        //     <thead>
+        //         <tr colspan="2" style='text-align: center'>
+        //             <th><h4>Household Details</h4></th>
+        //         </tr>
+        //     </thead>
+        //     <tbody>
+        //         <tr>
+        //             <td><strong>Name:</strong></td>
+        //             <td><u>${point.name || "N/A"}</u></td>
+        //         </tr>
+        //         <tr>
+        //             <td><strong>Address:</strong></td>
+        //             <td><u>${point.address || "N/A"}</u></td>
+        //         </tr>
+        //         <tr>
+        //             <td><strong>Coordinates:</strong></td>
+        //             <td><u>(${point.x.toFixed(6)}, ${point.y.toFixed(6)})</u></td>
+        //         </tr>
+        //     </tbody>
+        // </table>
+        // // <strong>Count:</strong> ${point.count || "N/A"}
+        // // `Coordinates: (${point.x.toFixed(6)}, ${point.y.toFixed(6)})`
+
+        marker.bindTooltip(tooltipContent, {
           permanent: false,
           direction: 'top'
         });
@@ -483,7 +509,7 @@ var _hoisted_30 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div>\r\n        <div class=\"row gap-5 masonry pos-r\">\r\n\r\n            <div class=\"peers fxw-nw jc-sb ai-c\">\r\n\r\n            </div>\r\n        </div>\r\n\r\n    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ count }} mun: {{ mun }} &nbsp;p_mun: {{ p_mun }} "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("MAP"), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("FILTERS"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ municipalities }} "), _hoisted_10, _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div>\n        <div class=\"row gap-5 masonry pos-r\">\n\n            <div class=\"peers fxw-nw jc-sb ai-c\">\n\n            </div>\n        </div>\n\n    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ count }} mun: {{ mun }} &nbsp;p_mun: {{ p_mun }} "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("MAP"), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("FILTERS"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ municipalities }} "), _hoisted_10, _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     "class": "form-control",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $data.mun = $event;
@@ -497,7 +523,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     );
   }), 256
   /* UNKEYED_FRAGMENT */
-  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <option>Compostela</option>\r\n                                <option>Laak</option>\r\n                                <option>Mabini</option>\r\n                                <option>Maco</option>\r\n                                <option>Maragusan</option>\r\n                                <option>Mawab</option>\r\n                                <option>Monkayo</option>\r\n                                <option>Montevista</option>\r\n                                <option>Nabunturan</option>\r\n                                <option>New Bataan</option>\r\n                                <option>Pantukan</option> ")], 544
+  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <option>Compostela</option>\n                                <option>Laak</option>\n                                <option>Mabini</option>\n                                <option>Maco</option>\n                                <option>Maragusan</option>\n                                <option>Mawab</option>\n                                <option>Monkayo</option>\n                                <option>Montevista</option>\n                                <option>Nabunturan</option>\n                                <option>New Bataan</option>\n                                <option>Pantukan</option> ")], 544
   /* HYDRATE_EVENTS, NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.mun]]), _hoisted_13, _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     "class": "form-control",
@@ -548,7 +574,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, "Clear Filters"), _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [_hoisted_29, _hoisted_30, _hoisted_31, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.format_number($props.count, 0, true)), 1
   /* TEXT */
-  )])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" myData: {{ myData }}\r\n  p_data: {{ p_data }} ")], 2112
+  )])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" myData: {{ myData }}\n  p_data: {{ p_data }} ")], 2112
   /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
   );
 }
@@ -571,7 +597,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.mapdiv[data-v-63520288] {\r\n  width: 100%;\r\n  height: 500px; /* Adjust the height as needed */\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.mapdiv[data-v-63520288] {\n  width: 100%;\n  height: 500px; /* Adjust the height as needed */\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

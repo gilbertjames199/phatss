@@ -1,15 +1,6 @@
 <template>
-    <!-- <div>
-        <div class="row gap-5 masonry pos-r">
 
-            <div class="peers fxw-nw jc-sb ai-c">
-
-            </div>
-        </div>
-
-    </div> -->
-        <!-- {{ count }} mun: {{ mun }} &nbsp;p_mun: {{ p_mun }} -->
-
+    <h1>Heat Map Backup</h1>
     <div class="row gap-20 masonry pos-r">
         <div class="masonry-item w-100">
             <div class="row gap-20">
@@ -32,17 +23,6 @@
                                 <option v-for="municipality in municipalities">
                                     {{ municipality }}
                                 </option>
-                                <!-- <option>Compostela</option>
-                                <option>Laak</option>
-                                <option>Mabini</option>
-                                <option>Maco</option>
-                                <option>Maragusan</option>
-                                <option>Mawab</option>
-                                <option>Monkayo</option>
-                                <option>Montevista</option>
-                                <option>Nabunturan</option>
-                                <option>New Bataan</option>
-                                <option>Pantukan</option> -->
                             </select>
                             &nbsp;
                             <b>Barangays: </b>
@@ -84,14 +64,11 @@
             </div>
         </div>
     </div>
-  <!-- myData: {{ myData }}
-  p_data: {{ p_data }} -->
 </template>
 
 <script>
 import HeatmapOverlay from "leaflet-heatmap";
 import L from "leaflet";
-// import * as turf from "@turf/turf";
 
 export default {
   components: {},
@@ -113,13 +90,43 @@ export default {
   data() {
     return {
       myData: {
-        max: 5,
+        max: 10000,
         data: this.$props.p_data,
+
+        lat_val: 0,
+        lng_val: 0,
+      },
+      myData0: {
+        max: 10000,
+        data: this.$props.g0,
+
+        lat_val: 0,
+        lng_val: 0,
+      },
+      myData1: {
+        max: 10000,
+        data: this.$props.g1,
+
+        lat_val: 0,
+        lng_val: 0,
+      },
+      myData2: {
+        max: 10000,
+        data: this.$props.g2,
+
+        lat_val: 0,
+        lng_val: 0,
+      },
+      myData3: {
+        max: 10000,
+        data: this.$props.g3,
+
         lat_val: 0,
         lng_val: 0,
       },
       baseLayer: null,
       heatmapLayer: null,
+      heatmapLayer1: null,
       map: null,
       mun: this.$props.p_mun,
       bar: this.$props.p_bar,
@@ -130,27 +137,13 @@ export default {
     };
   },
   watch: {
-    // p_mun(newValue) {
-    //     this.mun = newValue;
-    // }
+
   },
   computed: {
-    // comp_mun() {
-    //     return this.p_mun;
-    // },
-    // comp_relrisk(){
-    //     return this.relrisk;
-    // }
+
   },
-//   beforeMounted(){
-//     this.mun=this.p_mun;
-//     alert(this.mun)
-//   },
+
   mounted() {
-    // alert(this.p_mun+ ' mun: '+this.mun);
-    // this.mun=this.p_mun;
-    // alert(this.p_mun+ ' mun: '+this.mun);
-    // this.relrisk=this.p_relrisk;
     this.initMap();
   },
   methods: {
@@ -199,23 +192,19 @@ export default {
                 latField: "x",
                 lngField: "y",
                 valueField: "count",
-                // gradient: {
-                //     0.1: '#0000ff',  // Blue for 10
-                //     0.2: '#008000',  // Green for 20
-                //     0.3: '#ffa500',  // Orange for 30
-                //     0.4: '#ff0000',  // Red for 40
-                // }
-                // gradient: {
-                //     0.0: "#0eaae8",   // Cold color for very low density
-                //     0.25: "#098abd",  // Transition from cold to slightly warm
-                //     0.5: "#096fbd",   // Moderate density
-                //     0.75: "#023ba6", // Warm color for high density
-                //     1.0: "#010880"      // Bright color for very high density
-                // }
             };
 
             // Create heatmap layer
             this.heatmapLayer = new HeatmapOverlay(cfg);
+
+            // Heatmap configuration 2
+            const cfgBlue = {
+                ...cfg,
+                gradient: { 0.4: "lightblue", 0.6: "blue", 0.9: "darkblue" },
+            };
+
+            // Create heatmap layer
+            this.heatmapLayer1 = new HeatmapOverlay(cfgBlue);
             //SET Coordinates
             this.home_lat=7.6165921;
             this.home_lang=126.0364403;
@@ -226,16 +215,21 @@ export default {
             }
             // Initialize the map
             this.map = new L.map("leafletMapid", {
-                // center: new L.LatLng(this.lat_val, this.lng_val),
-                // center: new L.LatLng(50.339247, 9.902947),
                 center: new L.LatLng(this.home_lat, this.home_lang),
                 zoom: my_zoom,
             });
 
+            if (this.heatmapLayer) this.map.removeLayer(this.heatmapLayer);
+            // if (this.heatmapLayer1) this.map.removeLayer(this.heatmapLayer1);
+
             // Set data and add layers to the map
             this.heatmapLayer.setData(this.myData);
+            // this.heatmapLayer1.setData(this.myData1);
+
             this.baseLayer.addTo(this.map);
             this.heatmapLayer.addTo(this.map);
+            // this.heatmapLayer1.addTo(this.map);
+
 
             // Add hover functionality to show tooltips with coordinates
             this.addHoverTooltips();
@@ -250,8 +244,6 @@ export default {
             this.pur="";
         }
         if(type==='bar'){
-            // alert(type);
-            // this.bar="";
             this.pur="";
         }
         this.$inertia.get(
@@ -269,8 +261,6 @@ export default {
                     replace: true,
                     onSuccess: () => {
                         window.location.reload();
-                        // this.mun=this.comp_mun;
-                        // this.relrisk=this.comp_relrisk;
                     },
                 }
             );
@@ -285,50 +275,20 @@ export default {
     addHoverTooltips() {
         // Loop through the data and create markers with tooltips for each point
         this.myData.data.forEach(point => {
-            let color = '#99bccb'; // Default to blue for count = 10
-            // if (point.count === 20) color = '#a7f174'; // Green for 20
-            // else if (point.count === 30) color = '#e0df6d'; // Orange for 30
-            // else if (point.count === 40) color = '#fa7d74'; // Red for 40
 
             const marker = L.circleMarker([point.x, point.y], {
                 radius: 5, // You can adjust the radius as needed
-                color: 'transparent',//color: 'transparent', // Makes the marker itself invisible
-                // colorOpacity: 0.5,
-                // fillColor: color,
+                color: 'transparent',
                 fillOpacity: 0 // Makes the fill transparent
             });
             const tooltipContent = `
                 <div style="text-align: left; font-size: 14px; line-height: 1.5;">
-                    <span style='text-align: center'><h4>Household Details</h4></span><hr>
                     <strong>Name:</strong> <u>${point.name || "N/A"}</u><br>
                     <strong>Address:</strong> <u>${point.address || "N/A"}</u><br>
                     <strong>Coordinates:</strong> <u>(${point.x.toFixed(6)}, ${point.y.toFixed(6)})</u><br>
+                    <strong>Relative Risk Assessment:</strong><u>${point.relative_risk_assessment}</u>
                 </div>
             `;
-                    //  <table class="table table-sm table-borderless table-hover">
-                    //     <thead>
-                    //         <tr colspan="2" style='text-align: center'>
-                    //             <th><h4>Household Details</h4></th>
-                    //         </tr>
-                    //     </thead>
-                    //     <tbody>
-                    //         <tr>
-                    //             <td><strong>Name:</strong></td>
-                    //             <td><u>${point.name || "N/A"}</u></td>
-                    //         </tr>
-                    //         <tr>
-                    //             <td><strong>Address:</strong></td>
-                    //             <td><u>${point.address || "N/A"}</u></td>
-                    //         </tr>
-                    //         <tr>
-                    //             <td><strong>Coordinates:</strong></td>
-                    //             <td><u>(${point.x.toFixed(6)}, ${point.y.toFixed(6)})</u></td>
-                    //         </tr>
-                    //     </tbody>
-                    // </table>
-
-            // // <strong>Count:</strong> ${point.count || "N/A"}
-            // // `Coordinates: (${point.x.toFixed(6)}, ${point.y.toFixed(6)})`
             marker.bindTooltip(tooltipContent, {
                 permanent: false,
                 direction: 'top'
@@ -389,32 +349,7 @@ export default {
         //     this.home_lang = 125.7844;
         // }
     },
-    // generateInterpolatedData() {
-    //     // Convert your data into a GeoJSON FeatureCollection
-    //     const points = this.myData.data.map((point) => {
-    //         return turf.point([point.y, point.x], { count: point.count });
-    //     });
-    //     const geojsonPoints = turf.featureCollection(points);
 
-    //     // Create a bounding box around your data points
-    //     const bbox = turf.bbox(geojsonPoints);
-
-    //     // Generate a grid of points for interpolation
-    //     const grid = turf.pointGrid(bbox, 0.01, { units: "kilometers" });
-
-    //     // Perform IDW interpolation
-    //     const options = { gridType: "point", property: "count", units: "kilometers" };
-    //     const interpolated = turf.interpolate(geojsonPoints, grid, options);
-
-    //     // Convert interpolated points back to the heatmap data format
-    //     this.myData.data = interpolated.features.map((feature) => {
-    //         const [y, x] = feature.geometry.coordinates;
-    //         return { x, y, count: feature.properties.count || 0 };
-    //     });
-
-    //     // Reinitialize the heatmap with the new interpolated data
-    //     this.initMap();
-    // }
   },
 };
 </script>
