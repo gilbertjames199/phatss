@@ -77,19 +77,19 @@
                             <b>Additional Filters: </b>
                             <select class="form-control" v-model="my_filter" @change="filter_me('relrisk')">
                                 <option></option>
-                                <option value="_1_has_toilet">Have no toilet</option>
-                                <option value="_2_toilet_used">Have toilet but not being used</option>
-                                <option value="_3_toilet_functional">Toilet is not functional/well-maintained</option>
-                                <option value="_4_soap">Have no access to nearby soap and water</option>
-                                <option value="_5_children">Children's, elderly's, or PWD's feces and diapers not properly disposed</option>
+                                <option value="_1_has_toilet">Households with no toilet</option>
+                                <option value="_2_toilet_used">Households with toilet but not being used</option>
+                                <option value="_3_toilet_functional">Households with toilet but is not functional/well-maintained</option>
+                                <option value="_4_soap">Households with no access to nearby soap and water</option>
+                                <option value="_5_children">Children, elderly, or PWD's feces and diapers not properly disposed</option>
                                 <option value="_6_spaces">Feces found in open spaces in the community</option>
                                 <option value="_7_feces">Feces, sanitary napkins, diapers, and solid waste found in open spaces in the community</option>
-                                <option value="_8_composting">Does not practice segregation or composting</option>
-                                <option value="_9_dispose">Do not dispose their garbage properly</option>
+                                <option value="_8_composting">Households that do not practice segregation or composting</option>
+                                <option value="_9_dispose">Households that do not dispose their garbage properly</option>
                                 <option value="_10_emptied">Have not emptied their septic tank</option>
                                 <option value="_15_household">Households that use a shared toilet</option>
                                 <option value="_16_household">Households that use a communal/public toilet</option>
-                                <option value="_17_using">Not using their own toilet</option>
+                                <option value="_17_using">Households not using their own toilet</option>
                             </select>
                             <br>
                             <button class="btn btn-danger text-white" @click="clearFilter">Clear Filters</button>
@@ -417,19 +417,19 @@ export default {
     },
     getOptionText(value) {
       const options = {
-        "_1_has_toilet": "Have no toilet",
-        "_2_toilet_used": "Have toilet but not being used",
-        "_3_toilet_functional": "Toilet is not functional/well-maintained",
-        "_4_soap": "Have no access to nearby soap and water",
+        "_1_has_toilet": "Households with no toilet",
+        "_2_toilet_used": "Households with toilet but not being used",
+        "_3_toilet_functional": "Households with toilet but is not functional/well-maintained",
+        "_4_soap": "Households with no access to nearby soap and water",
         "_5_children": "Children's, elderly's, or PWD's feces and diapers not properly disposed",
         "_6_spaces": "Feces found in open spaces in the community",
         "_7_feces": "Feces, sanitary napkins, diapers, and solid waste found in open spaces in the community",
-        "_8_composting": "Does not practice segregation or composting",
-        "_9_dispose": "Do not dispose their garbage properly",
+        "_8_composting": "Households that do not practice segregation or composting",
+        "_9_dispose": "Households that do not dispose their garbage properly",
         "_10_emptied": "Have not emptied their septic tank",
         "_15_household": "Households that use a shared toilet",
         "_16_household": "Households that use a communal/public toilet",
-        "_17_using": "Not using their own toilet",
+        "_17_using": "Households not using their own toilet",
       };
       return options[value] || "";
     },
