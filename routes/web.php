@@ -26,8 +26,12 @@ use App\Mail\MessageMail;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-Auth::routes();
-// Auth::routes(['verify' => false]);
+// Auth::routes(); ['register' => false, 'verify' => false]
+// Route::prefix('traction')->group(function () {
+//     Route::get('get', [UserController::class, 'register_user'])->name('user.registration.get');
+// });
+Route::get('web/register', [UserController::class, 'register_user'])->name('user.registration.get');
+Auth::routes(['verify' => false]);
 /*
 Route::get('/email', function(){
     Mail::to('email@email.com')->send(new MessageMail());
@@ -35,7 +39,7 @@ Route::get('/email', function(){
 });
 */
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::prefix('/')->group(function () {
         Route::get('/', [DashBoardController::class, 'index']);
     });
