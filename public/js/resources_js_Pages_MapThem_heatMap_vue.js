@@ -26,6 +26,7 @@ __webpack_require__.r(__webpack_exports__);
     p_bar: String,
     p_pur: String,
     p_relrisk: String,
+    p_my_filter: String,
     p_data: Object,
     barangays: Object,
     municipalities: Object,
@@ -50,6 +51,7 @@ __webpack_require__.r(__webpack_exports__);
       bar: this.$props.p_bar,
       relrisk: this.$props.p_relrisk,
       pur: this.$props.p_pur,
+      my_filter: this.$props.p_my_filter,
       home_lang: null,
       home_lat: null
     };
@@ -180,7 +182,8 @@ __webpack_require__.r(__webpack_exports__);
         mun: this.mun,
         bar: this.bar,
         pur: this.pur,
-        relrisk: this.relrisk // division: this.division_selected
+        relrisk: this.relrisk,
+        my_filter: this.my_filter // division: this.division_selected
 
       }, {
         preserveScroll: true,
@@ -197,6 +200,7 @@ __webpack_require__.r(__webpack_exports__);
       this.bar = "";
       this.pur = "";
       this.relrisk = "";
+      this.my_filter = "";
       this.filter_me("");
     },
     addHoverTooltips: function addHoverTooltips() {
@@ -311,6 +315,24 @@ __webpack_require__.r(__webpack_exports__);
       //     this.home_lang = 125.7844;
       // }
 
+    },
+    getOptionText: function getOptionText(value) {
+      var options = {
+        "_1_has_toilet": "Have no toilet",
+        "_2_toilet_used": "Have toilet but not being used",
+        "_3_toilet_functional": "Toilet is not functional/well-maintained",
+        "_4_soap": "Have no access to nearby soap and water",
+        "_5_children": "Children's, elderly's, or PWD's feces and diapers not properly disposed",
+        "_6_spaces": "Feces found in open spaces in the community",
+        "_7_feces": "Feces, sanitary napkins, diapers, and solid waste found in open spaces in the community",
+        "_8_composting": "Does not practice segregation or composting",
+        "_9_dispose": "Do not dispose their garbage properly",
+        "_10_emptied": "Have not emptied their septic tank",
+        "_15_household": "Households that use a shared toilet",
+        "_16_household": "Households that use a communal/public toilet",
+        "_17_using": "Not using their own toilet"
+      };
+      return options[value] || "";
     } // generateInterpolatedData() {
     //     // Convert your data into a GeoJSON FeatureCollection
     //     const points = this.myData.data.map((point) => {
@@ -489,27 +511,45 @@ var _hoisted_27 = /*#__PURE__*/_withScopeId(function () {
 });
 
 var _hoisted_28 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "Additional Filters: ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option data-v-63520288></option><option value=\"_1_has_toilet\" data-v-63520288>Have no toilet</option><option value=\"_2_toilet_used\" data-v-63520288>Have toilet but not being used</option><option value=\"_3_toilet_functional\" data-v-63520288>Toilet is not functional/well-maintained</option><option value=\"_4_soap\" data-v-63520288>Have no access to nearby soap and water</option><option value=\"_5_children\" data-v-63520288>Children&#39;s, elderly&#39;s, or PWD&#39;s feces and diapers not properly disposed</option><option value=\"_6_spaces\" data-v-63520288>Feces found in open spaces in the community</option><option value=\"_7_feces\" data-v-63520288>Feces, sanitary napkins, diapers, and solid waste found in open spaces in the community</option><option value=\"_8_composting\" data-v-63520288>Does not practice segregation or composting</option><option value=\"_9_dispose\" data-v-63520288>Do not dispose their garbage properly</option><option value=\"_10_emptied\" data-v-63520288>Have not emptied their septic tank</option><option value=\"_15_household\" data-v-63520288>Households that use a shared toilet</option><option value=\"_16_household\" data-v-63520288>Households that use a communal/public toilet</option><option value=\"_17_using\" data-v-63520288>Not using their own toilet</option>", 14);
+
+var _hoisted_43 = [_hoisted_29];
+
+var _hoisted_44 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_45 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
   /* HOISTED */
   );
 });
 
-var _hoisted_29 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_46 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Additional Details", -1
   /* HOISTED */
   );
 });
 
-var _hoisted_30 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_47 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "Count: ", -1
   /* HOISTED */
   );
 });
 
-var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
+var _hoisted_48 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div>\n        <div class=\"row gap-5 masonry pos-r\">\n\n            <div class=\"peers fxw-nw jc-sb ai-c\">\n\n            </div>\n        </div>\n\n    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ count }} mun: {{ mun }} &nbsp;p_mun: {{ p_mun }} "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("MAP"), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("FILTERS"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ municipalities }} "), _hoisted_10, _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div>\n        <div class=\"row gap-5 masonry pos-r\">\n\n            <div class=\"peers fxw-nw jc-sb ai-c\">\n\n            </div>\n        </div>\n\n    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ count }} mun: {{ mun }} &nbsp;p_mun: {{ p_mun }} "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("MAP"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getOptionText($data.my_filter)), 1
+  /* TEXT */
+  ), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("FILTERS"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ municipalities }} "), _hoisted_10, _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     "class": "form-control",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $data.mun = $event;
@@ -567,12 +607,22 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, _hoisted_26, 544
   /* HYDRATE_EVENTS, NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.relrisk]]), _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.relrisk]]), _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button class=\"btn btn-danger text-white\" @click=\"clearFilter\">Clear Filters</button> "), _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "class": "form-control",
+    "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
+      return $data.my_filter = $event;
+    }),
+    onChange: _cache[9] || (_cache[9] = function ($event) {
+      return $options.filter_me('relrisk');
+    })
+  }, _hoisted_43, 544
+  /* HYDRATE_EVENTS, NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.my_filter]]), _hoisted_44, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "btn btn-danger text-white",
-    onClick: _cache[8] || (_cache[8] = function () {
+    onClick: _cache[10] || (_cache[10] = function () {
       return $options.clearFilter && $options.clearFilter.apply($options, arguments);
     })
-  }, "Clear Filters"), _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [_hoisted_29, _hoisted_30, _hoisted_31, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.format_number($props.count, 0, true)), 1
+  }, "Clear Filters"), _hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [_hoisted_46, _hoisted_47, _hoisted_48, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.format_number($props.count, 0, true)), 1
   /* TEXT */
   )])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" myData: {{ myData }}\n  p_data: {{ p_data }} ")], 2112
   /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */

@@ -14,6 +14,8 @@
         <div class="masonry-item w-100">
             <div class="row gap-20">
                 <!--MAP-->
+
+                <h4>{{ getOptionText(my_filter) }}</h4>
                 <div class="col-md-9">
                     <div class="layers bd bgc-white p-20">
                         <div id="leafletMapid" class="mapdiv border border-dark"></div>
@@ -70,6 +72,26 @@
                                 <option>G3</option>
                             </select>
                             <br>
+                            <!-- <button class="btn btn-danger text-white" @click="clearFilter">Clear Filters</button> -->
+
+                            <b>Additional Filters: </b>
+                            <select class="form-control" v-model="my_filter" @change="filter_me('relrisk')">
+                                <option></option>
+                                <option value="_1_has_toilet">Have no toilet</option>
+                                <option value="_2_toilet_used">Have toilet but not being used</option>
+                                <option value="_3_toilet_functional">Toilet is not functional/well-maintained</option>
+                                <option value="_4_soap">Have no access to nearby soap and water</option>
+                                <option value="_5_children">Children's, elderly's, or PWD's feces and diapers not properly disposed</option>
+                                <option value="_6_spaces">Feces found in open spaces in the community</option>
+                                <option value="_7_feces">Feces, sanitary napkins, diapers, and solid waste found in open spaces in the community</option>
+                                <option value="_8_composting">Does not practice segregation or composting</option>
+                                <option value="_9_dispose">Do not dispose their garbage properly</option>
+                                <option value="_10_emptied">Have not emptied their septic tank</option>
+                                <option value="_15_household">Households that use a shared toilet</option>
+                                <option value="_16_household">Households that use a communal/public toilet</option>
+                                <option value="_17_using">Not using their own toilet</option>
+                            </select>
+                            <br>
                             <button class="btn btn-danger text-white" @click="clearFilter">Clear Filters</button>
                             <hr>
                             <span >
@@ -101,6 +123,7 @@ export default {
     p_bar: String,
     p_pur: String,
     p_relrisk: String,
+    p_my_filter: String,
     p_data: Object,
     barangays: Object,
     municipalities: Object,
@@ -125,6 +148,7 @@ export default {
       bar: this.$props.p_bar,
       relrisk: this.$props.p_relrisk,
       pur: this.$props.p_pur,
+      my_filter: this.$props.p_my_filter,
       home_lang: null,
       home_lat: null,
     };
@@ -261,6 +285,7 @@ export default {
                     bar: this.bar,
                     pur: this.pur,
                     relrisk: this.relrisk,
+                    my_filter: this.my_filter
                     // division: this.division_selected
                 },
                 {
@@ -280,6 +305,7 @@ export default {
         this.bar="";
         this.pur="";
         this.relrisk="";
+        this.my_filter="";
         this.filter_me("");
     },
     addHoverTooltips() {
@@ -388,6 +414,24 @@ export default {
         //     this.home_lat=7.8771;
         //     this.home_lang = 125.7844;
         // }
+    },
+    getOptionText(value) {
+      const options = {
+        "_1_has_toilet": "Have no toilet",
+        "_2_toilet_used": "Have toilet but not being used",
+        "_3_toilet_functional": "Toilet is not functional/well-maintained",
+        "_4_soap": "Have no access to nearby soap and water",
+        "_5_children": "Children's, elderly's, or PWD's feces and diapers not properly disposed",
+        "_6_spaces": "Feces found in open spaces in the community",
+        "_7_feces": "Feces, sanitary napkins, diapers, and solid waste found in open spaces in the community",
+        "_8_composting": "Does not practice segregation or composting",
+        "_9_dispose": "Do not dispose their garbage properly",
+        "_10_emptied": "Have not emptied their septic tank",
+        "_15_household": "Households that use a shared toilet",
+        "_16_household": "Households that use a communal/public toilet",
+        "_17_using": "Not using their own toilet",
+      };
+      return options[value] || "";
     },
     // generateInterpolatedData() {
     //     // Convert your data into a GeoJSON FeatureCollection

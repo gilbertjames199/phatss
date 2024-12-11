@@ -363,4 +363,9 @@ class UserController extends Controller
         $personnel = json_decode(file_get_contents(storage_path() . "/personnel.json"), true);
         return $personnel;
     }
+
+    public function register_user(Request $reuqest)
+    {
+        dd('register_user');
+    }
 }

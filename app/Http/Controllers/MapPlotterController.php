@@ -69,19 +69,51 @@ class MapPlotterController extends Controller
                 $query->where('relative_risk_assessment', 'LIKE', '%' . $relrisk . '%');
             })
             ->when($request->mun, function ($query, $mun) {
-                // dd($relrisk);
-                // dd($mun);
                 $query->where('municipality', 'LIKE', '%' . $mun . '%');
             })
             ->when($request->bar, function ($query, $bar) {
-                // dd($relrisk);
-                // dd($mun);
                 $query->where('barangay', 'LIKE', '%' . $bar . '%');
             })
             ->when($request->pur, function ($query, $pur) {
-                // dd($relrisk);
-                // dd($mun);
                 $query->where('purok_sitio', 'LIKE', '%' . $pur . '%');
+            })
+            ->when($request->my_filter == '_1_has_toilet', function ($query, $pur) {
+                $query->where('_1_has_toilet', 'No');
+            })
+            ->when($request->my_filter == '_2_toilet_used', function ($query, $pur) {
+                $query->where('_2_toilet_used', 'No');
+            })
+            ->when($request->my_filter == '_3_toilet_functional', function ($query, $pur) {
+                $query->where('_3_toilet_functional', 'No');
+            })
+            ->when($request->my_filter == '_4_soap', function ($query, $pur) {
+                $query->where('_4_soap', 'No');
+            })
+            ->when($request->my_filter == '_5_children', function ($query, $pur) {
+                $query->where('_5_children', 'No');
+            })
+            ->when($request->my_filter == '_6_spaces', function ($query, $pur) {
+                $query->where('_6_spaces', 'No');
+            })
+            ->when($request->my_filter == '_7_feces', function ($query, $pur) {
+                $query->where('_7_feces', 'No');
+            })
+            ->when($request->my_filter == '_8_composting', function ($query, $pur) {
+                $query->where('_8_composting', 'No');
+            })
+            ->when($request->my_filter == '_9_dispose', function ($query, $pur) {
+                $query->where('_9_dispose', 'No');
+            })
+            ->when($request->my_filter == '_10_emptied', function ($query, $pur) {
+                $query->where('_10_emptied', 'No');
+            })
+            ->when($request->my_filter == '_15_household', function ($query, $pur) {
+                $query->where('_15_household', 'No');
+            })
+            ->when($request->my_filter == '_16_household', function ($query, $pur) {
+                $query->where('_16_household', 'No');
+            })->when($request->my_filter == '_17_using', function ($query, $pur) {
+                $query->where('_17_using', 'No');
             })
             ->distinct('_uuid');
 
@@ -143,6 +175,7 @@ class MapPlotterController extends Controller
             // "g1" => $dataG1,
             // "g2" => $dataG2,
             // "g3" => $dataG3,
+            "p_my_filter" => $request->my_filter,
             "count" => $count,
             "p_mun" => $request->mun,
             "p_bar" => $request->bar,
