@@ -318,19 +318,19 @@ __webpack_require__.r(__webpack_exports__);
     },
     getOptionText: function getOptionText(value) {
       var options = {
-        "_1_has_toilet": "Have no toilet",
-        "_2_toilet_used": "Have toilet but not being used",
-        "_3_toilet_functional": "Toilet is not functional/well-maintained",
-        "_4_soap": "Have no access to nearby soap and water",
+        "_1_has_toilet": "Households with no toilet",
+        "_2_toilet_used": "Households with toilet but not being used",
+        "_3_toilet_functional": "Households with toilet but is not functional/well-maintained",
+        "_4_soap": "Households with no access to nearby soap and water",
         "_5_children": "Children's, elderly's, or PWD's feces and diapers not properly disposed",
         "_6_spaces": "Feces found in open spaces in the community",
         "_7_feces": "Feces, sanitary napkins, diapers, and solid waste found in open spaces in the community",
-        "_8_composting": "Does not practice segregation or composting",
-        "_9_dispose": "Do not dispose their garbage properly",
+        "_8_composting": "Households that do not practice segregation or composting",
+        "_9_dispose": "Households that do not dispose their garbage properly",
         "_10_emptied": "Have not emptied their septic tank",
         "_15_household": "Households that use a shared toilet",
         "_16_household": "Households that use a communal/public toilet",
-        "_17_using": "Not using their own toilet"
+        "_17_using": "Households not using their own toilet"
       };
       return options[value] || "";
     } // generateInterpolatedData() {
@@ -516,7 +516,7 @@ var _hoisted_28 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option data-v-63520288></option><option value=\"_1_has_toilet\" data-v-63520288>Have no toilet</option><option value=\"_2_toilet_used\" data-v-63520288>Have toilet but not being used</option><option value=\"_3_toilet_functional\" data-v-63520288>Toilet is not functional/well-maintained</option><option value=\"_4_soap\" data-v-63520288>Have no access to nearby soap and water</option><option value=\"_5_children\" data-v-63520288>Children&#39;s, elderly&#39;s, or PWD&#39;s feces and diapers not properly disposed</option><option value=\"_6_spaces\" data-v-63520288>Feces found in open spaces in the community</option><option value=\"_7_feces\" data-v-63520288>Feces, sanitary napkins, diapers, and solid waste found in open spaces in the community</option><option value=\"_8_composting\" data-v-63520288>Does not practice segregation or composting</option><option value=\"_9_dispose\" data-v-63520288>Do not dispose their garbage properly</option><option value=\"_10_emptied\" data-v-63520288>Have not emptied their septic tank</option><option value=\"_15_household\" data-v-63520288>Households that use a shared toilet</option><option value=\"_16_household\" data-v-63520288>Households that use a communal/public toilet</option><option value=\"_17_using\" data-v-63520288>Not using their own toilet</option>", 14);
+var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option data-v-63520288></option><option value=\"_1_has_toilet\" data-v-63520288>Households with no toilet</option><option value=\"_2_toilet_used\" data-v-63520288>Households with toilet but not being used</option><option value=\"_3_toilet_functional\" data-v-63520288>Households with toilet but is not functional/well-maintained</option><option value=\"_4_soap\" data-v-63520288>Households with no access to nearby soap and water</option><option value=\"_5_children\" data-v-63520288>Children, elderly, or PWD&#39;s feces and diapers not properly disposed</option><option value=\"_6_spaces\" data-v-63520288>Feces found in open spaces in the community</option><option value=\"_7_feces\" data-v-63520288>Feces, sanitary napkins, diapers, and solid waste found in open spaces in the community</option><option value=\"_8_composting\" data-v-63520288>Households that do not practice segregation or composting</option><option value=\"_9_dispose\" data-v-63520288>Households that do not dispose their garbage properly</option><option value=\"_10_emptied\" data-v-63520288>Have not emptied their septic tank</option><option value=\"_15_household\" data-v-63520288>Households that use a shared toilet</option><option value=\"_16_household\" data-v-63520288>Households that use a communal/public toilet</option><option value=\"_17_using\" data-v-63520288>Households not using their own toilet</option>", 14);
 
 var _hoisted_43 = [_hoisted_29];
 
