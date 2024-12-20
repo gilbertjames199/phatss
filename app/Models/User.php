@@ -50,10 +50,10 @@ class User extends Authenticatable implements HasMedia
     }
 
 
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
+    // public function setPasswordAttribute($value)
+    // {
+    //     $this->attributes['password'] = bcrypt($value);
+    // }
     //,'user_id','permission_id'
     // //
     //for email verification

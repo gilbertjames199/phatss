@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -38,5 +41,38 @@ class LoginController extends Controller
     {
         // dd('user');
         $this->middleware('guest')->except(['logout', 'web/register']);
+    }
+
+    public function login(Request $request)
+    {
+        // Validate the input fields
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        // Retrieve the user by email
+        $user = \App\Models\User::where('email', $request->email)->first();
+
+        if ($user) {
+            // Retrieve the pepper from the configuration
+            $pepper = config('app.pepper');
+
+            // Combine the password with the pepper
+            $pepperedPassword = $request->password . $pepper;
+
+            // Check if the hashed password matches
+            if (Hash::check($pepperedPassword, $user->password)) {
+                // Login the user
+                Auth::login($user);
+
+                return redirect()->intended('dashboard'); // Replace 'dashboard' with your intended route
+            }
+        }
+
+        // If authentication fails
+        return back()->withErrors([
+            'email' => __('The provided credentials do not match our records.'),
+        ]);
     }
 }

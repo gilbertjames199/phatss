@@ -199,6 +199,19 @@ export default {
         // // this.lng_val = lng.value
         // alert(this.lat_val);
     },
+    // gradient: {
+                //     0.1: '#0000ff',  // Blue for 10
+                //     0.2: '#008000',  // Green for 20
+                //     0.3: '#ffa500',  // Orange for 30
+                //     0.4: '#ff0000',  // Red for 40
+                // }
+                // gradient: {
+                //     0.0: "#0eaae8",   // Cold color for very low density
+                //     0.25: "#098abd",  // Transition from cold to slightly warm
+                //     0.5: "#096fbd",   // Moderate density
+                //     0.75: "#023ba6", // Warm color for high density
+                //     1.0: "#010880"      // Bright color for very high density
+                // }
     initMap() {
         // Set up the base layer
         this.getLocation();
@@ -223,19 +236,7 @@ export default {
                 latField: "x",
                 lngField: "y",
                 valueField: "count",
-                // gradient: {
-                //     0.1: '#0000ff',  // Blue for 10
-                //     0.2: '#008000',  // Green for 20
-                //     0.3: '#ffa500',  // Orange for 30
-                //     0.4: '#ff0000',  // Red for 40
-                // }
-                // gradient: {
-                //     0.0: "#0eaae8",   // Cold color for very low density
-                //     0.25: "#098abd",  // Transition from cold to slightly warm
-                //     0.5: "#096fbd",   // Moderate density
-                //     0.75: "#023ba6", // Warm color for high density
-                //     1.0: "#010880"      // Bright color for very high density
-                // }
+
             };
 
             // Create heatmap layer
@@ -331,27 +332,6 @@ export default {
                     <strong>Coordinates:</strong> <u>(${point.x.toFixed(6)}, ${point.y.toFixed(6)})</u><br>
                 </div>
             `;
-                    //  <table class="table table-sm table-borderless table-hover">
-                    //     <thead>
-                    //         <tr colspan="2" style='text-align: center'>
-                    //             <th><h4>Household Details</h4></th>
-                    //         </tr>
-                    //     </thead>
-                    //     <tbody>
-                    //         <tr>
-                    //             <td><strong>Name:</strong></td>
-                    //             <td><u>${point.name || "N/A"}</u></td>
-                    //         </tr>
-                    //         <tr>
-                    //             <td><strong>Address:</strong></td>
-                    //             <td><u>${point.address || "N/A"}</u></td>
-                    //         </tr>
-                    //         <tr>
-                    //             <td><strong>Coordinates:</strong></td>
-                    //             <td><u>(${point.x.toFixed(6)}, ${point.y.toFixed(6)})</u></td>
-                    //         </tr>
-                    //     </tbody>
-                    // </table>
 
             // // <strong>Count:</strong> ${point.count || "N/A"}
             // // `Coordinates: (${point.x.toFixed(6)}, ${point.y.toFixed(6)})`
@@ -363,6 +343,7 @@ export default {
             marker.addTo(this.map);
         });
     },
+
     setCoords(){
         if(this.mun=='Compostela'){
             this.home_lat=7.6660;

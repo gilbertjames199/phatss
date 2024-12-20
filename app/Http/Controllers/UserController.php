@@ -114,17 +114,24 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
+        // Define the pepper (retrieved securely from environment/config)
+        $pepper = config('app.pepper'); // Ensure 'app.pepper' is set in your config or .env
 
-        $attributes = $request->validate([
-            'name' => 'required',
-            'email' => ['required', 'email'],
-            'password' => 'required'
+        // Combine the password with the pepper
+        $pepperedPassword = $request->password . $pepper;
+
+        // Hash the password with salt and pepper
+        $hashedPassword = Hash::make($pepperedPassword);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $hashedPassword,
         ]);
 
-        $this->model->create($attributes);
 
-
-
+        // dd($hashedPassword);
         return redirect('/users')->with('message', 'User created');
     }
 

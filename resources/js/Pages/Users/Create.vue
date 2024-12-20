@@ -27,7 +27,13 @@
             <span v-if="editData===undefined">
                 <label for="">Password</label>
                 <input type="password" v-model="form.password" class="form-control" autocomplete="chrome-off">
+                <div class="fs-6 c-red-500" v-if="form.password!=confirm_password">The password confirmation does not match.</div>
                 <div class="fs-6 c-red-500" v-if="form.errors.password">{{ form.errors.password }}</div>
+
+                <label for="">Confirm Password</label>
+                <input type="password" v-model="confirm_password" class="form-control" autocomplete="chrome-off">
+                <div class="fs-6 c-red-500" v-if="form.password!=confirm_password">The password confirmation does not match.</div>
+                <!-- <div class="fs-6 c-red-500" v-if="form.errors.password">{{ form.errors.password }}</div> -->
             </span>
             <div class="parent">
                 <div class="row">
@@ -66,6 +72,7 @@ export default {
             exampleModalShowing: false,
             arr_length: 0,
             newData: [],
+            confirm_password: "",
             form: useForm({
                 name: "",
                 email: "",
@@ -87,7 +94,7 @@ export default {
         }
 
     },
-    
+
     methods: {
         submit() {
             if (this.editData !== undefined) {
@@ -102,7 +109,7 @@ export default {
                 alert('is selected')
             }
         },
-        
+
     },
 };
 </script>
