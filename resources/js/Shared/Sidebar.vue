@@ -205,6 +205,7 @@
                         <span class="title">Prediction/Forecasting</span>
                     </Link>
                 </li>
+
                 <!--Users-->
                 <li class="nav-item">
                     <Link class="sidebar-link" href="/users">
