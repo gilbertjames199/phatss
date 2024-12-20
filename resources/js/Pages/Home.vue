@@ -6,7 +6,7 @@
     <!--<p style="text-align: justify;">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet consectetur.
     </p>-->
     <div class="row gap-20 masonry pos-r">
-        <h1 style="color: #26394a; font-weight: bold; font-family: verdana;">Philippine Approach to Sustainable Sanitation -2023</h1>
+        <h1 style="color: #26394a; font-weight: bold; font-family: verdana;">Sanitation Management System</h1>
         <div class="masonry-sizer col-md-6"></div>
         <div class="masonry-item w-100">
             <div class="row gap-20">
