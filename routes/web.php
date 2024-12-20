@@ -18,6 +18,7 @@ use App\Http\Controllers\MapPlotterController;
 use App\Http\Controllers\OtherController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\PythonController;
+use App\Http\Controllers\RespondentController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SocialInclusionController;
 use App\Http\Controllers\SupplyController;
@@ -88,6 +89,12 @@ Route::middleware(['auth'])->group(function () {
         // Route::get('/route/optimize', [MapPlotterController::class, 'route_optimize']);
     });
 
+    //Respondents
+    Route::prefix('/respondents')->group(function () {
+        Route::get('/', [RespondentController::class, 'index']);
+        // Route::get('/heat', [MapPlotterController::class, 'heat_map']);
+        // Route::get('/route/optimize', [MapPlotterController::class, 'route_optimize']);
+    });
     //MAP THEM
     Route::prefix('/map')->group(function () {
         Route::get('/', [MapPlotterController::class, 'index']);
