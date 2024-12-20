@@ -11,7 +11,7 @@
         <div class="masonry-item w-100">
             <div class="row gap-20">
                 <!-- TOTAL HOUSEHOLDS -->
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="layers bd bgc-white p-20">
                         <div class="layer w-100 mB-10">
                             <h6 class="lh-1">
@@ -29,12 +29,12 @@
                             </h6>
                             <hr>
                             <h2 style="color: red; font-weight: bold; text-align: center">{{ format_number(number_of_households,0,true) }}</h2>
-                            <p style="text-align: center">{{ format_number(100*(with_toilets/190000),2,true) }}% of households in Davao de Oro have responded to the survey in 2023.<br>&nbsp;</p>
+                            <!-- <p style="text-align: center">{{ format_number(100*(with_toilets/190000),2,true) }}% of households in Davao de Oro have responded to the survey in 2023.<br>&nbsp;</p> -->
                         </div>
                     </div>
                 </div>
                 <!-- WITH TOILETS -->
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="layers bd bgc-white p-20">
                         <div class="layer w-100 mB-10">
                             <h6 class="lh-1">
@@ -53,14 +53,14 @@
                             <hr>
                             <h2 style="color: #756e04; font-weight: bold;  text-align: center">{{ format_number(with_toilets,0,true) }}</h2>
 
-                            <p>Of the {{ format_number(number_of_households,0,true) }} respondents, {{ format_number(with_toilets,0,true) }}
-                                ({{ format_number(100*(with_toilets/number_of_households),2,true) }}%) have toilets.<br>&nbsp;</p>
+                            <!-- <p>Of the {{ format_number(number_of_households,0,true) }} respondents, {{ format_number(with_toilets,0,true) }} -->
+                                <!-- ({{ format_number(100*(with_toilets/number_of_households),2,true) }}%) have toilets.<br>&nbsp;</p> -->
                         </div>
 
                     </div>
                 </div>
                 <!-- WITH FUNCTIONAL TOILETS -->
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="layers bd bgc-white p-20">
                         <div class="layer w-100 mB-10">
                             <h6 class="lh-1">
@@ -77,14 +77,14 @@
                             </h6>
                             <hr>
                             <h2 style="color: blue; font-weight: bold; text-align: center">{{ format_number(with_functional_toilet,0,true) }}</h2>
-                            <p>Of the {{ format_number(number_of_households,0,true) }} respondents, {{ format_number(with_toilets,0,true) }}
-                                ({{ format_number(100*(with_functional_toilet/number_of_households),2,true) }}%) have functional and well-maintained toilets.</p>
+                            <!-- <p>Of the {{ format_number(number_of_households,0,true) }} respondents, {{ format_number(with_toilets,0,true) }}
+                                ({{ format_number(100*(with_functional_toilet/number_of_households),2,true) }}%) have functional and well-maintained toilets.</p> -->
                         </div>
 
                     </div>
                 </div>
                 <!-- PRACTICE WASTE SEGREGATION AND/OR COMPOSTING -->
-                <div class="col-md-3">
+                <!-- <div class="col-md-3">
                     <div class="layers bd bgc-white p-20">
                         <div class="layer w-100 mB-10">
                             <h6 class="lh-1">
@@ -106,7 +106,7 @@
                         </div>
 
                     </div>
-                </div>
+                </div> -->
                 <!-- RISK ASSESSMENT -CHART -->
                 <div class="col-md-6 ">
                     <div class="layers bd bgc-white p-20">
