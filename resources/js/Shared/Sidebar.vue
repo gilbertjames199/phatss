@@ -166,8 +166,8 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <Link class="sidebar-link" :href="`/`"
-                                :class="{ 'active': $page.url === `/` }">
+                            <Link class="sidebar-link" :href="`/supplies`"
+                                :class="{ 'active': $page.url === `/supplies` }">
                             <span class="title">Supplies</span>
                             </Link>
                         </li>
@@ -182,7 +182,7 @@
 
                 <!--Rerouting-->
                 <li class="nav-item">
-                    <Link class="sidebar-link" href="/">
+                    <Link class="sidebar-link" href="/map/route/optimize">
                         <span></span>
                         <span class="icon-holder">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-map-fill" viewBox="0 0 16 16">

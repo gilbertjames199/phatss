@@ -19,6 +19,7 @@ use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\PythonController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SocialInclusionController;
+use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\TimeSheetController;
 use Illuminate\Support\Facades\Mail;
@@ -93,6 +94,14 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/store', [SurveyController::class, 'store']);
         Route::get('/household/edit/{id}', [SurveyController::class, 'edit']);
         Route::patch('/household/update/{id}', [SurveyController::class, 'update']);
+    });
+    // SUPPLIES
+    Route::prefix('/supplies')->group(function () {
+        Route::get('/', [SupplyController::class, 'index']);
+        // Route::get('/household', [SurveyController::class, 'create']);
+        // Route::post('/store', [SurveyController::class, 'store']);
+        // Route::get('/household/edit/{id}', [SurveyController::class, 'edit']);
+        // Route::patch('/household/update/{id}', [SurveyController::class, 'update']);
     });
     //Avatar file upload
     Route::post('/files/upload', [FileHandleController::class, 'uploadAvatar']);

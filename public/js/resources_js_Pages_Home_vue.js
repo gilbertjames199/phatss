@@ -226,7 +226,7 @@ var _hoisted_6 = {
   "class": "row gap-20"
 };
 var _hoisted_7 = {
-  "class": "col-md-3"
+  "class": "col-md-4"
 };
 var _hoisted_8 = {
   "class": "layers bd bgc-white p-20"
@@ -245,28 +245,16 @@ var _hoisted_12 = {
   }
 };
 var _hoisted_13 = {
-  style: {
-    "text-align": "center"
-  }
+  "class": "col-md-4"
 };
-
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
-/* HOISTED */
-);
-
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" ");
-
-var _hoisted_16 = {
-  "class": "col-md-3"
-};
-var _hoisted_17 = {
+var _hoisted_14 = {
   "class": "layers bd bgc-white p-20"
 };
-var _hoisted_18 = {
+var _hoisted_15 = {
   "class": "layer w-100 mB-10"
 };
 
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", {
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", {
   "class": "lh-1"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
@@ -284,35 +272,28 @@ var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
 /* HOISTED */
 );
 
-var _hoisted_21 = {
+var _hoisted_18 = {
   style: {
     "color": "#756e04",
     "font-weight": "bold",
     "text-align": "center"
   }
 };
-
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
-/* HOISTED */
-);
-
-var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" ");
-
-var _hoisted_24 = {
-  "class": "col-md-3"
+var _hoisted_19 = {
+  "class": "col-md-4"
 };
-var _hoisted_25 = {
+var _hoisted_20 = {
   "class": "layers bd bgc-white p-20"
 };
-var _hoisted_26 = {
+var _hoisted_21 = {
   "class": "layer w-100 mB-10"
 };
 
-var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", {
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", {
   "class": "lh-1"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
@@ -330,87 +311,43 @@ var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
 /* HOISTED */
 );
 
-var _hoisted_29 = {
+var _hoisted_24 = {
   style: {
     "color": "blue",
     "font-weight": "bold",
     "text-align": "center"
   }
 };
+var _hoisted_25 = {
+  "class": "col-md-6"
+};
+var _hoisted_26 = {
+  "class": "layers bd bgc-white p-20"
+};
+var _hoisted_27 = {
+  "class": "layer w-100 mB-10"
+};
+
+var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Risk Assessment Chart ");
+
+var _hoisted_29 = {
+  "class": "col-md-6"
+};
 var _hoisted_30 = {
-  "class": "col-md-3"
+  "class": "layers bd bgc-white p-20"
 };
 var _hoisted_31 = {
-  "class": "layers bd bgc-white p-20"
+  "class": "layer w-100 mB-10"
 };
 var _hoisted_32 = {
-  "class": "layer w-100 mB-10"
-};
-
-var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", {
-  "class": "lh-1"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
-  xmlns: "http://www.w3.org/2000/svg",
-  width: "30",
-  height: "30",
-  fill: "currentColor",
-  "class": "bi bi-recycle",
-  viewBox: "0 0 16 16"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
-  d: "M9.302 1.256a1.5 1.5 0 0 0-2.604 0l-1.704 2.98a.5.5 0 0 0 .869.497l1.703-2.981a.5.5 0 0 1 .868 0l2.54 4.444-1.256-.337a.5.5 0 1 0-.26.966l2.415.647a.5.5 0 0 0 .613-.353l.647-2.415a.5.5 0 1 0-.966-.259l-.333 1.242zM2.973 7.773l-1.255.337a.5.5 0 1 1-.26-.966l2.416-.647a.5.5 0 0 1 .612.353l.647 2.415a.5.5 0 0 1-.966.259l-.333-1.242-2.545 4.454a.5.5 0 0 0 .434.748H5a.5.5 0 0 1 0 1H1.723A1.5 1.5 0 0 1 .421 12.24zm10.89 1.463a.5.5 0 1 0-.868.496l1.716 3.004a.5.5 0 0 1-.434.748h-5.57l.647-.646a.5.5 0 1 0-.708-.707l-1.5 1.5a.5.5 0 0 0 0 .707l1.5 1.5a.5.5 0 1 0 .708-.707l-.647-.647h5.57a1.5 1.5 0 0 0 1.302-2.244z"
-})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("    ")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", {
-  href: "/details/demographics",
-  target: "_blank"
-}, "Practice Waste Segregation/Composting")])])])], -1
-/* HOISTED */
-);
-
-var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
-/* HOISTED */
-);
-
-var _hoisted_35 = {
-  style: {
-    "color": "#756e04",
-    "font-weight": "bold",
-    "text-align": "center"
-  }
-};
-var _hoisted_36 = {
-  style: {
-    "text-align": "center"
-  }
-};
-var _hoisted_37 = {
-  "class": "col-md-6"
-};
-var _hoisted_38 = {
-  "class": "layers bd bgc-white p-20"
-};
-var _hoisted_39 = {
-  "class": "layer w-100 mB-10"
-};
-
-var _hoisted_40 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Risk Assessment Chart ");
-
-var _hoisted_41 = {
-  "class": "col-md-6"
-};
-var _hoisted_42 = {
-  "class": "layers bd bgc-white p-20"
-};
-var _hoisted_43 = {
-  "class": "layer w-100 mB-10"
-};
-var _hoisted_44 = {
   "class": "table table-sm table-bordered table-striped table-hover"
 };
 
-var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", {
+var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", {
   "class": "thead-dark"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
   colspan: "6",
@@ -426,7 +363,7 @@ var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_46 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, null, -1
+var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, null, -1
 /* HOISTED */
 );
 
@@ -444,27 +381,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <h1 style=\"color: #26394a; font-weight: bold; font-family: verdana;\">Imports</h1> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("<p style=\"text-align: justify;\">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet consectetur.\n    </p>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" TOTAL HOUSEHOLDS "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.format_number($options.number_of_households, 0, true)), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.format_number(100 * ($props.with_toilets / 190000), 2, true)) + "% of households in Davao de Oro have responded to the survey in 2023.", 1
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p style=\"text-align: center\">{{ format_number(100*(with_toilets/190000),2,true) }}% of households in Davao de Oro have responded to the survey in 2023.<br>&nbsp;</p> ")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" WITH TOILETS "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.format_number($props.with_toilets, 0, true)), 1
   /* TEXT */
-  ), _hoisted_14, _hoisted_15])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" WITH TOILETS "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [_hoisted_19, _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.format_number($props.with_toilets, 0, true)), 1
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p>Of the {{ format_number(number_of_households,0,true) }} respondents, {{ format_number(with_toilets,0,true) }} "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ({{ format_number(100*(with_toilets/number_of_households),2,true) }}%) have toilets.<br>&nbsp;</p> ")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" WITH FUNCTIONAL TOILETS "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_hoisted_22, _hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.format_number($props.with_functional_toilet, 0, true)), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Of the " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.format_number($options.number_of_households, 0, true)) + " respondents, " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.format_number($props.with_toilets, 0, true)) + " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.format_number(100 * ($props.with_toilets / $options.number_of_households), 2, true)) + "%) have toilets.", 1
-  /* TEXT */
-  ), _hoisted_22, _hoisted_23])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" WITH FUNCTIONAL TOILETS "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [_hoisted_27, _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_29, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.format_number($props.with_functional_toilet, 0, true)), 1
-  /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Of the " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.format_number($options.number_of_households, 0, true)) + " respondents, " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.format_number($props.with_toilets, 0, true)) + " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.format_number(100 * ($props.with_functional_toilet / $options.number_of_households), 2, true)) + "%) have functional and well-maintained toilets.", 1
-  /* TEXT */
-  )])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" PRACTICE WASTE SEGREGATION AND/OR COMPOSTING "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [_hoisted_33, _hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.format_number($props._8_composting, 0, true)), 1
-  /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_36, "Of the " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.format_number($options.number_of_households, 0, true)) + " respondents, " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.format_number($props._8_composting, 0, true)) + " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.format_number(100 * ($props._8_composting / $options.number_of_households), 2, true)) + "%) practice segregation/composting.", 1
-  /* TEXT */
-  )])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" RISK ASSESSMENT -CHART "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [_hoisted_40, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RiskAssessmentChart, {
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p>Of the {{ format_number(number_of_households,0,true) }} respondents, {{ format_number(with_toilets,0,true) }}\n                                ({{ format_number(100*(with_functional_toilet/number_of_households),2,true) }}%) have functional and well-maintained toilets.</p> ")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" PRACTICE WASTE SEGREGATION AND/OR COMPOSTING "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"col-md-3\">\n                    <div class=\"layers bd bgc-white p-20\">\n                        <div class=\"layer w-100 mB-10\">\n                            <h6 class=\"lh-1\">\n                                <table>\n                                    <tr>\n                                        <td>\n                                            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"30\" height=\"30\" fill=\"currentColor\" class=\"bi bi-recycle\" viewBox=\"0 0 16 16\">\n                                            <path d=\"M9.302 1.256a1.5 1.5 0 0 0-2.604 0l-1.704 2.98a.5.5 0 0 0 .869.497l1.703-2.981a.5.5 0 0 1 .868 0l2.54 4.444-1.256-.337a.5.5 0 1 0-.26.966l2.415.647a.5.5 0 0 0 .613-.353l.647-2.415a.5.5 0 1 0-.966-.259l-.333 1.242zM2.973 7.773l-1.255.337a.5.5 0 1 1-.26-.966l2.416-.647a.5.5 0 0 1 .612.353l.647 2.415a.5.5 0 0 1-.966.259l-.333-1.242-2.545 4.454a.5.5 0 0 0 .434.748H5a.5.5 0 0 1 0 1H1.723A1.5 1.5 0 0 1 .421 12.24zm10.89 1.463a.5.5 0 1 0-.868.496l1.716 3.004a.5.5 0 0 1-.434.748h-5.57l.647-.646a.5.5 0 1 0-.708-.707l-1.5 1.5a.5.5 0 0 0 0 .707l1.5 1.5a.5.5 0 1 0 .708-.707l-.647-.647h5.57a1.5 1.5 0 0 0 1.302-2.244z\"/>\n                                            </svg>&nbsp;&nbsp;&nbsp;\n                                        </td>\n                                        <td><h5 href=\"/details/demographics\" target=\"_blank\">Practice Waste Segregation/Composting</h5></td>\n                                    </tr>\n                                </table>\n                            </h6>\n                            <hr>\n                            <h2 style=\"color: #756e04; font-weight: bold; text-align: center\">{{ format_number(_8_composting,0,true) }}</h2>\n                            <p style=\"text-align:center\">Of the {{ format_number(number_of_households,0,true) }} respondents, {{ format_number(_8_composting,0,true) }}\n                                ({{ format_number(100*(_8_composting/number_of_households),2,true) }}%) practice segregation/composting.</p>\n                        </div>\n\n                    </div>\n                </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" RISK ASSESSMENT -CHART "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [_hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RiskAssessmentChart, {
     chartData: $options.chartDataType,
     chartLabel: $props.data_by_mun_label,
     plugins: $options.chartOptionCom
   }, null, 8
   /* PROPS */
-  , ["chartData", "chartLabel", "plugins"])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" RISK ASSESSMENT -TABLE "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_43, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_44, [_hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.results, function (result) {
+  , ["chartData", "chartLabel", "plugins"])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" RISK ASSESSMENT -TABLE "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_32, [_hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.results, function (result) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(result.municipality), 1
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(result.Open_Defecation_G0), 1
@@ -480,7 +407,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     )]);
   }), 256
   /* UNKEYED_FRAGMENT */
-  ))])]), _hoisted_46])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <form @submit.prevent=\"submit\">\n                {{ import_selection }}\n                <select v-model=\"import_selection\" >\n                    <option value=\"1\">PHATTS</option>\n                    <option value=\"2\">Municipalities/Barangays/Puroks</option>\n                    <option value=\"h\">Households</option>\n                    <option value=\"a\">Schools</option>\n                    <option value=\"b\">Child Development Centers</option>\n                    <option value=\"c\">Health Facilities</option>\n                    <option value=\"3\">Export PhATSS</option>\n                </select>\n                <input type=\"file\" @input=\"form.myfile = $event.target.files[0]\" @change=\"onFileChanged()\"/>\n                <progress v-if=\"form.progress\" class=\"form-control\"  :value=\"form.progress.percentage\" max=\"100\">\n                    {{ form.progress.percentage }}%\n                </progress>\n                <button type=\"submit\" class=\"btn btn-primary btn-sm mL-2 text-white\" >Submit</button>\n            </form> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ dt_g3 }}\n            {{ total }} ")])])], 64
+  ))])]), _hoisted_34])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <form @submit.prevent=\"submit\">\n                {{ import_selection }}\n                <select v-model=\"import_selection\" >\n                    <option value=\"1\">PHATTS</option>\n                    <option value=\"2\">Municipalities/Barangays/Puroks</option>\n                    <option value=\"h\">Households</option>\n                    <option value=\"a\">Schools</option>\n                    <option value=\"b\">Child Development Centers</option>\n                    <option value=\"c\">Health Facilities</option>\n                    <option value=\"3\">Export PhATSS</option>\n                </select>\n                <input type=\"file\" @input=\"form.myfile = $event.target.files[0]\" @change=\"onFileChanged()\"/>\n                <progress v-if=\"form.progress\" class=\"form-control\"  :value=\"form.progress.percentage\" max=\"100\">\n                    {{ form.progress.percentage }}%\n                </progress>\n                <button type=\"submit\" class=\"btn btn-primary btn-sm mL-2 text-white\" >Submit</button>\n            </form> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ dt_g3 }}\n            {{ total }} ")])])], 64
   /* STABLE_FRAGMENT */
   );
 }
