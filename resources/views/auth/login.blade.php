@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-    <title>Sign In - PhATSS</title>
+    <title>Sign In - Sanitation Management System</title>
 
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" />
 </head>
@@ -18,7 +18,8 @@
             style='background-image:url("images/bg.jpg")'>
             <div class="pos-a centerXY">
                 <div class="row" style="color:#2c8291">
-                    <h1 class="text-center text-title"><span class="display-1">PhATSS</h1>
+                    <h1 class="text-center text-title"><span class="display-1">SANITATION </h1>
+                    <h1 class="text-center text-title">MANAGEMENT SYSTEM</h1>
                 </div>
                 <div class="row text-center">
                     <div>
@@ -34,10 +35,11 @@
             <div class="row text-center" id="mobile-logo">
                 <div class="col-offset-5 mb-1">
                     <img class="img-fluid" src="images/logo.png" alt="">
-                    <h3>Timesheets</h3>
+                    <h3>Sanitation Management</h3>
+                    <h3>System</h3>
                 </div>
             </div>
-            <h4 class="fw-300 c-grey-900 mB-10">Philippine Approach to Sustainable Sanitation</h4>
+            <h4 class="fw-300 c-grey-900 mB-10">Sanitation Management System</h4>
             @if (count($errors) > 0)
                 <div class="alert alert-danger" style="margin-bottom: unset; padding: .3rem;">
                     @foreach ($errors->all() as $message)
@@ -78,6 +80,9 @@
                     </div>
                 </div>
             </form>
+            <div class="register-link">
+                To register, click <a href="/register">here</a>
+            </div>
         </div>
     </div>
 </body>

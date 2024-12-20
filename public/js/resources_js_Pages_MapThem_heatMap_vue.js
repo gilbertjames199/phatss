@@ -103,6 +103,19 @@ __webpack_require__.r(__webpack_exports__);
       // alert(this.lat_val);
 
     },
+    // gradient: {
+    //     0.1: '#0000ff',  // Blue for 10
+    //     0.2: '#008000',  // Green for 20
+    //     0.3: '#ffa500',  // Orange for 30
+    //     0.4: '#ff0000',  // Red for 40
+    // }
+    // gradient: {
+    //     0.0: "#0eaae8",   // Cold color for very low density
+    //     0.25: "#098abd",  // Transition from cold to slightly warm
+    //     0.5: "#096fbd",   // Moderate density
+    //     0.75: "#023ba6", // Warm color for high density
+    //     1.0: "#010880"      // Bright color for very high density
+    // }
     initMap: function initMap() {
       // Set up the base layer
       this.getLocation();
@@ -122,20 +135,7 @@ __webpack_require__.r(__webpack_exports__);
           useLocalExtrema: true,
           latField: "x",
           lngField: "y",
-          valueField: "count" // gradient: {
-          //     0.1: '#0000ff',  // Blue for 10
-          //     0.2: '#008000',  // Green for 20
-          //     0.3: '#ffa500',  // Orange for 30
-          //     0.4: '#ff0000',  // Red for 40
-          // }
-          // gradient: {
-          //     0.0: "#0eaae8",   // Cold color for very low density
-          //     0.25: "#098abd",  // Transition from cold to slightly warm
-          //     0.5: "#096fbd",   // Moderate density
-          //     0.75: "#023ba6", // Warm color for high density
-          //     1.0: "#010880"      // Bright color for very high density
-          // }
-
+          valueField: "count"
         }; // Create heatmap layer
 
         this.heatmapLayer = new (leaflet_heatmap__WEBPACK_IMPORTED_MODULE_0___default())(cfg); //SET Coordinates
@@ -223,28 +223,7 @@ __webpack_require__.r(__webpack_exports__);
           fillOpacity: 0 // Makes the fill transparent
 
         });
-        var tooltipContent = "\n                <div style=\"text-align: left; font-size: 14px; line-height: 1.5;\">\n                    <span style='text-align: center'><h4>Household Details</h4></span><hr>\n                    <strong>Name:</strong> <u>".concat(point.name || "N/A", "</u><br>\n                    <strong>Address:</strong> <u>").concat(point.address || "N/A", "</u><br>\n                    <strong>Coordinates:</strong> <u>(").concat(point.x.toFixed(6), ", ").concat(point.y.toFixed(6), ")</u><br>\n                </div>\n            "); //  <table class="table table-sm table-borderless table-hover">
-        //     <thead>
-        //         <tr colspan="2" style='text-align: center'>
-        //             <th><h4>Household Details</h4></th>
-        //         </tr>
-        //     </thead>
-        //     <tbody>
-        //         <tr>
-        //             <td><strong>Name:</strong></td>
-        //             <td><u>${point.name || "N/A"}</u></td>
-        //         </tr>
-        //         <tr>
-        //             <td><strong>Address:</strong></td>
-        //             <td><u>${point.address || "N/A"}</u></td>
-        //         </tr>
-        //         <tr>
-        //             <td><strong>Coordinates:</strong></td>
-        //             <td><u>(${point.x.toFixed(6)}, ${point.y.toFixed(6)})</u></td>
-        //         </tr>
-        //     </tbody>
-        // </table>
-        // // <strong>Count:</strong> ${point.count || "N/A"}
+        var tooltipContent = "\n                <div style=\"text-align: left; font-size: 14px; line-height: 1.5;\">\n                    <span style='text-align: center'><h4>Household Details</h4></span><hr>\n                    <strong>Name:</strong> <u>".concat(point.name || "N/A", "</u><br>\n                    <strong>Address:</strong> <u>").concat(point.address || "N/A", "</u><br>\n                    <strong>Coordinates:</strong> <u>(").concat(point.x.toFixed(6), ", ").concat(point.y.toFixed(6), ")</u><br>\n                </div>\n            "); // // <strong>Count:</strong> ${point.count || "N/A"}
         // // `Coordinates: (${point.x.toFixed(6)}, ${point.y.toFixed(6)})`
 
         marker.bindTooltip(tooltipContent, {
