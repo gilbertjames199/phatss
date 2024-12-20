@@ -10,6 +10,7 @@ use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\GovernmentController;
 use App\Http\Controllers\EconomicController;
+use App\Http\Controllers\ForecastController;
 use App\Http\Controllers\HealthController;
 use App\Http\Controllers\HouseHoldController;
 use App\Http\Controllers\InterventionController;
@@ -80,7 +81,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/get-barangays', [UserController::class, 'getBarangays']);
         Route::post('/get-puroks', [UserController::class, 'getPuroks']);
     });
-    //Charts
+    //Forecasts
+    Route::prefix('/forecasts')->group(function () {
+        Route::get('/', [ForecastController::class, 'index']);
+        // Route::get('/heat', [MapPlotterController::class, 'heat_map']);
+        // Route::get('/route/optimize', [MapPlotterController::class, 'route_optimize']);
+    });
 
     //MAP THEM
     Route::prefix('/map')->group(function () {

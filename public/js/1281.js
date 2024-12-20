@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[1281],{1281:(e,a,s)=>{s.r(a),s.d(a,{default:()=>b});const b="/images/trend_graph.png?79f8ab15d52e4cbb71b276a44e39881a"}}]);
