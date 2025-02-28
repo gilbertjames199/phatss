@@ -136,7 +136,8 @@ export default {
     },
     methods: {
         deleteUser(id, uname) {
-            if(this.auth.user.username==uname){
+            // alert(this.auth.user.username+ " uname_passed="+uname)
+            if(this.auth.user.username!==uname){
                 let text = "WARNING!\nAre you sure you want to delete the record?";
                 if (confirm(text) == true) {
                     this.$inertia.delete("/users/" + id);

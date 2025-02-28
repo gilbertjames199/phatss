@@ -11,10 +11,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Shared_LRoutingMachine_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Shared/LRoutingMachine.vue */ "./resources/js/Shared/LRoutingMachine.vue");
-/* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! leaflet/dist/leaflet.css */ "./node_modules/leaflet/dist/leaflet.css");
-/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
-/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Shared_LRoutingMachine_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Shared/LRoutingMachine.vue */ "./resources/js/Shared/LRoutingMachine.vue");
+/* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! leaflet/dist/leaflet.css */ "./node_modules/leaflet/dist/leaflet.css");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_3__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+ // import LRoutingMachine from "@/Shared/LRoutingMachine.vue";
 
 
 
@@ -28,7 +37,7 @@ var waypoints = [//   { lat: 7.57608, lng: 125.992595 },
 }];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    LRoutingMachine: _Shared_LRoutingMachine_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    LRoutingMachine: _Shared_LRoutingMachine_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
@@ -41,17 +50,53 @@ var waypoints = [//   { lat: 7.57608, lng: 125.992595 },
       },
       osmUrl: "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      waypoints: waypoints
+      waypoints: waypoints,
+      barangaysList: []
     };
   },
   mounted: function mounted() {
-    this.mapObject = leaflet__WEBPACK_IMPORTED_MODULE_2___default().map(this.mapId, {
+    this.mapObject = leaflet__WEBPACK_IMPORTED_MODULE_3___default().map(this.mapId, {
       zoom: this.zoom,
       center: this.center
     });
-    leaflet__WEBPACK_IMPORTED_MODULE_2___default().tileLayer(this.osmUrl, {
+    leaflet__WEBPACK_IMPORTED_MODULE_3___default().tileLayer(this.osmUrl, {
       attribution: this.attribution
     }).addTo(this.mapObject);
+    this.getBarangays();
+  },
+  methods: {
+    getBarangays: function getBarangays() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return axios.get('@/Shared/Barangays_within_Province.json');
+
+              case 3:
+                response = _context.sent;
+                _this.barangaysList = response.data;
+                _context.next = 10;
+                break;
+
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context["catch"](0);
+                console.error('Error loading barangays:', _context.t0);
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[0, 7]]);
+      }))();
+    }
   }
 });
 
@@ -236,7 +281,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  }), _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }), _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.barangaysList) + " ", 1
+  /* TEXT */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     id: $data.mapId,
     "class": "map"
   }, null, 8
@@ -269,7 +316,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nhtml,\r\nbody,\r\n#app {\r\n  /* height: 100%;\r\n  margin: 0; */\r\n  height: 100%;\r\n  width: 100%;\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\n}\n.map {\r\n    position: relative;\r\n  width: 100%;\r\n  height: 100vh;\r\n  /* position: absolute;\r\n  width: 50%;\r\n  height: 100%; */\n}\n@media (max-width: 768px) {\n.map {\r\n    height: 80vh; /* Slightly smaller map for smaller devices */\n}\n}\n@media (max-width: 768px) {\n.map {\r\n    width: 100%; /* Full width for tablets and phones */\r\n    height: 70vh; /* Adjust height for smaller screens */\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nhtml,\nbody,\n#app {\n  /* height: 100%;\n  margin: 0; */\n  height: 100%;\n  width: 100%;\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n.map {\n    position: relative;\n  width: 100%;\n  height: 100vh;\n  /* position: absolute;\n  width: 50%;\n  height: 100%; */\n}\n@media (max-width: 768px) {\n.map {\n    height: 80vh; /* Slightly smaller map for smaller devices */\n}\n}\n@media (max-width: 768px) {\n.map {\n    width: 100%; /* Full width for tablets and phones */\n    height: 70vh; /* Adjust height for smaller screens */\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

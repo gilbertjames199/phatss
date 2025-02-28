@@ -100,9 +100,19 @@ class UserController extends Controller
     {
 
         // $permissions = DB::table('permissions')->get();
-
+        $barangay = DB::table('barangays')
+            ->select(DB::raw('(barangays.barangay)'), 'municipalities.municipality')
+            ->join('municipalities', 'barangays.muni_filter', "municipalities.code")
+            ->get();
+        // $municipalities = DB::table('y01_personal_infos')
+        //     ->distinct()
+        //     ->select(DB::raw('(y01_personal_infos.municipality)'))
+        //     ->get();
+        // dd($barangay);
         return inertia('Users/Create', [
             // "permissions" => $permissions,
+            "barangays" => $barangay,
+            // "municipalities" => $municipalities,
             "can" => [
                 'createUser' => Auth::user()->can('create', User::class),
                 'editUser' => Auth::user()->can('edit', User::class),
@@ -115,6 +125,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+
         // Define the pepper (retrieved securely from environment/config)
         $pepper = config('app.pepper'); // Ensure 'app.pepper' is set in your config or .env
 
@@ -128,6 +139,9 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $hashedPassword,
+            'level' => $request->level,
+            'barangay' => $request->barangay,
+            'municipality' => $request->municipality
         ]);
 
 

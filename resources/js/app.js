@@ -66,9 +66,12 @@ createInertiaApp({
             .component("FilePond", FilePond)
             .component("v-select", vSelect)
             .mixin({
-                // data() {
+                data() {
+                    return {
+                        municipalities_global: ['Compostela', 'Laak', 'Mabini', 'Maco', 'Maragusan', 'Mawab', 'Monkayo', 'Montevista', 'New Bataan', 'Nabunturan', 'Pantukan']
+                    }
 
-                // },
+                },
                 methods: {
                     format_number(number, num_decimals, include_comma) {
                         var numm = parseFloat(number);
@@ -77,6 +80,7 @@ createInertiaApp({
                     goBack() {
                         window.history.back()
                     },
+
                 }
             })
             .mount(el)

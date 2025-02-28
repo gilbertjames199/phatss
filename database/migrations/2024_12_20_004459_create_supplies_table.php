@@ -15,6 +15,10 @@ class CreateSuppliesTable extends Migration
     {
         Schema::create('supplies', function (Blueprint $table) {
             $table->id();
+            $table->string('item');
+            $table->integer('quantity');
+            $table->text('description')->nullable();
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }

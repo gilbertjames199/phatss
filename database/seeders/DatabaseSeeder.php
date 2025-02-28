@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Database\Seeders\FirstUserSeed;
 use Database\Seeders\PermissionSeeder;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -17,8 +18,9 @@ class DatabaseSeeder extends Seeder
         //\App\Models\User::factory(1)->create();
 
         $this->call([
-            PermissionSeeder::class,
-            FirstUserSeed::class,
+            // PermissionSeeder::class,
+            // FirstUserSeed::class,
+            RolePermissionSeeder::class,
         ]);
     }
 }

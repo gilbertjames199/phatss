@@ -4,7 +4,7 @@
     </Head>
     <h1 style="color: #26394a; font-weight: bold; font-family: verdana;">Route</h1>
   <div id="app">
-
+    {{ barangaysList }}
     <div :id="mapId" class="map"></div>
     <LRoutingMachine :mapObject="mapObject" :waypoints="waypoints" />
   </div>
@@ -12,6 +12,7 @@
 
 <script>
 import LRoutingMachine from "@/Shared/LRoutingMachine.vue";
+// import LRoutingMachine from "@/Shared/LRoutingMachine.vue";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
@@ -35,6 +36,8 @@ export default {
       attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       waypoints,
+    barangaysList: [],
+
     };
   },
   mounted() {
@@ -46,7 +49,18 @@ export default {
     L.tileLayer(this.osmUrl, {
       attribution: this.attribution,
     }).addTo(this.mapObject);
+    this.getBarangays()
   },
+  methods:{
+    async getBarangays(){
+        try {
+            const response = await axios.get('@/Shared/Barangays_within_Province.json');
+            this.barangaysList = response.data;
+        } catch (error) {
+        console.error('Error loading barangays:', error);
+        }
+    }
+  }
 };
 </script>
 

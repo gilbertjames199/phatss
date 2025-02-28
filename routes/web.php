@@ -14,18 +14,22 @@ use App\Http\Controllers\ForecastController;
 use App\Http\Controllers\HealthController;
 use App\Http\Controllers\HouseHoldController;
 use App\Http\Controllers\InterventionController;
+use App\Http\Controllers\IssueController;
 use App\Http\Controllers\MapPlotterController;
 use App\Http\Controllers\OtherController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\PythonController;
 use App\Http\Controllers\RespondentController;
+use App\Http\Controllers\ResponseCenterController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SocialInclusionController;
 use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\TimeSheetController;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Http;
 use App\Mail\MessageMail;
+use App\Models\ResponseCenter;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -101,6 +105,24 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/heat', [MapPlotterController::class, 'heat_map']);
         Route::get('/route/optimize', [MapPlotterController::class, 'route_optimize']);
     });
+    Route::prefix('/issue')->group(function () {
+        Route::get('/', [IssueController::class, 'index']);
+        Route::get('/view/{id}', [IssueController::class, 'view']);
+        Route::get('/{id}/lfdsf/23/4afoaip/edit', [IssueController::class, 'edit']);
+        Route::get('/report', [IssueController::class, 'report']);
+        Route::post('/store', [IssueController::class, 'store']);
+        Route::patch('/update', [IssueController::class, 'update']);
+    });
+    Route::get('/location-search', function () {
+        $query = request('q');
+        $response = Http::get("https://nominatim.openstreetmap.org/search?format=json&q={$query}");
+        return $response->json();
+    });
+
+    //ResponseCenters
+    Route::prefix('/response-center')->group(function () {
+        Route::get('/', [ResponseCenterController::class, 'index']);
+    });
     Route::prefix('/survey')->group(function () {
         Route::get('/', [SurveyController::class, 'index']);
         Route::get('/household', [SurveyController::class, 'create']);
@@ -111,10 +133,11 @@ Route::middleware(['auth'])->group(function () {
     // SUPPLIES
     Route::prefix('/supplies')->group(function () {
         Route::get('/', [SupplyController::class, 'index']);
-        // Route::get('/household', [SurveyController::class, 'create']);
-        // Route::post('/store', [SurveyController::class, 'store']);
-        // Route::get('/household/edit/{id}', [SurveyController::class, 'edit']);
-        // Route::patch('/household/update/{id}', [SurveyController::class, 'update']);
+        Route::get('/create', [SupplyController::class, 'create']);
+        Route::post('/store', [SupplyController::class, 'store']);
+        Route::get('/edit/{id}', [SupplyController::class, 'edit']);
+        Route::patch('/update/{id}', [SupplyController::class, 'update']);
+        Route::delete('/{id}', [SupplyController::class, 'destroy']);
     });
     //Avatar file upload
     Route::post('/files/upload', [FileHandleController::class, 'uploadAvatar']);

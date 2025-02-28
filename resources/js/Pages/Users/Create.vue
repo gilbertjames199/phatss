@@ -24,6 +24,25 @@
             <label for="">Email</label>
             <input type="text" v-model="form.email" class="form-control" autocomplete="chrome-off">
             <div class="fs-6 c-red-500" v-if="form.errors.email">{{ form.errors.email }}</div>
+
+            <label for="">Municipality</label>
+            <select class="form-control" @click="filterBarangay()" v-model="form.municipality"
+                        autocomplete="chrome-off" required>
+                <option></option>
+                <option v-for="mun in municipalities_global">
+                    {{ mun }}
+                </option>
+            </select>
+
+            <label for="">Barangay</label>
+            <!-- {{ barangays }} -->
+                <select class="form-control"
+                            autocomplete="chrome-off" required>
+                    <option></option>
+                    <option v-for="bar in my_barangays">
+                        {{ bar }}
+                    </option>
+                </select>
             <span v-if="editData===undefined">
                 <label for="">Password</label>
                 <input type="password" v-model="form.password" class="form-control" autocomplete="chrome-off">
@@ -61,6 +80,7 @@ export default {
     props: {
         editData: Object,
         permissions: Object,
+        barangays: Object
     },
     components: {
       BootstrapModalNoJquery,
@@ -72,11 +92,15 @@ export default {
             exampleModalShowing: false,
             arr_length: 0,
             newData: [],
+            my_barangays: [],
             confirm_password: "",
             form: useForm({
                 name: "",
                 email: "",
                 password: "",
+                municipality: "",
+                barangay: "",
+                level: "",
                 id: null
             }),
             pageTitle: ""
@@ -103,7 +127,17 @@ export default {
                 this.form.post("/users", this.form);
             }
         },
-
+        filterBarangay(munval) {
+            //this.arr_length = this.barangays.length-1;
+            this.my_barangays = [];
+            this.barangays.forEach(i => {
+                if (i.municipality === this.form.municipality) {
+                    this.my_barangays.push(i.barangay);
+                }
+            });
+            console.log(this.my_barangays);
+            return this.my_barangays;
+        },
         canCreateCheck: function(value, event){
             if(event.target.checked){
                 alert('is selected')

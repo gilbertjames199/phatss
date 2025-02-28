@@ -3,7 +3,7 @@
         <div class="peers fxw-nw jc-sb ai-c">
             <div class="col-md-12">
                 <!-- {{ pageTitle }}  -->
-                <h2 class="text-secondary">Edit Household</h2>
+                <h2 class="text-secondary">{{ pageTitle }} Household</h2>
                 <hr>
             </div>
         </div>
@@ -541,7 +541,7 @@ export default {
             // alert("form set")
         }else{
             const now = new Date();
-            this.pageTitle="Create";
+            this.pageTitle="New";
             this.form.ENUMERATOR="System";
             this.form.date_survey= now.getFullYear() + '-' +
                         String(now.getMonth() + 1).padStart(2, '0') + '-' +

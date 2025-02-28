@@ -12,6 +12,8 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
 //use App\Models\Permission;
+use Spatie\Permission\Traits\HasRoles;
+
 
 //for email verification
 // use Illuminate\Auth\Events\Registered;
@@ -19,7 +21,7 @@ use Spatie\MediaLibrary\HasMedia;
 class User extends Authenticatable implements HasMedia
 {
     // , MustVerifyEmail
-    use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia;
+    use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia, HasRoles;
 
     protected $fillable = [
         'name',
