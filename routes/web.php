@@ -15,6 +15,7 @@ use App\Http\Controllers\HealthController;
 use App\Http\Controllers\HouseHoldController;
 use App\Http\Controllers\InterventionController;
 use App\Http\Controllers\IssueController;
+use App\Http\Controllers\IssueInterventionController;
 use App\Http\Controllers\MapPlotterController;
 use App\Http\Controllers\OtherController;
 use App\Http\Controllers\PlaceController;
@@ -92,7 +93,12 @@ Route::middleware(['auth'])->group(function () {
         // Route::get('/heat', [MapPlotterController::class, 'heat_map']);
         // Route::get('/route/optimize', [MapPlotterController::class, 'route_optimize']);
     });
-
+    // Risk level by munixipality/barangay
+    Route::prefix('/sanitation-assessment')->group(function () {
+        Route::get('/', [ForecastController::class, 'sanitation_level']);
+        Route::get('/{mun}', [ForecastController::class, 'getBarangays']);
+        Route::get('/{type}/{location}', [ForecastController::class, 'getHouseholds']);
+    });
     //Respondents
     Route::prefix('/respondents')->group(function () {
         Route::get('/', [RespondentController::class, 'index']);
@@ -104,7 +110,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [MapPlotterController::class, 'index']);
         Route::get('/heat', [MapPlotterController::class, 'heat_map']);
         Route::get('/route/optimize', [MapPlotterController::class, 'route_optimize']);
+        Route::get('/k/means/training', [MapPlotterController::class, 'kmeans']);
     });
+
+
     Route::prefix('/issue')->group(function () {
         Route::get('/', [IssueController::class, 'index']);
         Route::get('/view/{id}', [IssueController::class, 'view']);
@@ -112,6 +121,16 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/report', [IssueController::class, 'report']);
         Route::post('/store', [IssueController::class, 'store']);
         Route::patch('/update', [IssueController::class, 'update']);
+        Route::delete('/{id}', [IssueController::class, 'destroy']);
+    });
+    Route::prefix('/issue-intervention')->group(function () {
+        Route::get('/', [IssueInterventionController::class, 'index']);
+        Route::get('/view/{id}', [IssueInterventionController::class, 'view']);
+        Route::get('/{id}/mgdsg/23/4agobip/edit', [IssueInterventionController::class, 'edit']);
+        Route::get('/create/{issue_id}/123jk423', [IssueInterventionController::class, 'create']);
+        Route::post('/store', [IssueInterventionController::class, 'store']);
+        Route::patch('/update', [IssueInterventionController::class, 'update']);
+        Route::delete('/{id}', [IssueInterventionController::class, 'destroy']);
     });
     Route::get('/location-search', function () {
         $query = request('q');

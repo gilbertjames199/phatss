@@ -25,7 +25,7 @@ class DashBoardController extends Controller
     {
         //dd('create: '.auth()->user()->can('create',User::class).'edit: '.auth()->user()->can('edit',User::class).'delete: '.auth()->user()->can('delete',User::class));
         // $hh = HouseHold::all();
-        // dd($hh);
+
         $results = HouseHold::select([
             'municipality',
             DB::raw("SUM(CASE WHEN relative_risk_assessment = 'Open Defecation G0' THEN 1 ELSE 0 END) AS Open_Defecation_G0"),

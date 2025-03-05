@@ -1,8 +1,20 @@
 <template>
+    <!-- <div>
+        <div class="row gap-5 masonry pos-r">
+
+            <div class="peers fxw-nw jc-sb ai-c">
+
+            </div>
+        </div>
+
+    </div> -->
+        <!-- {{ count }} mun: {{ mun }} &nbsp;p_mun: {{ p_mun }} -->
+
     <div class="row gap-20 masonry pos-r">
         <div class="masonry-item w-100">
             <div class="row gap-20">
                 <!--MAP-->
+                <!-- <button @click="clearSelection" class="btn btn-danger text-white mt-2" v-if="selectedPoint">Clear Selection</button> -->
                 <h4>{{ getOptionText(my_filter) }}</h4>
                 <div class="col-md-9">
 
@@ -15,11 +27,23 @@
                             <hr>
                             <!-- {{ municipalities }} -->
                             <b>Municipality:</b> &nbsp;
+                            <!-- <select class="form-control"  @change="filter_me('mun')"> -->
                             <select class="form-control" v-model="mun" @change="filter_me('mun')">
                                 <option></option>
                                 <option v-for="municipality in municipalities">
                                     {{ municipality }}
                                 </option>
+                                <!-- <option>Compostela</option>
+                                <option>Laak</option>
+                                <option>Mabini</option>
+                                <option>Maco</option>
+                                <option>Maragusan</option>
+                                <option>Mawab</option>
+                                <option>Monkayo</option>
+                                <option>Montevista</option>
+                                <option>Nabunturan</option>
+                                <option>New Bataan</option>
+                                <option>Pantukan</option> -->
                             </select>
                             &nbsp;
                             <b>Barangays: </b>
@@ -47,6 +71,7 @@
                                 <option>G3</option>
                             </select>
                             <br>
+                            <!-- <button class="btn btn-danger text-white" @click="clearFilter">Clear Filters</button> -->
 
                             <b>Additional Filters: </b>
                             <select class="form-control" v-model="my_filter" @change="filter_me('relrisk')">
@@ -93,7 +118,6 @@
                                 <p><strong>Risk Level:</strong> <u>{{ selectedPoint.risk_level || "N/A" }}</u></p>
                                 <p><strong>Relative Risk Assessment:</strong> <u>{{ selectedPoint.relative_risk_assessment || "N/A" }}</u></p>
                                 <p><strong>Coordinates:</strong> <u>({{ selectedPoint.x.toFixed(6) }}, {{ selectedPoint.y.toFixed(6) }})</u></p>
-                                <p><strong>Cluster Size:</strong> <u>{{ selectedPoint.cluster_size }}</u></p>
                                 <!-- <p><strong>Relative Risk Assessment:</strong> <u>{{ selectedPoint.relative_risk_assessment }}</u></p>
                                 <p><strong>Coordinates:</strong> <u>({{ selectedPoint.x.toFixed(6) }}, {{ selectedPoint.y.toFixed(6) }})</u></p> -->
                                 <p><strong>1.)  Is there a toilet?</strong> <u>{{ selectedPoint._1_has_toilet }}</u></p>
@@ -112,7 +136,21 @@
                                 <p><strong>14.) Is the household using their own toilet?</strong> <u>{{ selectedPoint._17_using }}</u></p>
                                 <p><strong>15.) Visit the Materials Recovery Facility (MRF) in the barangay. Is the MRF Functional?</strong> <u>{{ selectedPoint._19_materials }}</u></p>
                                 <button></button>
-
+                                <!-- <p><strong>1.)  Is there a toilet?</strong> <u>{{ point._1_has_toilet || "N/A" }}</u></p>
+                                <p><strong>2.) Is it being used?</strong> <u>{{ point._2_toilet_used || "N/A" }}</u></p>
+                                <p><strong>3.) Is the toilet functional and well maintained?</strong> <u>{{ point._3_toilet_functional || "N/A" }}</u></p>
+                                <p><strong>4.) Is there soap and water at or near the toilet?</strong> <u>{{ point._4_soap || "N/A" }}</u></p>
+                                <p><strong>5.)  Are children, elderly, and PWDs' feces and diaper properly disposed? <br>(Y/N/NA if there are no children, elderly, and PWD members in the household)</strong> <u>{{ point._5_children || "N/A" }}</u></p>
+                                <p><strong>6.) Are there no more feces found in open spaces in the community?</strong> <u>{{ point._6_spaces || "N/A" }}</u></p>
+                                <p><strong>7.) Are there no feces, sanitary napkins, diapers, and solid waste found in <br>open spaces in the community? (Y/N)</strong> <u>{{ point._7_feces || "N/A" }}</u></p>
+                                <p><strong>8.) Does the household practice waste segregation and/or composting? G2</strong> <u>{{ point._8_composting || "N/A" }}</u></p>
+                                <p><strong>9.) Does the household dispose of their garbage properly? G2</strong> <u>{{ point._9_dispose || "N/A" }}</u></p>
+                                <p><strong>10.) Have you ever emptied your septic tank or pit? (Y/N) G3</strong> <u>{{ point._10_emptied || "N/A" }}</u></p>
+                                <p><strong>11.) Is there a Municipal Sewerage Treatment Facility?</strong> <u>{{ point._13_sewer || "N/A" }}</u></p>
+                                <p><strong>12.) Does the household use a shared toilet? (G1)</strong> <u>{{ point._15_household || "N/A" }}</u></p>
+                                <p><strong>13.) Does the household use a communal/public toilet? (G1)</strong> <u>{{ point._16_household || "N/A" }}</u></p>
+                                <p><strong>14.) Is the household using their own toilet?</strong> <u>{{ point._17_using || "N/A" }}</u></p>
+                                <p><strong>15.) Visit the Materials Recovery Facility (MRF) in the barangay. Is the MRF Functional?</strong> <u>{{ point._19_materials || "N/A" }}</u></p> -->
 
                             </div>
                             <div >
@@ -128,6 +166,8 @@
             </div>
         </div>
     </div>
+  <!-- myData: {{ myData }}
+  p_data: {{ p_data }} -->
 </template>
 
 <script>
@@ -176,13 +216,27 @@ export default {
     };
   },
   watch: {
+    // p_mun(newValue) {
+    //     this.mun = newValue;
+    // }
   },
   computed: {
-
+    // comp_mun() {
+    //     return this.p_mun;
+    // },
+    // comp_relrisk(){
+    //     return this.relrisk;
+    // }
   },
-
+//   beforeMounted(){
+//     this.mun=this.p_mun;
+//     alert(this.mun)
+//   },
   mounted() {
-
+    // alert(this.p_mun+ ' mun: '+this.mun);
+    // this.mun=this.p_mun;
+    // alert(this.p_mun+ ' mun: '+this.mun);
+    // this.relrisk=this.p_relrisk;
     this.initMap();
   },
   methods: {
@@ -196,9 +250,30 @@ export default {
         } else {
             alert("Geolocation is not supported by this browser.");
         }
-
+        // if (navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition((position) => {
+        //         this.lat_val = position.coords.latitude
+        //         this.lng_val = position.coords.longitude
+        //         this.initMap()
+        //     })
+        // }
+        // // this.lat_val = lat.value
+        // // this.lng_val = lng.value
+        // alert(this.lat_val);
     },
-
+    // gradient: {
+                //     0.1: '#0000ff',  // Blue for 10
+                //     0.2: '#008000',  // Green for 20
+                //     0.3: '#ffa500',  // Orange for 30
+                //     0.4: '#ff0000',  // Red for 40
+                // }
+                // gradient: {
+                //     0.0: "#0eaae8",   // Cold color for very low density
+                //     0.25: "#098abd",  // Transition from cold to slightly warm
+                //     0.5: "#096fbd",   // Moderate density
+                //     0.75: "#023ba6", // Warm color for high density
+                //     1.0: "#010880"      // Bright color for very high density
+                // }
     initMap() {
         // Set up the base layer
         this.getLocation();
@@ -209,7 +284,7 @@ export default {
                 attribution:
                     'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
                 maxZoom: 18,
-                minZoom: 0
+                minZoom: 0,
                 }
             );
 
@@ -223,13 +298,7 @@ export default {
                 latField: "x",
                 lngField: "y",
                 valueField: "count",
-                 gradient: {
-                    0.2: "blue",
-                    0.4: "green",
-                    0.6: "yellow",
-                    0.8: "orange",
-                    1.0: "red",
-                },
+
             };
 
             // Create heatmap layer
@@ -244,6 +313,8 @@ export default {
             }
             // Initialize the map
             this.map = new L.map("leafletMapid", {
+                // center: new L.LatLng(this.lat_val, this.lng_val),
+                // center: new L.LatLng(50.339247, 9.902947),
                 center: new L.LatLng(this.home_lat, this.home_lang),
                 zoom: my_zoom,
             });
@@ -268,6 +339,8 @@ export default {
             this.pur="";
         }
         if(type==='bar'){
+            // alert(type);
+            // this.bar="";
             this.pur="";
         }
         this.$inertia.get(
@@ -304,10 +377,15 @@ export default {
         // Loop through the data and create markers with tooltips for each point
         this.myData.data.forEach(point => {
             let color = '#99bccb'; // Default to blue for count = 10
+            // if (point.count === 20) color = '#a7f174'; // Green for 20
+            // else if (point.count === 30) color = '#e0df6d'; // Orange for 30
+            // else if (point.count === 40) color = '#fa7d74'; // Red for 40
 
             const marker = L.circleMarker([point.x, point.y], {
                 radius: 5, // You can adjust the radius as needed
                 color: 'transparent',//color: 'transparent', // Makes the marker itself invisible
+                // colorOpacity: 0.5,
+                // fillColor: color,
                 fillOpacity: 0 // Makes the fill transparent
             });
             const tooltipContent = `
@@ -322,7 +400,23 @@ export default {
 
                 </div>
             `;
-
+                /*<strong>1.)  Is there a toilet?</strong> <u>${point._1_has_toilet || "N/A"}</u><br>
+                    <strong>2.) Is it being used?</strong> <u>${point._2_toilet_used || "N/A"}</u><br>sasas
+                    <strong>3.) Is the toilet functional and well maintained?</strong> <u>${point._3_toilet_functional || "N/A"}</u><br>
+                    <strong>4.) Is there soap and water at or near the toilet?</strong> <u>${point._4_soap || "N/A"}</u><br>
+                    <strong>5.)  Are children, elderly, and PWDs' feces and diaper properly disposed. <br>(Y/N/NA if there are no children, elderly and PWD members in the household)</strong> <u>${point._5_children || "N/A"}</u><br>
+                    <strong>6.) Are there no more feces found in open spaces in the community?</strong> <u>${point._6_spaces || "N/A"}</u><br>
+                    <strong>7.) Are there no feces, sanitary napkins, diapers and solid waste found in <br>open spaces in the community? (Y/N)</strong> <u>${point._7_feces || "N/A"}</u><br>
+                    <strong>8.) Does the household practice waste segregation and/or composting? G2</strong> <u>${point._8_composting || "N/A"}</u><br>
+                    <strong>9.) Does the household dispose their garbage properly? G2</strong> <u>${point._9_dispose || "N/A"}</u><br>
+                    <strong>10.) Have you ever emptied your septic tank or pit? (Y/N) G3</strong> <u>${point._10_emptied || "N/A"}</u><br>
+                    <strong>11.) Is there a Municipal Sewerage Treatment Facility?</strong> <u>${point._13_sewer || "N/A"}</u><br>
+                    <strong>12.) Does the household use a shared toilet? (G1)</strong> <u>${point._15_household || "N/A"}</u><br>
+                    <strong>13.) Does the household use a communal/public toilet (G1)</strong> <u>${point._16_household || "N/A"}</u><br>
+                    <strong>14.) Is the household using their own toilet?</strong> <u>${point._17_using || "N/A"}</u><br>
+                    <strong>15.) Visit the Materials Recovery Facility (MRF) in the barangay. Is the MRF Functional?</strong> <u>${point._19_materials || "N/A"}</u><br>*/
+            // // <strong>Count:</strong> ${point.count || "N/A"}
+            // // `Coordinates: (${point.x.toFixed(6)}, ${point.y.toFixed(6)})`
             marker.bindTooltip(tooltipContent, {
                 permanent: false,
                 direction: 'top'
@@ -390,9 +484,15 @@ export default {
             this.home_lang = 126.1404;
         }
         if(this.mun=='Pantukan'){
+            // this.home_lat=7.2552;
+            // this.home_lang = 126.1562;
             this.home_lat=7.17728;
             this.home_lang=126.02043;
         }
+        // if(this.mun=='Laak'){
+        //     this.home_lat=7.8771;
+        //     this.home_lang = 125.7844;
+        // }
     },
     getOptionText(value) {
       const options = {
@@ -419,7 +519,32 @@ export default {
       }
       this.selectedPoint = null;
     }
+    // generateInterpolatedData() {
+    //     // Convert your data into a GeoJSON FeatureCollection
+    //     const points = this.myData.data.map((point) => {
+    //         return turf.point([point.y, point.x], { count: point.count });
+    //     });
+    //     const geojsonPoints = turf.featureCollection(points);
 
+    //     // Create a bounding box around your data points
+    //     const bbox = turf.bbox(geojsonPoints);
+
+    //     // Generate a grid of points for interpolation
+    //     const grid = turf.pointGrid(bbox, 0.01, { units: "kilometers" });
+
+    //     // Perform IDW interpolation
+    //     const options = { gridType: "point", property: "count", units: "kilometers" };
+    //     const interpolated = turf.interpolate(geojsonPoints, grid, options);
+
+    //     // Convert interpolated points back to the heatmap data format
+    //     this.myData.data = interpolated.features.map((feature) => {
+    //         const [y, x] = feature.geometry.coordinates;
+    //         return { x, y, count: feature.properties.count || 0 };
+    //     });
+
+    //     // Reinitialize the heatmap with the new interpolated data
+    //     this.initMap();
+    // }
   },
 };
 </script>

@@ -4,12 +4,11 @@
     </Head>
     <div class="row gap-20 masonry pos-r">
         <div class="peers fxw-nw jc-sb ai-c">
-            <h3>Sanitation Issues</h3>
+            <h3>Issue Interventions</h3>
             <div class="peers">
                 <div class="peer mR-10"><input v-model="search" type="text" class="form-control form-control-sm" placeholder="Search..."></div>
                 <div class="peer mR-10">
-
-                     <Link :href="`/issue/report`" class="btn btn-primary text-white">Report Issues</Link>
+                     <Link :href="`/issue-intervention/create/${issue.id}/123jk423`" class="btn btn-primary text-white">Add Interventions</Link>
                      Results per page
                      <select v-model="count_per_page" @click="filterData">
                         <option>10</option>
@@ -19,7 +18,30 @@
                         <option>500</option>
                      </select>
                 </div>
+                <div class="peer mR-10">
+                    <Link href="/issue">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/>
+                        <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5.5 0 0 0-.708 0Z"/>
+                        </svg>
+                    </Link>
+                </div>
             </div>
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <th>ISSUE: </th>
+                    <td><u>{{ issue.issue }} &nbsp;</u></td>
+                    <th>LOCATION:</th>
+                    <td>{{ issue.barangay }}</td>
+                </tr>
+                <tr>
+                    <th>TYPE: </th>
+                    <td><u>{{ issue.type }}</u></td>
+                </tr>
+            </table>
+            <!-- {{ issue }} -->
         </div>
         <div class="masonry-sizer col-md-6"></div>
         <div class="masonry-item w-100">
@@ -31,21 +53,20 @@
                         <thead>
                             <tr class="bg-secondary text-white">
                                 <th></th>
-                                <th>Issue</th>
-                                <th>Location</th>
+
+                                <th>Intervention</th>
+                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="dat in data.data">
                                 <td></td>
-                                <td>
-                                    {{ dat.issue }}
-                                </td>
-                                <td>
-                                    <span v-if="dat.barangay">{{ dat.barangay }}</span>
-                                </td>
 
+                                <td>
+                                    <span >{{ dat.intervention.description }}</span>
+                                </td>
+                                <td>{{ setStatus(dat.status) }}</td>
                                 <td>
                                     <div class="dropdown dropstart">
                                         <button class="btn btn-secondary btn-sm action-btn" type="button"
@@ -57,15 +78,15 @@
                                             </svg>
                                         </button>
                                         <ul class="dropdown-menu action-dropdown" aria-labelledby="dropdownMenuButton1">
-                                            <li>
+                                            <!-- <li>
                                                 <Link class="dropdown-item" :href="`issue/view/${dat.id}`">View nearest response center</Link>
                                             </li>
                                             <li>
                                                 <Link class="dropdown-item" :href="`issue-intervention/view/${dat.id}`">View Interventions</Link>
-                                            </li>
+                                            </li> -->
                                             <li>
                                                 <Link class="dropdown-item"
-                                                    :href="`/issue/${dat.id}/lfdsf/23/4afoaip/edit`">
+                                                    :href="`/issue-intervention/${dat.id}/mgdsg/23/4agobip/edit`">
                                                 Edit</Link>
                                             </li>
                                             <li>
@@ -93,6 +114,7 @@ export default{
     props: {
         data: Object,
         filters: Object,
+        issue: Object
     },
     components:{
         Pagination, Filtering
@@ -143,9 +165,22 @@ export default{
         deleteIssue(id) {
             let text = "WARNING!\nAre you sure you want to delete this issue?" + id;
             if (confirm(text) == true) {
-                this.$inertia.delete("/issue/" + id);
+                this.$inertia.delete("/issue-intervention/" + id);
             }
         },
+        setStatus(stat_num){
+            switch(stat_num){
+                case "0":
+                    // alert("0")
+                    return "Added";
+                case "1":
+                    return "On-going";
+                case "2":
+                    return "Intervention Completed";
+                default:
+                    return "Unknown status"
+            }
+        }
     }
 }
 </script>

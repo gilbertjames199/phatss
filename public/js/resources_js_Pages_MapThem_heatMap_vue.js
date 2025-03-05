@@ -58,26 +58,9 @@ __webpack_require__.r(__webpack_exports__);
       selectedPoint: null
     };
   },
-  watch: {// p_mun(newValue) {
-    //     this.mun = newValue;
-    // }
-  },
-  computed: {// comp_mun() {
-    //     return this.p_mun;
-    // },
-    // comp_relrisk(){
-    //     return this.relrisk;
-    // }
-  },
-  //   beforeMounted(){
-  //     this.mun=this.p_mun;
-  //     alert(this.mun)
-  //   },
+  watch: {},
+  computed: {},
   mounted: function mounted() {
-    // alert(this.p_mun+ ' mun: '+this.mun);
-    // this.mun=this.p_mun;
-    // alert(this.p_mun+ ' mun: '+this.mun);
-    // this.relrisk=this.p_relrisk;
     this.initMap();
   },
   methods: {
@@ -93,31 +76,8 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         alert("Geolocation is not supported by this browser.");
-      } // if (navigator.geolocation) {
-      //     navigator.geolocation.getCurrentPosition((position) => {
-      //         this.lat_val = position.coords.latitude
-      //         this.lng_val = position.coords.longitude
-      //         this.initMap()
-      //     })
-      // }
-      // // this.lat_val = lat.value
-      // // this.lng_val = lng.value
-      // alert(this.lat_val);
-
+      }
     },
-    // gradient: {
-    //     0.1: '#0000ff',  // Blue for 10
-    //     0.2: '#008000',  // Green for 20
-    //     0.3: '#ffa500',  // Orange for 30
-    //     0.4: '#ff0000',  // Red for 40
-    // }
-    // gradient: {
-    //     0.0: "#0eaae8",   // Cold color for very low density
-    //     0.25: "#098abd",  // Transition from cold to slightly warm
-    //     0.5: "#096fbd",   // Moderate density
-    //     0.75: "#023ba6", // Warm color for high density
-    //     1.0: "#010880"      // Bright color for very high density
-    // }
     initMap: function initMap() {
       // Set up the base layer
       this.getLocation();
@@ -137,7 +97,14 @@ __webpack_require__.r(__webpack_exports__);
           useLocalExtrema: true,
           latField: "x",
           lngField: "y",
-          valueField: "count"
+          valueField: "count",
+          gradient: {
+            0.2: "blue",
+            0.4: "green",
+            0.6: "yellow",
+            0.8: "orange",
+            1.0: "red"
+          }
         }; // Create heatmap layer
 
         this.heatmapLayer = new (leaflet_heatmap__WEBPACK_IMPORTED_MODULE_0___default())(cfg); //SET Coordinates
@@ -153,8 +120,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
         this.map = new (leaflet__WEBPACK_IMPORTED_MODULE_1___default().map)("leafletMapid", {
-          // center: new L.LatLng(this.lat_val, this.lng_val),
-          // center: new L.LatLng(50.339247, 9.902947),
           center: new (leaflet__WEBPACK_IMPORTED_MODULE_1___default().LatLng)(this.home_lat, this.home_lang),
           zoom: my_zoom
         }); // Set data and add layers to the map
@@ -176,8 +141,6 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (type === 'bar') {
-        // alert(type);
-        // this.bar="";
         this.pur = "";
       }
 
@@ -212,39 +175,16 @@ __webpack_require__.r(__webpack_exports__);
       // Loop through the data and create markers with tooltips for each point
       this.myData.data.forEach(function (point) {
         var color = '#99bccb'; // Default to blue for count = 10
-        // if (point.count === 20) color = '#a7f174'; // Green for 20
-        // else if (point.count === 30) color = '#e0df6d'; // Orange for 30
-        // else if (point.count === 40) color = '#fa7d74'; // Red for 40
 
         var marker = leaflet__WEBPACK_IMPORTED_MODULE_1___default().circleMarker([point.x, point.y], {
           radius: 5,
           // You can adjust the radius as needed
           color: 'transparent',
           //color: 'transparent', // Makes the marker itself invisible
-          // colorOpacity: 0.5,
-          // fillColor: color,
           fillOpacity: 0 // Makes the fill transparent
 
         });
         var tooltipContent = "\n                <div style=\"text-align: left; font-size: 14px; line-height: 1.5;\">\n                    <span style='text-align: center'><h4>Household Details</h4></span><hr>\n                    <strong>Name:</strong> <u>".concat(point.name || "N/A", "</u><br>\n                    <strong>Address:</strong> <u>").concat(point.address || "N/A", "</u><br>\n                    <strong>Precision:</strong> <u>").concat(point.precision || "N/A", "</u><br>\n                    <strong>Risk Level:</strong> <u>").concat(point.risk_level || "N/A", "</u><br>\n                    <strong>Relative Risk Assessment:</strong> <u>").concat(point.relative_risk_assessment || "N/A", "</u><br>\n                    <strong>Coordinates:</strong> <u>(").concat(point.x.toFixed(6), ", ").concat(point.y.toFixed(6), ")</u><br>\n\n                </div>\n            ");
-        /*<strong>1.)  Is there a toilet?</strong> <u>${point._1_has_toilet || "N/A"}</u><br>
-            <strong>2.) Is it being used?</strong> <u>${point._2_toilet_used || "N/A"}</u><br>sasas
-            <strong>3.) Is the toilet functional and well maintained?</strong> <u>${point._3_toilet_functional || "N/A"}</u><br>
-            <strong>4.) Is there soap and water at or near the toilet?</strong> <u>${point._4_soap || "N/A"}</u><br>
-            <strong>5.)  Are children, elderly, and PWDs' feces and diaper properly disposed. <br>(Y/N/NA if there are no children, elderly and PWD members in the household)</strong> <u>${point._5_children || "N/A"}</u><br>
-            <strong>6.) Are there no more feces found in open spaces in the community?</strong> <u>${point._6_spaces || "N/A"}</u><br>
-            <strong>7.) Are there no feces, sanitary napkins, diapers and solid waste found in <br>open spaces in the community? (Y/N)</strong> <u>${point._7_feces || "N/A"}</u><br>
-            <strong>8.) Does the household practice waste segregation and/or composting? G2</strong> <u>${point._8_composting || "N/A"}</u><br>
-            <strong>9.) Does the household dispose their garbage properly? G2</strong> <u>${point._9_dispose || "N/A"}</u><br>
-            <strong>10.) Have you ever emptied your septic tank or pit? (Y/N) G3</strong> <u>${point._10_emptied || "N/A"}</u><br>
-            <strong>11.) Is there a Municipal Sewerage Treatment Facility?</strong> <u>${point._13_sewer || "N/A"}</u><br>
-            <strong>12.) Does the household use a shared toilet? (G1)</strong> <u>${point._15_household || "N/A"}</u><br>
-            <strong>13.) Does the household use a communal/public toilet (G1)</strong> <u>${point._16_household || "N/A"}</u><br>
-            <strong>14.) Is the household using their own toilet?</strong> <u>${point._17_using || "N/A"}</u><br>
-            <strong>15.) Visit the Materials Recovery Facility (MRF) in the barangay. Is the MRF Functional?</strong> <u>${point._19_materials || "N/A"}</u><br>*/
-        // // <strong>Count:</strong> ${point.count || "N/A"}
-        // // `Coordinates: (${point.x.toFixed(6)}, ${point.y.toFixed(6)})`
-
         marker.bindTooltip(tooltipContent, {
           permanent: false,
           direction: 'top'
@@ -323,15 +263,9 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (this.mun == 'Pantukan') {
-        // this.home_lat=7.2552;
-        // this.home_lang = 126.1562;
         this.home_lat = 7.17728;
         this.home_lang = 126.02043;
-      } // if(this.mun=='Laak'){
-      //     this.home_lat=7.8771;
-      //     this.home_lang = 125.7844;
-      // }
-
+      }
     },
     getOptionText: function getOptionText(value) {
       var options = {
@@ -358,28 +292,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.selectedPoint = null;
-    } // generateInterpolatedData() {
-    //     // Convert your data into a GeoJSON FeatureCollection
-    //     const points = this.myData.data.map((point) => {
-    //         return turf.point([point.y, point.x], { count: point.count });
-    //     });
-    //     const geojsonPoints = turf.featureCollection(points);
-    //     // Create a bounding box around your data points
-    //     const bbox = turf.bbox(geojsonPoints);
-    //     // Generate a grid of points for interpolation
-    //     const grid = turf.pointGrid(bbox, 0.01, { units: "kilometers" });
-    //     // Perform IDW interpolation
-    //     const options = { gridType: "point", property: "count", units: "kilometers" };
-    //     const interpolated = turf.interpolate(geojsonPoints, grid, options);
-    //     // Convert interpolated points back to the heatmap data format
-    //     this.myData.data = interpolated.features.map((feature) => {
-    //         const [y, x] = feature.geometry.coordinates;
-    //         return { x, y, count: feature.properties.count || 0 };
-    //     });
-    //     // Reinitialize the heatmap with the new interpolated data
-    //     this.initMap();
-    // }
-
+    }
   }
 });
 
@@ -652,7 +565,7 @@ var _hoisted_67 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_68 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
 var _hoisted_69 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "1.) Is there a toilet?", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Cluster Size:", -1
   /* HOISTED */
   );
 });
@@ -660,7 +573,7 @@ var _hoisted_69 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_70 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
 var _hoisted_71 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "2.) Is it being used?", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "1.) Is there a toilet?", -1
   /* HOISTED */
   );
 });
@@ -668,7 +581,7 @@ var _hoisted_71 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_72 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
 var _hoisted_73 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "3.) Is the toilet functional and well maintained?", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "2.) Is it being used?", -1
   /* HOISTED */
   );
 });
@@ -676,7 +589,7 @@ var _hoisted_73 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_74 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
 var _hoisted_75 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "4.) Is there soap and water at or near the toilet?", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "3.) Is the toilet functional and well maintained?", -1
   /* HOISTED */
   );
 });
@@ -684,7 +597,7 @@ var _hoisted_75 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_76 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
 var _hoisted_77 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("5.) Are children, elderly, and PWDs' feces and diaper properly disposed? "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("(Y/N/NA if there are no children, elderly, and PWD members in the household)")], -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "4.) Is there soap and water at or near the toilet?", -1
   /* HOISTED */
   );
 });
@@ -692,7 +605,7 @@ var _hoisted_77 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_78 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
 var _hoisted_79 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "6.) Are there no more feces found in open spaces in the community?", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("5.) Are children, elderly, and PWDs' feces and diaper properly disposed? "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("(Y/N/NA if there are no children, elderly, and PWD members in the household)")], -1
   /* HOISTED */
   );
 });
@@ -700,7 +613,7 @@ var _hoisted_79 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_80 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
 var _hoisted_81 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("7.) Are there no feces, sanitary napkins, diapers, and solid waste found in "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("open spaces in the community? (Y/N)")], -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "6.) Are there no more feces found in open spaces in the community?", -1
   /* HOISTED */
   );
 });
@@ -708,7 +621,7 @@ var _hoisted_81 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_82 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
 var _hoisted_83 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "8.) Does the household practice waste segregation and/or composting? G2", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("7.) Are there no feces, sanitary napkins, diapers, and solid waste found in "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("open spaces in the community? (Y/N)")], -1
   /* HOISTED */
   );
 });
@@ -716,7 +629,7 @@ var _hoisted_83 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_84 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
 var _hoisted_85 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "9.) Does the household dispose of their garbage properly? G2", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "8.) Does the household practice waste segregation and/or composting? G2", -1
   /* HOISTED */
   );
 });
@@ -724,7 +637,7 @@ var _hoisted_85 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_86 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
 var _hoisted_87 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "10.) Have you ever emptied your septic tank or pit? (Y/N) G3", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "9.) Does the household dispose of their garbage properly? G2", -1
   /* HOISTED */
   );
 });
@@ -732,7 +645,7 @@ var _hoisted_87 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_88 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
 var _hoisted_89 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "11.) Is there a Municipal Sewerage Treatment Facility?", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "10.) Have you ever emptied your septic tank or pit? (Y/N) G3", -1
   /* HOISTED */
   );
 });
@@ -740,7 +653,7 @@ var _hoisted_89 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_90 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
 var _hoisted_91 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "12.) Does the household use a shared toilet? (G1)", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "11.) Is there a Municipal Sewerage Treatment Facility?", -1
   /* HOISTED */
   );
 });
@@ -748,7 +661,7 @@ var _hoisted_91 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_92 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
 var _hoisted_93 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "13.) Does the household use a communal/public toilet? (G1)", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "12.) Does the household use a shared toilet? (G1)", -1
   /* HOISTED */
   );
 });
@@ -756,7 +669,7 @@ var _hoisted_93 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_94 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
 var _hoisted_95 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "14.) Is the household using their own toilet?", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "13.) Does the household use a communal/public toilet? (G1)", -1
   /* HOISTED */
   );
 });
@@ -764,7 +677,7 @@ var _hoisted_95 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_96 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
 var _hoisted_97 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "15.) Visit the Materials Recovery Facility (MRF) in the barangay. Is the MRF Functional?", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "14.) Is the household using their own toilet?", -1
   /* HOISTED */
   );
 });
@@ -772,18 +685,26 @@ var _hoisted_97 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_98 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
 var _hoisted_99 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "15.) Visit the Materials Recovery Facility (MRF) in the barangay. Is the MRF Functional?", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_100 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
+
+var _hoisted_101 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", null, null, -1
   /* HOISTED */
   );
 });
 
-var _hoisted_100 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_102 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p>No point selected. Click on a point in the map to view details.</p> ")], -1
   /* HOISTED */
   );
 });
 
-var _hoisted_101 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_103 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "col-md-3"
   }, null, -1
@@ -792,9 +713,9 @@ var _hoisted_101 = /*#__PURE__*/_withScopeId(function () {
 });
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div>\n        <div class=\"row gap-5 masonry pos-r\">\n\n            <div class=\"peers fxw-nw jc-sb ai-c\">\n\n            </div>\n        </div>\n\n    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ count }} mun: {{ mun }} &nbsp;p_mun: {{ p_mun }} "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("MAP"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button @click=\"clearSelection\" class=\"btn btn-danger text-white mt-2\" v-if=\"selectedPoint\">Clear Selection</button> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getOptionText($data.my_filter)), 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("MAP"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getOptionText($data.my_filter)), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ municipalities }} "), _hoisted_10, _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <select class=\"form-control\"  @change=\"filter_me('mun')\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ municipalities }} "), _hoisted_10, _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     "class": "form-control",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $data.mun = $event;
@@ -808,7 +729,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     );
   }), 256
   /* UNKEYED_FRAGMENT */
-  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <option>Compostela</option>\n                                <option>Laak</option>\n                                <option>Mabini</option>\n                                <option>Maco</option>\n                                <option>Maragusan</option>\n                                <option>Mawab</option>\n                                <option>Monkayo</option>\n                                <option>Montevista</option>\n                                <option>Nabunturan</option>\n                                <option>New Bataan</option>\n                                <option>Pantukan</option> ")], 544
+  ))], 544
   /* HYDRATE_EVENTS, NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.mun]]), _hoisted_13, _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     "class": "form-control",
@@ -852,7 +773,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, _hoisted_26, 544
   /* HYDRATE_EVENTS, NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.relrisk]]), _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button class=\"btn btn-danger text-white\" @click=\"clearFilter\">Clear Filters</button> "), _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.relrisk]]), _hoisted_27, _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     "class": "form-control",
     "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
       return $data.my_filter = $event;
@@ -887,39 +808,39 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* TEXT */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_67, _hoisted_68, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, "(" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint.x.toFixed(6)) + ", " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint.y.toFixed(6)) + ")", 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p><strong>Relative Risk Assessment:</strong> <u>{{ selectedPoint.relative_risk_assessment }}</u></p>\n                                <p><strong>Coordinates:</strong> <u>({{ selectedPoint.x.toFixed(6) }}, {{ selectedPoint.y.toFixed(6) }})</u></p> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_69, _hoisted_70, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._1_has_toilet), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_69, _hoisted_70, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint.cluster_size), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_71, _hoisted_72, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._2_toilet_used), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p><strong>Relative Risk Assessment:</strong> <u>{{ selectedPoint.relative_risk_assessment }}</u></p>\n                                <p><strong>Coordinates:</strong> <u>({{ selectedPoint.x.toFixed(6) }}, {{ selectedPoint.y.toFixed(6) }})</u></p> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_71, _hoisted_72, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._1_has_toilet), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_73, _hoisted_74, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._3_toilet_functional), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_73, _hoisted_74, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._2_toilet_used), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_75, _hoisted_76, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._4_soap), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_75, _hoisted_76, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._3_toilet_functional), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_77, _hoisted_78, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._5_children), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_77, _hoisted_78, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._4_soap), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_79, _hoisted_80, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._6_spaces), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_79, _hoisted_80, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._5_children), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_81, _hoisted_82, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._7_feces), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_81, _hoisted_82, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._6_spaces), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_83, _hoisted_84, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._8_composting), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_83, _hoisted_84, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._7_feces), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_85, _hoisted_86, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._9_dispose), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_85, _hoisted_86, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._8_composting), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_87, _hoisted_88, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._10_emptied), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_87, _hoisted_88, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._9_dispose), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_89, _hoisted_90, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._13_sewer), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_89, _hoisted_90, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._10_emptied), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_91, _hoisted_92, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._15_household), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_91, _hoisted_92, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._13_sewer), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_93, _hoisted_94, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._16_household), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_93, _hoisted_94, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._15_household), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_95, _hoisted_96, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._17_using), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_95, _hoisted_96, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._16_household), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_97, _hoisted_98, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._19_materials), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_97, _hoisted_98, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._17_using), 1
   /* TEXT */
-  )]), _hoisted_99, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p><strong>1.)  Is there a toilet?</strong> <u>{{ point._1_has_toilet || \"N/A\" }}</u></p>\n                                <p><strong>2.) Is it being used?</strong> <u>{{ point._2_toilet_used || \"N/A\" }}</u></p>\n                                <p><strong>3.) Is the toilet functional and well maintained?</strong> <u>{{ point._3_toilet_functional || \"N/A\" }}</u></p>\n                                <p><strong>4.) Is there soap and water at or near the toilet?</strong> <u>{{ point._4_soap || \"N/A\" }}</u></p>\n                                <p><strong>5.)  Are children, elderly, and PWDs' feces and diaper properly disposed? <br>(Y/N/NA if there are no children, elderly, and PWD members in the household)</strong> <u>{{ point._5_children || \"N/A\" }}</u></p>\n                                <p><strong>6.) Are there no more feces found in open spaces in the community?</strong> <u>{{ point._6_spaces || \"N/A\" }}</u></p>\n                                <p><strong>7.) Are there no feces, sanitary napkins, diapers, and solid waste found in <br>open spaces in the community? (Y/N)</strong> <u>{{ point._7_feces || \"N/A\" }}</u></p>\n                                <p><strong>8.) Does the household practice waste segregation and/or composting? G2</strong> <u>{{ point._8_composting || \"N/A\" }}</u></p>\n                                <p><strong>9.) Does the household dispose of their garbage properly? G2</strong> <u>{{ point._9_dispose || \"N/A\" }}</u></p>\n                                <p><strong>10.) Have you ever emptied your septic tank or pit? (Y/N) G3</strong> <u>{{ point._10_emptied || \"N/A\" }}</u></p>\n                                <p><strong>11.) Is there a Municipal Sewerage Treatment Facility?</strong> <u>{{ point._13_sewer || \"N/A\" }}</u></p>\n                                <p><strong>12.) Does the household use a shared toilet? (G1)</strong> <u>{{ point._15_household || \"N/A\" }}</u></p>\n                                <p><strong>13.) Does the household use a communal/public toilet? (G1)</strong> <u>{{ point._16_household || \"N/A\" }}</u></p>\n                                <p><strong>14.) Is the household using their own toilet?</strong> <u>{{ point._17_using || \"N/A\" }}</u></p>\n                                <p><strong>15.) Visit the Materials Recovery Facility (MRF) in the barangay. Is the MRF Functional?</strong> <u>{{ point._19_materials || \"N/A\" }}</u></p> ")]), _hoisted_100])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("FILTERS"), _hoisted_101])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" myData: {{ myData }}\n  p_data: {{ p_data }} ")], 2112
-  /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
-  );
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_99, _hoisted_100, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._19_materials), 1
+  /* TEXT */
+  )]), _hoisted_101]), _hoisted_102])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("FILTERS"), _hoisted_103])])]);
 }
 
 /***/ }),

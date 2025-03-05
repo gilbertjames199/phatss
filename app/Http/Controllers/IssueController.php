@@ -110,6 +110,7 @@ class IssueController extends Controller
     public function edit(Request $request, $id)
     {
         $data = Issue::where("id", $id)->first();
+        // dd($data);
         $barangay = DB::table('barangays')
             ->select(DB::raw('(barangays.barangay)'), 'municipalities.municipality')
             ->join('municipalities', 'barangays.muni_filter', "municipalities.code")
@@ -141,5 +142,12 @@ class IssueController extends Controller
         $is->user_id = auth()->user()->id;
         $is->save();
         return redirect('issue')->with('message', "Issue successfully reported");
+    }
+
+    public function destroy(Request $request, $id)
+    {
+        $dat = $this->model->findOrFail($id);
+        $dat->delete();
+        return back()->with('message', 'Successfully deleted data');
     }
 }
