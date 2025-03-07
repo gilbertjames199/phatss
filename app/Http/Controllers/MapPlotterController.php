@@ -154,6 +154,16 @@ class MapPlotterController extends Controller
         // $dataG2 = $this->dataGetter($request, 'Basic Sanitation G2');
         // $dataG3 = $this->dataGetter($request, 'Safely Managed G3');
         // ->take(40500)
+        $cluster_size = '0.0022';
+        if (!empty($request->mun)) {
+            $cluster_size = '0.0009'; // Approx. 100m
+        }
+        if (!empty($request->bar)) {
+            $cluster_size = '0.00018'; // Approx. 20m
+        }
+        if (!empty($request->pur)) {
+            $cluster_size = '0.00009'; // Approx. 10m
+        }
         $data = $data->selectRaw("
                MIN(_Location_latitude) AS _Location_latitude,
                 MIN(_Location_longitude) AS _Location_longitude,
@@ -180,8 +190,8 @@ class MapPlotterController extends Controller
                 MIN(_19_materials) AS _19_materials,
                 MIN(risk_level) AS risk_level,
                 MIN(relative_risk_assessment) AS relative_risk_assessment,
-                FLOOR(_Location_latitude / 0.0009) + RAND() AS cluster_lat,
-                FLOOR(_Location_longitude / (0.0009 * COS(RADIANS(_Location_latitude)))) + RAND() AS cluster_long,
+                FLOOR(_Location_latitude / " . $cluster_size . ") AS cluster_lat,
+                FLOOR(_Location_longitude / (" . $cluster_size . " * COS(RADIANS(_Location_latitude)))) AS cluster_long,
                 COUNT(*) AS cluster_size,
                 GROUP_CONCAT(id) AS household_ids
             ")

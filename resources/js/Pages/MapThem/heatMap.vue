@@ -94,8 +94,6 @@
                                 <p><strong>Relative Risk Assessment:</strong> <u>{{ selectedPoint.relative_risk_assessment || "N/A" }}</u></p>
                                 <p><strong>Coordinates:</strong> <u>({{ selectedPoint.x.toFixed(6) }}, {{ selectedPoint.y.toFixed(6) }})</u></p>
                                 <p><strong>Cluster Size:</strong> <u>{{ selectedPoint.cluster_size }}</u></p>
-                                <!-- <p><strong>Relative Risk Assessment:</strong> <u>{{ selectedPoint.relative_risk_assessment }}</u></p>
-                                <p><strong>Coordinates:</strong> <u>({{ selectedPoint.x.toFixed(6) }}, {{ selectedPoint.y.toFixed(6) }})</u></p> -->
                                 <p><strong>1.)  Is there a toilet?</strong> <u>{{ selectedPoint._1_has_toilet }}</u></p>
                                 <p><strong>2.) Is it being used?</strong> <u>{{ selectedPoint._2_toilet_used }}</u></p>
                                 <p><strong>3.) Is the toilet functional and well maintained?</strong> <u>{{ selectedPoint._3_toilet_functional }}</u></p>
@@ -115,9 +113,7 @@
 
 
                             </div>
-                            <div >
-                                <!-- <p>No point selected. Click on a point in the map to view details.</p> -->
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -218,6 +214,8 @@ export default {
                 radius: 10,
                 blur: 1,
                 maxOpacity: 0.5,
+                // color: "transparent",
+                // fillOpacity: 0,
                 scaleRadius: false,
                 useLocalExtrema: true,
                 latField: "x",
@@ -286,8 +284,6 @@ export default {
                     replace: true,
                     onSuccess: () => {
                         window.location.reload();
-                        // this.mun=this.comp_mun;
-                        // this.relrisk=this.comp_relrisk;
                     },
                 }
             );
@@ -333,10 +329,20 @@ export default {
     },
     addMarkers() {
       this.myData.data.forEach(point => {
-        const marker = L.circleMarker([point.x, point.y], {
+        let color = "blue"; // Default color
+        // const radius = Math.min(5 + point.cluster_size * 2, 20);
+        // const radius = Math.min(10 + point.cluster_size * 10, 500);
+        // if (parseFloat(point.cluster_size) > 5) color = "blue";
+        // if (parseFloat(point.cluster_size) > 10) color = "green";
+        // if (parseFloat(point.cluster_size) > 20) color = "yellow";
+        // if (parseFloat(point.cluster_size) > 50) color = "orange";
+        // if (parseFloat(point.cluster_size) > 100) color = "red";
+        // const marker = L.circleMarker([point.x, point.y], {
+        const marker = L.circle([point.x, point.y], {
           radius: 5,
           color: "transparent",
           fillOpacity: 0
+        //   weight: 0
         }).addTo(this.map);
 
         marker.on("click", () => {

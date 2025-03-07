@@ -93,6 +93,8 @@ __webpack_require__.r(__webpack_exports__);
           radius: 10,
           blur: 1,
           maxOpacity: 0.5,
+          // color: "transparent",
+          // fillOpacity: 0,
           scaleRadius: false,
           useLocalExtrema: true,
           latField: "x",
@@ -156,8 +158,7 @@ __webpack_require__.r(__webpack_exports__);
         preserveState: true,
         replace: true,
         onSuccess: function onSuccess() {
-          window.location.reload(); // this.mun=this.comp_mun;
-          // this.relrisk=this.comp_relrisk;
+          window.location.reload();
         }
       });
     },
@@ -196,10 +197,21 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.myData.data.forEach(function (point) {
-        var marker = leaflet__WEBPACK_IMPORTED_MODULE_1___default().circleMarker([point.x, point.y], {
+        var color = "blue"; // Default color
+        // const radius = Math.min(5 + point.cluster_size * 2, 20);
+        // const radius = Math.min(10 + point.cluster_size * 10, 500);
+        // if (parseFloat(point.cluster_size) > 5) color = "blue";
+        // if (parseFloat(point.cluster_size) > 10) color = "green";
+        // if (parseFloat(point.cluster_size) > 20) color = "yellow";
+        // if (parseFloat(point.cluster_size) > 50) color = "orange";
+        // if (parseFloat(point.cluster_size) > 100) color = "red";
+        // const marker = L.circleMarker([point.x, point.y], {
+
+        var marker = leaflet__WEBPACK_IMPORTED_MODULE_1___default().circle([point.x, point.y], {
           radius: 5,
           color: "transparent",
-          fillOpacity: 0
+          fillOpacity: 0 //   weight: 0
+
         }).addTo(_this3.map);
         marker.on("click", function () {
           if (_this3.selectedMarker) {
@@ -699,12 +711,6 @@ var _hoisted_101 = /*#__PURE__*/_withScopeId(function () {
 });
 
 var _hoisted_102 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p>No point selected. Click on a point in the map to view details.</p> ")], -1
-  /* HOISTED */
-  );
-});
-
-var _hoisted_103 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "col-md-3"
   }, null, -1
@@ -810,7 +816,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* TEXT */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_69, _hoisted_70, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint.cluster_size), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p><strong>Relative Risk Assessment:</strong> <u>{{ selectedPoint.relative_risk_assessment }}</u></p>\n                                <p><strong>Coordinates:</strong> <u>({{ selectedPoint.x.toFixed(6) }}, {{ selectedPoint.y.toFixed(6) }})</u></p> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_71, _hoisted_72, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._1_has_toilet), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_71, _hoisted_72, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._1_has_toilet), 1
   /* TEXT */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_73, _hoisted_74, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._2_toilet_used), 1
   /* TEXT */
@@ -840,7 +846,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* TEXT */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_99, _hoisted_100, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("u", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedPoint._19_materials), 1
   /* TEXT */
-  )]), _hoisted_101]), _hoisted_102])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("FILTERS"), _hoisted_103])])]);
+  )]), _hoisted_101])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("FILTERS"), _hoisted_102])])]);
 }
 
 /***/ }),

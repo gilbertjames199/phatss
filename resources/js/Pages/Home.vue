@@ -160,6 +160,20 @@
 
                 </div>
 
+                <!-- RISK ASSESSMENT -CHART -->
+                <div class="col-md-6 ">
+                    <div class="layers bd bgc-white p-20">
+                        <div class="layer w-100 mB-10">
+                            <!-- <img src="/images/trend_graph.png" alt="Forecasting Image" class="img-fluid" /> -->
+                             <!--/images/pho_ddo.mp4 file:///C:/xampp/htdocs/PhATSS_ML/PhATSS/public/images/pho_ddo.mp4 -->
+                            <video controls width="100%">
+                            <source src="http://eservices.dvodeoro.ph:5000/pho_ddo" type="video/mp4" />
+                            Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <!-- <form @submit.prevent="submit">
@@ -191,6 +205,8 @@ import RiskAssessmentChart from '@/Shared/BarChart.vue';
 import { ref } from 'vue';
 
 const componentKey=ref(0);
+const videoUrl = "/images/pho_ddo.mp4"; // Relative path to the video
+
 export default {
     props: {
         with_toilets: Number,
