@@ -70,4 +70,8 @@ class DashBoardController extends Controller
             ],
         ]);
     }
+    public function videos(Request $request)
+    {
+        return inertia('Videos/Index');
+    }
 }

@@ -64,7 +64,7 @@
                 </div>
             </div>
         </div>
-        {{ auth }}
+        <!-- {{ auth }} -->
         <!-- <PermissionsModal v-if="displayModal" @close-modal-event="hideModal" >
             permission array
             My Value {{ form.my_id }}

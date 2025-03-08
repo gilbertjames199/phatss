@@ -3,79 +3,22 @@
         <div class="masonry-item w-100">
             <div class="row gap-20">
                 <!--MAP-->
-                <h4>{{ getOptionText(my_filter) }}</h4>
+                <div class="peers fxw-nw jc-sb ai-c">
+                    <h4>{{ getOptionText(my_filter) }}</h4>
+                    <div class="peers">
+                        <div class="peer">
+                            <!--<Link class="btn btn-primary btn-sm" href="/users/create">Add User</Link>-->
+                            <button class="btn btn-primary btn-sm mL-2 text-white" @click="showFilter()">Filter</button>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-md-9">
 
                     <div class="layers bd bgc-white p-20">
                         <div id="leafletMapid" class="mapdiv border border-dark"></div>
                     </div>
-                    <div class="layers bd bgc-white p-20">
-                        <div class="layer w-100 mB-10">
-                            <h4>FILTERS<br></h4>
-                            <hr>
-                            <!-- {{ municipalities }} -->
-                            <b>Municipality:</b> &nbsp;
-                            <select class="form-control" v-model="mun" @change="filter_me('mun')">
-                                <option></option>
-                                <option v-for="municipality in municipalities">
-                                    {{ municipality }}
-                                </option>
-                            </select>
-                            &nbsp;
-                            <b>Barangays: </b>
-                            <select class="form-control"  v-model="bar" @change="filter_me('bar')">
-                                <option></option>
-                                <option v-for="barangay in barangays">
-                                    {{ barangay }}
-                                </option>
-                            </select>
-                            &nbsp;
-                            <b>Puroks: </b>
-                            <select class="form-control"  v-model="pur" @change="filter_me('pur')">
-                                <option></option>
-                                <option v-for="purok in puroks">
-                                    {{ purok }}
-                                </option>
-                            </select>
-                            &nbsp;
-                            <b>Type: </b>
-                            <select class="form-control" v-model="relrisk" @change="filter_me('relrisk')">
-                                <option></option>
-                                <option>G0</option>
-                                <option>G1</option>
-                                <option>G2</option>
-                                <option>G3</option>
-                            </select>
-                            <br>
 
-                            <b>Additional Filters: </b>
-                            <select class="form-control" v-model="my_filter" @change="filter_me('relrisk')">
-                                <option></option>
-                                <option value="_1_has_toilet">Households with no toilet</option>
-                                <option value="_2_toilet_used">Households with toilet but not being used</option>
-                                <option value="_3_toilet_functional">Households with toilet but is not functional/well-maintained</option>
-                                <option value="_4_soap">Households with no access to nearby soap and water</option>
-                                <option value="_5_children">Children, elderly, or PWD's feces and diapers not properly disposed</option>
-                                <option value="_6_spaces">Feces found in open spaces in the community</option>
-                                <option value="_7_feces">Feces, sanitary napkins, diapers, and solid waste found in open spaces in the community</option>
-                                <option value="_8_composting">Households that do not practice segregation or composting</option>
-                                <option value="_9_dispose">Households that do not dispose their garbage properly</option>
-                                <option value="_10_emptied">Have not emptied their septic tank</option>
-                                <option value="_15_household">Households that use a shared toilet</option>
-                                <option value="_16_household">Households that use a communal/public toilet</option>
-                                <option value="_17_using">Households not using their own toilet</option>
-                            </select>
-                            <br>
-                            <button class="btn btn-danger text-white" @click="clearFilter">Clear Filters</button>
-                            <hr>
-                            <span >
-                                <h4>Additional Details</h4>
-                                <b>Count: </b> <u>{{ format_number(count,0,true) }}</u>
-                            </span>
-
-                        </div>
-
-                    </div>
                 </div>
                 <div class="col-md-3" v-if="selectedPoint">
                     <div class="layers bd bgc-white p-20">
@@ -117,6 +60,68 @@
                         </div>
                     </div>
                 </div>
+                <filtering v-if="filter" @closeFilter="filter=false" title="HEATMAP FILTERS">
+                    <h4>FILTERS<br></h4>
+                    <hr>
+                    <b>Municipality:</b> &nbsp;
+                    <select class="form-control" v-model="mun" @change="filter_me('mun')">
+                        <option></option>
+                        <option v-for="municipality in municipalities">
+                            {{ municipality }}
+                        </option>
+                    </select>
+                    &nbsp;
+                    <b>Barangays: </b>
+                    <select class="form-control"  v-model="bar" @change="filter_me('bar')">
+                        <option></option>
+                        <option v-for="barangay in barangays">
+                            {{ barangay }}
+                        </option>
+                    </select>
+                    &nbsp;
+                    <b>Puroks: </b>
+                    <select class="form-control"  v-model="pur" @change="filter_me('pur')">
+                        <option></option>
+                        <option v-for="purok in puroks">
+                            {{ purok }}
+                        </option>
+                    </select>
+                    &nbsp;
+                    <b>Type: </b>
+                    <select class="form-control" v-model="relrisk" @change="filter_me('relrisk')">
+                        <option></option>
+                        <option>G0</option>
+                        <option>G1</option>
+                        <option>G2</option>
+                        <option>G3</option>
+                    </select>
+                    <br>
+
+                    <b>Additional Filters: </b>
+                    <select class="form-control" v-model="my_filter" @change="filter_me('relrisk')">
+                        <option></option>
+                        <option value="_1_has_toilet">Households with no toilet</option>
+                        <option value="_2_toilet_used">Households with toilet but not being used</option>
+                        <option value="_3_toilet_functional">Households with toilet but is not functional/well-maintained</option>
+                        <option value="_4_soap">Households with no access to nearby soap and water</option>
+                        <option value="_5_children">Children, elderly, or PWD's feces and diapers not properly disposed</option>
+                        <option value="_6_spaces">Feces found in open spaces in the community</option>
+                        <option value="_7_feces">Feces, sanitary napkins, diapers, and solid waste found in open spaces in the community</option>
+                        <option value="_8_composting">Households that do not practice segregation or composting</option>
+                        <option value="_9_dispose">Households that do not dispose their garbage properly</option>
+                        <option value="_10_emptied">Have not emptied their septic tank</option>
+                        <option value="_15_household">Households that use a shared toilet</option>
+                        <option value="_16_household">Households that use a communal/public toilet</option>
+                        <option value="_17_using">Households not using their own toilet</option>
+                    </select>
+                    <br>
+                    <button class="btn btn-danger text-white" @click="clearFilter">Clear Filters</button>
+                    <hr>
+                    <span >
+                        <h4>Additional Details</h4>
+                        <b>Count: </b> <u>{{ format_number(count,0,true) }}</u>
+                    </span>
+                </filtering>
                 <!--FILTERS-->
                 <div class="col-md-3">
 
@@ -127,6 +132,7 @@
 </template>
 
 <script>
+import Filtering from "@/Shared/FilterT";
 import HeatmapOverlay from "leaflet-heatmap";
 import L from "leaflet";
 // import * as turf from "@turf/turf";
@@ -169,8 +175,10 @@ export default {
       home_lang: null,
       home_lat: null,
       selectedPoint: null,
+      filter: false,
     };
   },
+  components: { Filtering },
   watch: {
   },
   computed: {
@@ -424,7 +432,10 @@ export default {
         this.selectedMarker = null;
       }
       this.selectedPoint = null;
-    }
+    },
+    showFilter() {
+        this.filter = !this.filter
+    },
 
   },
 };

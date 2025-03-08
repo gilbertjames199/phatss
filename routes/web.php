@@ -183,6 +183,10 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('/reg')->group(function () {
         Route::get('/analyze', [HouseHoldController::class, 'analyze_reg']);
     });
+    //Videos
+    Route::prefix('/videos')->group(function () {
+        Route::get('/', [DashBoardController::class, 'videos']);
+    });
     //HOUSEHOLDS
     Route::prefix('/households')->group(function () {
         Route::get('/', [HouseHoldController::class, 'index']);

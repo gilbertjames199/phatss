@@ -6,7 +6,7 @@
         <div class="row" style="width: 380px;">
             <div class="bgc-white">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLiveLabel">Filtering</h5>
+                    <h5 class="modal-title" id="exampleModalLiveLabel">{{ title }}</h5>
                     <button type="button" class="btn-close" @click="$emit('closeFilter')"></button>
                 </div>
                 <div class="modal-body">
