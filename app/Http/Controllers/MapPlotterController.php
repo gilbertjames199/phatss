@@ -210,7 +210,7 @@ class MapPlotterController extends Controller
                 return [
                     'x' => (float) $item->_Location_latitude,
                     'y' => (float) $item->_Location_longitude,
-                    'count' => $count,
+                    'count' =>  $item->cluster_size,
                     'name' => $item->LAST_NAME . ', ' . $item->FIRST_NAME . ' ' . $item->MIDDLENAME,
                     'address' => 'purok-' . $item->purok_sitio . ', ' . $item->barangay,
                     'precision' => $item->_Location_precision,
