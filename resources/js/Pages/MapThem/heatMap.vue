@@ -218,10 +218,13 @@ export default {
             );
 
             // Heatmap configuration
+
             const cfg = {
                 radius: 10,
                 blur: 1,
-                maxOpacity: 0.5,
+                maxOpacity: 8,
+                minOpacity: 0.2,
+                // maxOpacity: 0.5,
                 // color: "transparent",
                 // fillOpacity: 0,
                 scaleRadius: false,
@@ -230,11 +233,11 @@ export default {
                 lngField: "y",
                 valueField: "count",
                  gradient: {
-                    0.2: "blue",
-                    0.4: "green",
-                    0.6: "yellow",
-                    0.8: "orange",
-                    1.0: "red",
+                    0.2: "#0000FF", // Blue
+                    0.4: "#00FF00", // Green
+                    0.6: "#FFFF00", // Yellow
+                    0.8: "#FFA500", // Orange
+                    1.0: "#FF0000"  // Red
                 },
             };
 
@@ -323,7 +326,7 @@ export default {
                     <strong>Risk Level:</strong> <u>${point.risk_level || "N/A"}</u><br>
                     <strong>Relative Risk Assessment:</strong> <u>${point.relative_risk_assessment || "N/A"}</u><br>
                     <strong>Coordinates:</strong> <u>(${point.x.toFixed(6)}, ${point.y.toFixed(6)})</u><br>
-
+                    <stong>CLuster Size: <u>${point.cluster_size}</u></stong>
                 </div>
             `;
 

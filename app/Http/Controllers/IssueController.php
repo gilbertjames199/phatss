@@ -79,7 +79,6 @@ class IssueController extends Controller
     }
     public function view(Request $request, $id)
     {
-        // dd($id);
         $issue = Issue::where('id', $id)->first();
         $lat = floatval($issue->Latitude);
         $long = floatval($issue->Longitude);
@@ -96,7 +95,7 @@ class IssueController extends Controller
         $long_to = floatval($nhc->Longitude);
         $lat_to = floatval($nhc->Latitude);
         return inertia(
-            'Issues/View',
+            'Issues/ViewIssueBackup',
             [
                 "long_from" => $long,
                 "lat_from" => $lat,

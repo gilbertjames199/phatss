@@ -196,7 +196,7 @@ class MapPlotterController extends Controller
                 GROUP_CONCAT(id) AS household_ids
             ")
             ->groupBy('cluster_lat', 'cluster_long')->get()->map(function ($item) {
-                // $count = (float) $item->risk_level * (float) $item->risk_level;
+                $count = (float) $item->risk_level * (float) $item->risk_level;
                 $count = 10;
                 if ($item->relative_risk_assessment == 'Basic Sanitation G2') {
                     $count = 20;
@@ -210,7 +210,7 @@ class MapPlotterController extends Controller
                 return [
                     'x' => (float) $item->_Location_latitude,
                     'y' => (float) $item->_Location_longitude,
-                    'count' =>  $item->cluster_size,
+                    'count' => ((float)$item->cluster_size) / 5,
                     'name' => $item->LAST_NAME . ', ' . $item->FIRST_NAME . ' ' . $item->MIDDLENAME,
                     'address' => 'purok-' . $item->purok_sitio . ', ' . $item->barangay,
                     'precision' => $item->_Location_precision,
