@@ -98,7 +98,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var cfg = {
         radius: 10,
         blur: 1,
-        maxOpacity: 0.5,
+        maxOpacity: 8,
+        minOpacity: 0.2,
+        // maxOpacity: 0.5,
         // color: "transparent",
         // fillOpacity: 0,
         scaleRadius: false,
@@ -107,11 +109,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         lngField: "y",
         valueField: "count",
         gradient: {
-          0.2: "blue",
-          0.4: "green",
-          0.6: "yellow",
-          0.8: "orange",
-          1.0: "red"
+          0.2: "#0000FF",
+          // Blue
+          0.4: "#00FF00",
+          // Green
+          0.6: "#FFFF00",
+          // Yellow
+          0.8: "#FFA500",
+          // Orange
+          1.0: "#FF0000" // Red
+
         }
       }; // Create heatmap layer
 
@@ -191,7 +198,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         fillOpacity: 0 // Makes the fill transparent
 
       });
-      var tooltipContent = "\n                <div style=\"text-align: left; font-size: 14px; line-height: 1.5;\">\n                    <span style='text-align: center'><h4>Household Details</h4></span><hr>\n                    <strong>Name:</strong> <u>".concat(point.name || "N/A", "</u><br>\n                    <strong>Address:</strong> <u>").concat(point.address || "N/A", "</u><br>\n                    <strong>Precision:</strong> <u>").concat(point.precision || "N/A", "</u><br>\n                    <strong>Risk Level:</strong> <u>").concat(point.risk_level || "N/A", "</u><br>\n                    <strong>Relative Risk Assessment:</strong> <u>").concat(point.relative_risk_assessment || "N/A", "</u><br>\n                    <strong>Coordinates:</strong> <u>(").concat(point.x.toFixed(6), ", ").concat(point.y.toFixed(6), ")</u><br>\n\n                </div>\n            ");
+      var tooltipContent = "\n                <div style=\"text-align: left; font-size: 14px; line-height: 1.5;\">\n                    <span style='text-align: center'><h4>Household Details</h4></span><hr>\n                    <strong>Name:</strong> <u>".concat(point.name || "N/A", "</u><br>\n                    <strong>Address:</strong> <u>").concat(point.address || "N/A", "</u><br>\n                    <strong>Precision:</strong> <u>").concat(point.precision || "N/A", "</u><br>\n                    <strong>Risk Level:</strong> <u>").concat(point.risk_level || "N/A", "</u><br>\n                    <strong>Relative Risk Assessment:</strong> <u>").concat(point.relative_risk_assessment || "N/A", "</u><br>\n                    <strong>Coordinates:</strong> <u>(").concat(point.x.toFixed(6), ", ").concat(point.y.toFixed(6), ")</u><br>\n                    <stong>CLuster Size: <u>").concat(point.cluster_size, "</u></stong>\n                </div>\n            ");
       marker.bindTooltip(tooltipContent, {
         permanent: false,
         direction: 'top'

@@ -89,7 +89,55 @@
                     </Link>
                 </li> -->
 
+                <!--Households-->
+                <li class="nav-item">
+                    <Link class="sidebar-link" href="/households">
+                        <span></span>
+                        <span class="icon-holder">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                                <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
+                            </svg>
+                        </span>
+                        <span class="title">Households</span>
+                    </Link>
+                </li>
+                <!--Mapping-->
+                <li class="nav-item">
+                    <Link class="sidebar-link" href="/map/heat">
+                        <span></span>
+                        <span class="icon-holder">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-map-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.598-.49L10.5.99 5.598.01a.5.5 0 0 0-.196 0l-5 1A.5.5 0 0 0 0 1.5v14a.5.5 0 0 0 .598.49l4.902-.98 4.902.98a.5.5 0 0 0 .196 0l5-1A.5.5 0 0 0 16 14.5zM5 14.09V1.11l.5-.1.5.1v12.98l-.402-.08a.5.5 0 0 0-.196 0zm5 .8V1.91l.402.08a.5.5 0 0 0 .196 0L11 1.91v12.98l-.5.1z"/>
+                            </svg>
+                        </span>
+                        <span class="title">Map</span>
+                    </Link>
+                </li>
 
+                <!--Prediction/Forecasting-->
+                <li class="nav-item">
+                    <Link class="sidebar-link" href="/sanitation-assessment">
+                        <span></span>
+                        <span class="icon-holder">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M0 0h1v15h15v1H0zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5"/>
+                            </svg>
+                        </span>
+                        <span class="title">Sanitation Analysis</span>
+                    </Link>
+                </li>
+                <!--Rerouting-->
+                <li class="nav-item">
+                    <Link class="sidebar-link" href="/issue">
+                        <span></span>
+                        <span class="icon-holder">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrows-expand" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10"/>
+                            </svg>
+                        </span>
+                        <span class="title">Issues -Rerouting</span>
+                    </Link>
+                </li>
                 <!--Interventions  -->
                 <li class="nav-item">
                     <Link class="sidebar-link" href="/intervention">
@@ -117,30 +165,8 @@
                         <span class="title">Schools</span>
                     </Link>
                 </li> -->
-                <!--Households-->
-                <li class="nav-item">
-                    <Link class="sidebar-link" href="/households">
-                        <span></span>
-                        <span class="icon-holder">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
-                                <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
-                            </svg>
-                        </span>
-                        <span class="title">Households</span>
-                    </Link>
-                </li>
-                <!--Mapping-->
-                <li class="nav-item">
-                    <Link class="sidebar-link" href="/map/heat">
-                        <span></span>
-                        <span class="icon-holder">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-map-fill" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.598-.49L10.5.99 5.598.01a.5.5 0 0 0-.196 0l-5 1A.5.5 0 0 0 0 1.5v14a.5.5 0 0 0 .598.49l4.902-.98 4.902.98a.5.5 0 0 0 .196 0l5-1A.5.5 0 0 0 16 14.5zM5 14.09V1.11l.5-.1.5.1v12.98l-.402-.08a.5.5 0 0 0-.196 0zm5 .8V1.91l.402.08a.5.5 0 0 0 .196 0L11 1.91v12.98l-.5.1z"/>
-                            </svg>
-                        </span>
-                        <span class="title">Map</span>
-                    </Link>
-                </li>
+
+
 
                 <!--RESOURCES-->
                 <li class="nav-item dropdown">
@@ -176,18 +202,7 @@
                         </li>
                     </ul>
                 </li>
-                <!--Rerouting-->
-                <li class="nav-item">
-                    <Link class="sidebar-link" href="/issue">
-                        <span></span>
-                        <span class="icon-holder">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrows-expand" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10"/>
-                            </svg>
-                        </span>
-                        <span class="title">Sanitation Issues</span>
-                    </Link>
-                </li>
+
                 <!--Rerouting-->
                 <!-- <li class="nav-item">
                     <Link class="sidebar-link" href="/map/route/optimize">
@@ -201,18 +216,7 @@
                     </Link>
                 </li> -->
 
-                <!--Prediction/Forecasting-->
-                <li class="nav-item">
-                    <Link class="sidebar-link" href="/sanitation-assessment">
-                        <span></span>
-                        <span class="icon-holder">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M0 0h1v15h15v1H0zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5"/>
-                            </svg>
-                        </span>
-                        <span class="title">Sanitation Analysis</span>
-                    </Link>
-                </li>
+
 
                 <!--Multimedia-->
                 <li class="nav-item">

@@ -184,8 +184,18 @@ class ForecastController extends Controller
 
     public function getHouseholds(Request $request, $type, $location)
     {
-        return HouseHold::where('barangay', '=', $location)
-            ->orWhere('municipality', '=', $location)
+        return HouseHold::when($type == 'bar', function ($query) use ($location) {
+            $query->where('barangay', '=', $location);
+        })
+            ->when($type == 'mun', function ($query) use ($location) {
+                $query->where('municipality', '=', $location);
+            })
+            ->when($request->search, function ($query, $searchItem) {
+                $query->where('LAST_NAME', 'like', '%' . $searchItem . '%')
+                    ->orWhere('FIRST_NAME', 'like', '%' . $searchItem . '%')
+                    ->orWhere('MIDDLENAME', 'like', '%' . $searchItem . '%');
+            })
+            ->orderBy('LAST_NAME')
             ->paginate(500);
     }
     public function getPhatss($queryParams, $total_score)

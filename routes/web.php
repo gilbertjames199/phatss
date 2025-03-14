@@ -50,6 +50,7 @@ Route::get('/email', function(){
 Route::middleware(['auth'])->group(function () {
     Route::prefix('/')->group(function () {
         Route::get('/', [DashBoardController::class, 'index']);
+        Route::get('/dashboard', [DashBoardController::class, 'index']);
     });
     Route::prefix('/import')->group(function () {
         Route::get('/', [ImportDataController::class, 'importindex']);
