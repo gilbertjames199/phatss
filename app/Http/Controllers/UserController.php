@@ -25,7 +25,7 @@ class UserController extends Controller
         // dd("user");
         // $user_data;
         // if (Auth::user()->can('create', User::class)) {
-        if (auth()->user()->level == 'provincial') {
+        if (auth()->user()->level == 'Provincial') {
             $user_data = $this->model->when($request->search, function ($query, $searchItem) {
                 $query->where('name', 'like', '%' . $searchItem . '%');
             })

@@ -139,7 +139,7 @@
                     </Link>
                 </li>
                 <!--Interventions  -->
-                <li class="nav-item" v-if="$page.props.auth.user.level==='provincial'">
+                <li class="nav-item" v-if="$page.props.auth.user.level==='Provincial'">
                     <Link class="sidebar-link" href="/intervention">
                         <span></span>
                         <span class="icon-holder">
@@ -169,7 +169,7 @@
 
 
                 <!--RESOURCES-->
-                <li class="nav-item dropdown" v-if="$page.props.auth.user.level==='provincial'">
+                <li class="nav-item dropdown" v-if="$page.props.auth.user.level==='Provincial'">
                     <a class="dropdown-toggle" href="javascript:void(0);">
                         <span class="icon-holder">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-backpack4-fill" viewBox="0 0 16 16">
@@ -233,7 +233,7 @@
                     </Link>
                 </li>
                 <!--Users-->
-                <li class="nav-item" v-if="$page.props.auth.user.level==='provincial'">
+                <li class="nav-item" v-if="$page.props.auth.user.level==='Provincial'">
                     <Link class="sidebar-link" href="/users">
                         <span></span>
                         <span class="icon-holder">
