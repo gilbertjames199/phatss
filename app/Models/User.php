@@ -22,13 +22,16 @@ class User extends Authenticatable implements HasMedia
 {
     // , MustVerifyEmail
     use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia, HasRoles;
-
-    protected $fillable = [
-        'name',
-        'email',
-        'email_verified_at',
-        'password'
-    ];
+    protected $guarded = ['id'];
+    // protected $fillable = [
+    //     'name',
+    //     'email',
+    //     'email_verified_at',
+    //     'password',
+    //     'level',
+    //     'municipality',
+    //     'barangay'
+    // ];
 
     protected $hidden = [
         'password',

@@ -25,17 +25,40 @@ class DashBoardController extends Controller
     {
         //dd('create: '.auth()->user()->can('create',User::class).'edit: '.auth()->user()->can('edit',User::class).'delete: '.auth()->user()->can('delete',User::class));
         // $hh = HouseHold::all();
-
+        $us = auth()->user();
+        $mun_us = $us->municipality;
+        $bar_us = $us->barangay;
+        $level = auth()->user()->level;
+        if ($level == 'Municipal') {
+            $place = 'barangay';
+        } else if ($level == 'Barangay') {
+            $place = 'purok_sitio';
+        } else if ($level == 'Provincial') {
+            $place = 'municipality';
+        }
         $results = HouseHold::select([
-            'municipality',
+            $place . ' as municipality',
             DB::raw("SUM(CASE WHEN relative_risk_assessment = 'Open Defecation G4' THEN 1 ELSE 0 END) AS Open_Defecation_G0"),
             DB::raw("SUM(CASE WHEN relative_risk_assessment IN ('Zero Open Defecation G1', 'Open Defecation G0') THEN 1 ELSE 0 END) AS Zero_Open_Defecation_G1"),
             DB::raw("SUM(CASE WHEN relative_risk_assessment = 'Basic Sanitation G2' THEN 1 ELSE 0 END) AS Basic_Sanitation_G2"),
             DB::raw("SUM(CASE WHEN relative_risk_assessment = 'Safely Managed G3' THEN 1 ELSE 0 END) AS Safely_Managed_G3"),
             DB::raw("COUNT(*) AS total"),
         ])->where('municipality', '<>', '')
-            ->groupBy('municipality')
-            ->get();
+            ->when($level == 'Municipal', function ($query) use ($mun_us) {
+                $query->where('municipality', $mun_us);
+            })
+            ->when($level == 'Barangay', function ($query) use ($bar_us) {
+                $query->where('barangay', $bar_us);
+            });
+
+        if ($level == 'Barangay') {
+            $results = $results->groupBy('purok_sitio')->get();
+        } else if ($level == 'Municipal') {
+            $results = $results->groupBy('barangay')->get();
+        } else {
+            $results = $results->groupBy('municipality')->get();
+        }
+
         // dd($results);
         $dt_g0 = $results->pluck('Open_Defecation_G0');
         $dt_g1 = $results->pluck('Zero_Open_Defecation_G1');
@@ -44,8 +67,21 @@ class DashBoardController extends Controller
         $mun = $results->pluck('municipality');
         $total = $results->pluck('total');
 
-        $with_toilets = HouseHold::where('_1_has_toilet', 'Yes')->count();
-        $with_functional_toilet = HouseHold::where('_3_toilet_functional', 'Yes')->where('_1_has_toilet', 'Yes')->count();
+        $with_toilets = HouseHold::where('_1_has_toilet', 'Yes')
+            ->when($level == 'Municipal', function ($query) use ($mun_us) {
+                $query->where('municipality', $mun_us);
+            })
+            ->when($level == 'Barangay', function ($query) use ($bar_us) {
+                $query->where('barangay', $bar_us);
+            })
+            ->count();
+        $with_functional_toilet = HouseHold::where('_3_toilet_functional', 'Yes')->where('_1_has_toilet', 'Yes')
+            ->when($level == 'Municipal', function ($query) use ($mun_us) {
+                $query->where('municipality', $mun_us);
+            })
+            ->when($level == 'Barangay', function ($query) use ($bar_us) {
+                $query->where('barangay', $bar_us);
+            })->count();
         // $_8_composting = HouseHold::where('_8_composting', 'Yes')->count();
         $_8_composting = 0;
         return inertia('Home', [

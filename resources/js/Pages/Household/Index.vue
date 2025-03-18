@@ -9,7 +9,7 @@
                 <div class="peer mR-10"><input v-model="search" type="text" class="form-control form-control-sm" placeholder="Search..."></div>
                 <div class="peer mR-10">
 
-                     <Link :href="`/households/create`" class="btn btn-primary text-white">New Household</Link>
+                     <!-- <Link :href="`/households/create`" class="btn btn-primary text-white">New Household</Link> -->
                      Results per page
                      <select v-model="count_per_page" @click="filterData">
                         <option>10</option>

@@ -30,6 +30,12 @@ class HouseHoldController extends Controller
     //Index
     public function index(Request $request)
     {
+        // dd(auth()->user());
+        $us = auth()->user();
+        $mun_us = $us->municipality;
+        $bar_us = $us->barangay;
+        $level = auth()->user()->level;
+        // dd($level);
         $pages = 10;
         if ($request->count_per_page) {
             $pages = $request->count_per_page;
@@ -64,12 +70,21 @@ class HouseHoldController extends Controller
                 })->toArray()
             )
             ->when($request->search, function ($query, $searchItem) {
-                $query->where('LAST_NAME', 'like', '%' . $searchItem . '%')
-                    ->orWhere('FIRST_NAME', 'like', '%' . $searchItem . '%')
-                    ->orWhere('MIDDLENAME', 'like', '%' . $searchItem . '%')
-                    ->where('LAST_NAME2', 'like', '%' . $searchItem . '%')
-                    ->orWhere('FIRST_NAME2', 'like', '%' . $searchItem . '%')
-                    ->orWhere('MIDDLENAME2', 'like', '%' . $searchItem . '%');
+                $query->where(function ($q) use ($searchItem) { // Group the ORs together
+                    $q->where('LAST_NAME', 'like', '%' . $searchItem . '%')
+                        ->orWhere('FIRST_NAME', 'like', '%' . $searchItem . '%')
+                        ->orWhere('MIDDLENAME', 'like', '%' . $searchItem . '%')
+                        ->where('LAST_NAME2', 'like', '%' . $searchItem . '%')
+                        ->orWhere('FIRST_NAME2', 'like', '%' . $searchItem . '%')
+                        ->orWhere('MIDDLENAME2', 'like', '%' . $searchItem . '%');
+                });
+                //$quer
+            })
+            ->when($level == 'Municipal', function ($query) use ($mun_us) {
+                $query->where('municipality', $mun_us);
+            })
+            ->when($level == 'Barangay', function ($query) use ($bar_us) {
+                $query->where('barangay', $bar_us);
             })
             ->when($request->mun, function ($query, $mun) {
                 $query->where('municipality', 'LIKE', '%' . $mun . '%');

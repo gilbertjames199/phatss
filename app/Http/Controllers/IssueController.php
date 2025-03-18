@@ -22,6 +22,10 @@ class IssueController extends Controller
         if ($request->count_per_page) {
             $pages = $request->count_per_page;
         }
+        $us = auth()->user();
+        $mun_us = $us->municipality;
+        $bar_us = $us->barangay;
+        $level = auth()->user()->level;
         $data = $this->model
             ->when($request->search, function ($query, $searchItem) {
                 $query->where('issue', 'like', '%' . $searchItem . '%');
@@ -34,6 +38,12 @@ class IssueController extends Controller
             })
             ->when($request->pur, function ($query, $pur) {
                 $query->where('purok_sitio', 'LIKE', '%' . $pur . '%');
+            })
+            ->when($level == 'Municipal', function ($query) use ($mun_us) {
+                $query->where('municipality', $mun_us);
+            })
+            ->when($level == 'Barangay', function ($query) use ($bar_us) {
+                $query->where('barangay', $bar_us);
             })
             ->orderBy('updated_at', 'DESC')
             ->paginate($pages)

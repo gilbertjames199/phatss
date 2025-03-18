@@ -51,10 +51,10 @@
                                     </td>
                                 </tr>
 
-                                <tr>
+                                <!-- <tr>
                                     <td><b>Distance: </b></td>
                                     <td><u>{{ format_number(nhc.distance,2,true) }}&nbsp;KM</u></td>
-                                </tr>
+                                </tr> -->
                             </table>
                         </div>
 

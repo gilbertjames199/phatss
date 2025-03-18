@@ -25,42 +25,47 @@ class UserController extends Controller
         // dd("user");
         // $user_data;
         // if (Auth::user()->can('create', User::class)) {
-        $user_data = $this->model->when($request->search, function ($query, $searchItem) {
-            $query->where('name', 'like', '%' . $searchItem . '%');
-        })
-            ->orderBy('created_at', 'desc')
-            ->simplePaginate(10)
-            ->withQueryString()
-            ->through(fn($user) => [
-                'id' => $user->id,
-                'name' => $user->name,
-                "can" => [
-                    'edit' => auth()->user()->can('edit', $user),
-                    'delete' => auth()->user()->can('delete', $user),
-                    'canViewUsers' => auth()->user()->can('can_view_users', $user),
-                    'canInsertUsers' => auth()->user()->can('can_insert_users', $user),
-                    'canEditUsers' => auth()->user()->can('can_edit_users', $user),
-                    'canDeleteUsers' => auth()->user()->can('can_delete_users', $user),
-                    'canUpdateUserPermissions' => auth()->user()->can('can_update_user_permissions', $user),
-                ],
-            ]);
+        if (auth()->user()->level == 'provincial') {
+            $user_data = $this->model->when($request->search, function ($query, $searchItem) {
+                $query->where('name', 'like', '%' . $searchItem . '%');
+            })
+                ->orderBy('created_at', 'desc')
+                ->simplePaginate(10)
+                ->withQueryString()
+                ->through(fn($user) => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    "can" => [
+                        'edit' => auth()->user()->can('edit', $user),
+                        'delete' => auth()->user()->can('delete', $user),
+                        'canViewUsers' => auth()->user()->can('can_view_users', $user),
+                        'canInsertUsers' => auth()->user()->can('can_insert_users', $user),
+                        'canEditUsers' => auth()->user()->can('can_edit_users', $user),
+                        'canDeleteUsers' => auth()->user()->can('can_delete_users', $user),
+                        'canUpdateUserPermissions' => auth()->user()->can('can_update_user_permissions', $user),
+                    ],
+                ]);
 
-        return inertia('Users/Index', [
-            //returns an array of users with name field only
-            // "permissions_all" => Permission::all(),
-            "users" => $user_data,
-            "filters" => $request->only(['search']),
-            // "can" => [
-            //     'createUser' => Auth::user()->can('create', User::class),
-            //     'editUser' => Auth::user()->can('edit', User::class),
-            //     'deleteUser' => Auth::user()->can('delete', User::class),
-            //     'canViewUsers' => Auth::user()->can('can_view_users', User::class),
-            //     'canInsertUsers' => Auth::user()->can('can_insert_users', User::class),
-            //     'canEditUsers' => Auth::user()->can('can_edit_users', User::class),
-            //     'canDeleteUsers' => Auth::user()->can('can_delete_users', User::class),
-            //     'canUpdateUserPermissions' => Auth::user()->can('can_update_user_permissions', User::class),
-            // ],
-        ]);
+            return inertia('Users/Index', [
+                //returns an array of users with name field only
+                // "permissions_all" => Permission::all(),
+                "users" => $user_data,
+                "filters" => $request->only(['search']),
+                // "can" => [
+                //     'createUser' => Auth::user()->can('create', User::class),
+                //     'editUser' => Auth::user()->can('edit', User::class),
+                //     'deleteUser' => Auth::user()->can('delete', User::class),
+                //     'canViewUsers' => Auth::user()->can('can_view_users', User::class),
+                //     'canInsertUsers' => Auth::user()->can('can_insert_users', User::class),
+                //     'canEditUsers' => Auth::user()->can('can_edit_users', User::class),
+                //     'canDeleteUsers' => Auth::user()->can('can_delete_users', User::class),
+                //     'canUpdateUserPermissions' => Auth::user()->can('can_update_user_permissions', User::class),
+                // ],
+            ]);
+        } else {
+            return redirect('/')->with('error', 'forbidden');
+        }
+
         // } else {
         //     return inertia('Forbidden/Index', [
         //         "can" => [
@@ -125,7 +130,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // dd($request);
-
+        $request->validate(
+            [
+                'name' => 'required',
+                'password' => 'required',
+                'email' => 'required',
+                'level' => 'required'
+            ]
+        );
         // Define the pepper (retrieved securely from environment/config)
         $pepper = config('app.pepper'); // Ensure 'app.pepper' is set in your config or .env
 

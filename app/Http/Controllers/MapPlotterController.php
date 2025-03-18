@@ -64,13 +64,31 @@ class MapPlotterController extends Controller
         }
         // dd("heat");
         // dd($relrisk);
+        $us = auth()->user();
+        $mun_us = $us->municipality;
+        $bar_us = $us->barangay;
+        $level = auth()->user()->level;
+        if ($level == 'Municipal') {
+            $mun = $mun_us;
+            $request->merge(['mun' => $mun_us]);
+        } else if ($level == 'Barangay') {
+            $bar = $bar_us;
+            $request->merge(['mun' => $mun_us]);
+            $request->merge(['bar' => $bar_us]);
+        }
         DB::flushQueryLog();
-
+        // dd($mun);
         $data = HouseHold::where('id', '<>', '1')
             ->where('_Location_longitude', '<>', '')
             ->where('_Location_latitude', '<>', '')
             // ->whereRaw("TRIM(_Location_precision) <= 30")
             // ->where('municipality', 'Nabunturan')
+            ->when($level == 'Municipal', function ($query) use ($mun_us) {
+                $query->where('municipality', $mun_us);
+            })
+            ->when($level == 'Barangay', function ($query) use ($bar_us) {
+                $query->where('barangay', $bar_us);
+            })
             ->when($relrisk, function ($query, $relrisk) {
                 // dd($relrisk);
                 $query->where('relative_risk_assessment', 'LIKE', '%' . $relrisk . '%');

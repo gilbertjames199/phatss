@@ -24,7 +24,14 @@
             <label for="">Email</label>
             <input type="text" v-model="form.email" class="form-control" autocomplete="chrome-off">
             <div class="fs-6 c-red-500" v-if="form.errors.email">{{ form.errors.email }}</div>
-
+            <label>Level</label>
+            <select class="form-control" v-model="form.level"
+                        autocomplete="chrome-off" required>
+                <option></option>
+                <option>Barangay</option>
+                <option>Municipal</option>
+                <option>Provincial</option>
+            </select>
             <label for="">Municipality</label>
             <select class="form-control" @click="filterBarangay()" v-model="form.municipality"
                         autocomplete="chrome-off" required>
@@ -36,7 +43,7 @@
 
             <label for="">Barangay</label>
             <!-- {{ barangays }} -->
-                <select class="form-control"
+                <select class="form-control" v-model="form.barangay"
                             autocomplete="chrome-off" required>
                     <option></option>
                     <option v-for="bar in my_barangays">

@@ -17,6 +17,10 @@ class ForecastController extends Controller
     public function sanitation_level(Request $request)
     {
 
+        $us = auth()->user();
+        $mun_us = $us->municipality;
+        $bar_us = $us->barangay;
+        $level = auth()->user()->level;
         $municipalities = HouseHold::select(
             'municipality',
             DB::raw("AVG(CASE WHEN _1_has_toilet = 'Yes' THEN 1 ELSE 0 END) AS avg_1_has_toilet"),
@@ -45,6 +49,12 @@ class ForecastController extends Controller
         )
             ->where('municipality', '<>', '')
             ->where('barangay', '<>', '')
+            ->when($level == 'Municipal', function ($query) use ($mun_us) {
+                $query->where('municipality', $mun_us);
+            })
+            ->when($level == 'Barangay', function ($query) use ($mun_us) {
+                $query->where('municipality', $mun_us);
+            })
             ->groupBy('municipality')
             ->orderBy('municipality')
             ->get()
@@ -103,6 +113,10 @@ class ForecastController extends Controller
     public function getBarangays(Request $request, $mun)
     {
         // dd($mun);
+        $us = auth()->user();
+        $mun_us = $us->municipality;
+        $bar_us = $us->barangay;
+        $level = auth()->user()->level;
         return HouseHold::select(
             'barangay',
             DB::raw("AVG(CASE WHEN _1_has_toilet = 'Yes' THEN 1 ELSE 0 END) AS avg_1_has_toilet"),
@@ -131,6 +145,12 @@ class ForecastController extends Controller
         )
             ->where('municipality', '=', $mun)
             ->where('barangay', '<>', '')
+            ->when($level == 'Municipal', function ($query) use ($mun_us) {
+                $query->where('municipality', $mun_us);
+            })
+            ->when($level == 'Barangay', function ($query) use ($bar_us) {
+                $query->where('barangay', $bar_us);
+            })
             ->groupBy('barangay')
             ->orderBy('barangay')
             ->get()
@@ -184,16 +204,28 @@ class ForecastController extends Controller
 
     public function getHouseholds(Request $request, $type, $location)
     {
+        $us = auth()->user();
+        $mun_us = $us->municipality;
+        $bar_us = $us->barangay;
+        $level = auth()->user()->level;
         return HouseHold::when($type == 'bar', function ($query) use ($location) {
             $query->where('barangay', '=', $location);
         })
             ->when($type == 'mun', function ($query) use ($location) {
                 $query->where('municipality', '=', $location);
             })
-            ->when($request->search, function ($query, $searchItem) {
-                $query->where('LAST_NAME', 'like', '%' . $searchItem . '%')
-                    ->orWhere('FIRST_NAME', 'like', '%' . $searchItem . '%')
-                    ->orWhere('MIDDLENAME', 'like', '%' . $searchItem . '%');
+            ->when($level == 'Municipal', function ($query) use ($mun_us) {
+                $query->where('municipality', $mun_us);
+            })
+            ->when($level == 'Barangay', function ($query) use ($bar_us) {
+                $query->where('barangay', $bar_us);
+            })
+            ->when($request->search, function ($query, $searchItem) use ($request) {
+                $query->where(function ($q) use ($request) { // Group the ORs together
+                    $q->where('LAST_NAME', 'like', '%' . $request->search . '%')
+                        ->orWhere('FIRST_NAME', 'like', '%' . $request->search . '%')
+                        ->orWhere('MIDDLENAME', 'like', '%' . $request->search . '%');
+                });
             })
             ->orderBy('LAST_NAME')
             ->paginate(500);

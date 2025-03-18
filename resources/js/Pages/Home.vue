@@ -7,6 +7,11 @@
     </p>-->
     <div class="row gap-20 masonry pos-r">
         <h1 style="color: #26394a; font-weight: bold; font-family: verdana;">Sanitation Management System</h1>
+        <h2>
+             <span v-if="auth.user.level==='Barangay'">Barangay {{ auth.user.barangay }}</span>
+            <span v-if="auth.user.level==='Municipal'">Municipality of {{ auth.user.municipality }}</span>
+            <span v-if="auth.user.level==='Provincial'">Province of Davao de Oro</span>
+        </h2>
         <div class="masonry-sizer col-md-6"></div>
         <div class="masonry-item w-100">
             <div class="row gap-20">
@@ -59,6 +64,7 @@
 
                     </div>
                 </div>
+                <!-- {{ auth }} -->
                 <!-- WITH FUNCTIONAL TOILETS -->
                 <div class="col-md-4">
                     <div class="layers bd bgc-white p-20">
@@ -128,7 +134,11 @@
                                 <thead class="thead-dark">
                                     <tr >
                                         <th colspan="6" style="background-color: grey; color: white">
-                                            <b>RISK LEVEL DISTRIBUTION BY MUNICIPALITY</b>
+                                            <b>RISK LEVEL DISTRIBUTION BY
+                                                <span v-if="auth.user.level==='Barangay'">PUROK/SITIO</span>
+                                                <span v-if="auth.user.level==='Municipal'">BARANGAY</span>
+                                                <span v-if="auth.user.level==='Provincial'">MUNICIPALITY</span>
+                                            </b>
                                         </th>
                                     </tr>
                                     <tr style="background-color: #c1c9c4">
@@ -209,6 +219,7 @@ const videoUrl = "/images/pho_ddo.mp4"; // Relative path to the video
 
 export default {
     props: {
+        auth: Object,
         with_toilets: Number,
         with_functional_toilet: Number,
         _8_composting: Number,

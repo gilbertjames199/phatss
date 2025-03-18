@@ -24,20 +24,20 @@ class HandleInertiaRequests extends Middleware
                 'auth' => auth()->user() ? [ //if there is a user
                     'user' => [
                         'username' => ucfirst(auth()->user()->name),
-                        'level' =>auth()->user()->level,
-                        'municipality' =>auth()->user()->municipality,
-                        'barangay' =>auth()->user()->barangay,
-                        'photo' => $profile ? $profile->getUrl() : ''
+                        'level' => auth()->user()->level,
+                        'municipality' => auth()->user()->municipality,
+                        'barangay' => auth()->user()->barangay,
+                        'photo' => $profile ? $profile->getUrl() : '',
+
                     ]
                 ] : null,
                 'flash' => [
-                    'message' => fn () => $request->session()->get('message'),
-                    'error' => fn () => $request->session()->get('error'),
+                    'message' => fn() => $request->session()->get('message'),
+                    'error' => fn() => $request->session()->get('error'),
                 ],
             ]);
         }
 
         return [];
-        
     }
 }
