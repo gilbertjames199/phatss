@@ -38,8 +38,9 @@ class DashBoardController extends Controller
         }
         $results = HouseHold::select([
             $place . ' as municipality',
-            DB::raw("SUM(CASE WHEN relative_risk_assessment = 'Open Defecation G4' THEN 1 ELSE 0 END) AS Open_Defecation_G0"),
-            DB::raw("SUM(CASE WHEN relative_risk_assessment IN ('Zero Open Defecation G1', 'Open Defecation G0') THEN 1 ELSE 0 END) AS Zero_Open_Defecation_G1"),
+            DB::raw("SUM(CASE WHEN relative_risk_assessment = 'Open Defecation G0' THEN 1 ELSE 0 END) AS Open_Defecation_G0"),
+            DB::raw("SUM(CASE WHEN relative_risk_assessment = 'Zero Open Defecation G1' THEN 1 ELSE 0 END) Zero_Open_Defecation_G1"),
+            // DB::raw("SUM(CASE WHEN relative_risk_assessment IN ('Zero Open Defecation G1', 'Open Defecation G0') THEN 1 ELSE 0 END) AS Zero_Open_Defecation_G1"),
             DB::raw("SUM(CASE WHEN relative_risk_assessment = 'Basic Sanitation G2' THEN 1 ELSE 0 END) AS Basic_Sanitation_G2"),
             DB::raw("SUM(CASE WHEN relative_risk_assessment = 'Safely Managed G3' THEN 1 ELSE 0 END) AS Safely_Managed_G3"),
             DB::raw("COUNT(*) AS total"),

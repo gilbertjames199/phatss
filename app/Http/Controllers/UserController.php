@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    protected $model;
     public function __construct(User $model)
     {
         $this->middleware(['auth', 'verified']);
