@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\HouseHold;
+use App\Models\PhatssData;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -21,21 +22,42 @@ class DashBoardController extends Controller
 
 
 
-    public function index()
+    public function index(Request $request)
     {
         //dd('create: '.auth()->user()->can('create',User::class).'edit: '.auth()->user()->can('edit',User::class).'delete: '.auth()->user()->can('delete',User::class));
         // $hh = HouseHold::all();
+
+        $mun = $request->mun;
+        $bar = $request->bar;
+        $year = $request->year;
+        $pur = $request->purok;
+
         $us = auth()->user();
         $mun_us = $us->municipality;
         $bar_us = $us->barangay;
         $level = auth()->user()->level;
+        $place = "";
         if ($level == 'Municipal') {
-            $place = 'barangay';
+            if ($bar) {
+
+                $place = 'purok_sitio';
+            }
+            if (!$bar) {
+                $place = 'barangay';
+            }
         } else if ($level == 'Barangay') {
             $place = 'purok_sitio';
         } else if ($level == 'Provincial') {
             $place = 'municipality';
+            if ($mun) {
+                $place = 'barangay';
+            }
+            if ($bar) {
+
+                $place = 'purok_sitio';
+            }
         }
+
         $results = HouseHold::select([
             $place . ' as municipality',
             DB::raw("SUM(CASE WHEN relative_risk_assessment = 'Open Defecation G0' THEN 1 ELSE 0 END) AS Open_Defecation_G0"),
@@ -50,15 +72,45 @@ class DashBoardController extends Controller
             })
             ->when($level == 'Barangay', function ($query) use ($bar_us) {
                 $query->where('barangay', $bar_us);
+            })
+            ->when($mun,  function ($query) use ($mun) {
+                $query->where('municipality', $mun);
+            })
+            ->when($bar,  function ($query) use ($bar) {
+                $query->where('barangay', $bar);
+            })
+            ->when($year, function ($query) use ($year) {
+                $query->whereYear('date_survey', $year);
             });
+        // ->when($pur,  function ($query) use ($pur) {
+        //     $query->where('barangay', $bar);
+        // });
 
         if ($level == 'Barangay') {
             $results = $results->groupBy('purok_sitio')->get();
         } else if ($level == 'Municipal') {
-            $results = $results->groupBy('barangay')->get();
-        } else {
-            $results = $results->groupBy('municipality')->get();
+
+            if ($bar) {
+
+                $results = $results->groupBy('purok_sitio')->get();
+            }
+            if (!$bar) {
+
+                $results = $results->groupBy('barangay')->get();
+            }
+        } else if ($level == 'Provincial') {
+            if ($mun && !$bar) {
+
+                $results = $results->groupBy('barangay')->get();
+            }
+            if ($bar) {
+                $results = $results->groupBy('purok_sitio')->get();
+            }
+            if (!$mun && !$bar) {
+                $results = $results->groupBy('municipality')->get();
+            }
         }
+
 
         // dd($results);
         $dt_g0 = $results->pluck('Open_Defecation_G0');
@@ -75,6 +127,15 @@ class DashBoardController extends Controller
             ->when($level == 'Barangay', function ($query) use ($bar_us) {
                 $query->where('barangay', $bar_us);
             })
+            ->when($request->mun,  function ($query) use ($request) {
+                $query->where('municipality', $request->mun);
+            })
+            ->when($bar,  function ($query) use ($bar) {
+                $query->where('barangay', $bar);
+            })
+            ->when($year, function ($query) use ($year) {
+                $query->whereYear('date_survey', $year);
+            })
             ->count();
         $with_functional_toilet = HouseHold::where('_3_toilet_functional', 'Yes')->where('_1_has_toilet', 'Yes')
             ->when($level == 'Municipal', function ($query) use ($mun_us) {
@@ -82,9 +143,45 @@ class DashBoardController extends Controller
             })
             ->when($level == 'Barangay', function ($query) use ($bar_us) {
                 $query->where('barangay', $bar_us);
-            })->count();
+            })
+            ->when($request->mun,  function ($query) use ($request) {
+                $query->where('municipality', $request->mun);
+            })
+            ->when($bar,  function ($query) use ($bar) {
+                $query->where('barangay', $bar);
+            })
+            ->when($year, function ($query) use ($year) {
+                $query->whereYear('date_survey', $year);
+            })
+            ->count();
         // $_8_composting = HouseHold::where('_8_composting', 'Yes')->count();
         $_8_composting = 0;
+        $municipalities = HouseHold::where('municipality', '<>', 'MUNICIPALITY')
+            ->where('municipality', '<>', '')
+            ->distinct('municipality')
+            ->orderBy('municipality', 'ASC')
+            ->pluck('municipality');
+        // dd($municipalities);
+        $barangays = [];
+        if ($mun) {
+            if ($level == 'Municipal') {
+                $munfilter = $mun_us;
+            } else {
+                $munfilter = $request->mun;
+            }
+            $barangays = HouseHold::where('municipality', 'LIKE', '%' . $munfilter . '%')
+                ->distinct('barangay')
+                ->orderBy('barangay', 'ASC')
+                ->pluck('barangay');
+            // dd($mun);
+        }
+        $puroks = [];
+        // if ($bar) {
+        //     $puroks = PhatssData::where('barangay', 'LIKE', '%' . $request->bar . '%')
+        //         ->distinct('purok_sitio')
+        //         ->orderBy('purok_sitio', 'ASC')
+        //         ->pluck('purok_sitio');
+        // }
         return inertia('Home', [
             "with_toilets" => $with_toilets,
             "with_functional_toilet" => $with_functional_toilet,
@@ -96,6 +193,9 @@ class DashBoardController extends Controller
             "dt_g3" => $dt_g3,
             "total" => $total,
             "data_by_mun_label" => $mun,
+            "barangays" => $barangays,
+            "municipalities" => $municipalities,
+            "puroks" => $puroks,
             "can" => [
                 'createUser' => Auth::user()->can('create', User::class),
                 'editUser' => Auth::user()->can('edit', User::class),

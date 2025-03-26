@@ -8,7 +8,6 @@
         <div class="masonry-item w-100">
             <div class="row gap-20">
                 <h1 style="color: #26394a; font-weight: bold; font-family: verdana;">Sanitation Management System</h1>
-
                 <div class="peers fxw-nw jc-sb ai-c">
                  <h2>
                             <span v-if="auth.user.level==='Barangay'">Barangay {{ auth.user.barangay }}</span>
@@ -31,12 +30,7 @@
                             <h6 class="lh-1">
                                 <table>
                                     <tr >
-                                        <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-clipboard-data-fill" viewBox="0 0 16 16">
-                                                <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
-                                                <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1ZM10 8a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V8Zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1Zm4-3a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1Z"/>
-                                            </svg>&nbsp;&nbsp;
-                                        </td>
+
                                         <td><h5 href="/details/demographics" target="_blank">Number of Surveyed Households</h5></td>
                                     </tr>
                                 </table>
@@ -46,52 +40,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- WITH TOILETS -->
-                <div class="col-md-4">
-                    <div class="layers bd bgc-white p-20">
-                        <div class="layer w-100 mB-10">
-                            <h6 class="lh-1">
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-archive" viewBox="0 0 16 16">
-                                            <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
-                                            </svg>
-                                            &nbsp;&nbsp;
-                                        </td>
-                                        <td><h5 href="/details/demographics" target="_blank">Number of Households with Toilets</h5></td>
-                                    </tr>
-                                </table>
-                            </h6>
-                            <hr>
-                            <h2 style="color: #756e04; font-weight: bold;  text-align: center">{{ format_number(with_toilets,0,true) }}</h2>
-                        </div>
-
-                    </div>
-                </div>
-                <!-- WITH FUNCTIONAL TOILETS -->
-                <div class="col-md-4">
-                    <div class="layers bd bgc-white p-20">
-                        <div class="layer w-100 mB-10">
-                            <h6 class="lh-1">
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-archive-fill" viewBox="0 0 16 16">
-                                            <path d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15zM5.5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1M.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8z"/>
-                                            </svg>&nbsp;&nbsp;
-                                        </td>
-                                        <td><h5 href="/details/demographics" target="_blank">Number of Households with Functional Toilets</h5></td>
-                                    </tr>
-                                </table>
-                            </h6>
-                            <hr>
-                            <h2 style="color: blue; font-weight: bold; text-align: center">{{ format_number(with_functional_toilet,0,true) }}</h2>
-
-                        </div>
-
-                    </div>
-                </div>
 
                 <!-- RISK ASSESSMENT -CHART -->
                 <div class="col-md-6 ">
@@ -99,7 +47,6 @@
                         <div class="layer w-100 mB-10">
                             Risk Assessment Chart
                             <RiskAssessmentChart
-                                :key="componentKey"
                                 :chartData="chartDataType"
                                 :chartLabel="data_by_mun_label"
                                 :plugins="chartOptionCom" >
@@ -118,9 +65,7 @@
                                             <b>RISK LEVEL DISTRIBUTION BY
                                                 <span v-if="auth.user.level==='Barangay'">PUROK/SITIO</span>
                                                 <span v-if="auth.user.level==='Municipal'">BARANGAY</span>
-                                                <span v-if="auth.user.level==='Provincial'">
-                                                    MUNICIPALITY
-                                                </span>
+                                                <span v-if="auth.user.level==='Provincial'">MUNICIPALITY</span>
                                             </b>
                                         </th>
                                     </tr>
@@ -154,12 +99,10 @@
                 </div>
 
 
-                <filtering v-if="filter" @closeFilter="filter=false" title="DATA FILTERS">
-                    {{ auth.user.level }}
+                <filtering v-if="filter" @closeFilter="filter=false" title="HEATMAP FILTERS">
                     <h4>FILTERS<br></h4>
                     <b>Year:</b>
                     <select class="form-control" v-model="year" @change="filter_me('year')">
-                        <option></option>
                         <option>2023</option>
                         <option>2024</option>
                         <option>2025</option>
@@ -167,36 +110,30 @@
                         <option>2027</option>
                     </select>
                     <hr>
-                    <span v-if="auth.user.level==='Provincial'">
-                        <b>Municipality:</b> &nbsp;
-                        <select class="form-control" v-model="mun" @change="filter_me('mun')">
-                            <option></option>
-                            <option v-for="municipality in municipalities">
-                                {{ municipality }}
-                            </option>
-                        </select>
-                    </span>
-
+                    <b>Municipality:</b> &nbsp;
+                    <select class="form-control" v-model="mun" @change="filter_me('mun')">
+                        <option></option>
+                        <option v-for="municipality in municipalities">
+                            {{ municipality }}
+                        </option>
+                    </select>
 
                     &nbsp;
-                    <span v-if="auth.user.level!=='Barangay'">
-                        <b>Barangays: </b>
-                        <select class="form-control"  v-model="bar" @change="filter_me('bar')">
-                            <option></option>
-                            <option v-for="barangay in barangays">
-                                {{ barangay }}
-                            </option>
-                        </select>
-                    </span>
-
+                    <b>Barangays: </b>
+                    <select class="form-control"  v-model="bar" @change="filter_me('bar')">
+                        <option></option>
+                        <option v-for="barangay in barangays">
+                            {{ barangay }}
+                        </option>
+                    </select>
                     &nbsp;
-                    <!-- <b>Puroks: </b>
+                    <b>Puroks: </b>
                     <select class="form-control"  v-model="pur" @change="filter_me('pur')">
                         <option></option>
                         <option v-for="purok in puroks">
                             {{ purok }}
                         </option>
-                    </select> -->
+                    </select>
                     &nbsp;
 
 
@@ -310,18 +247,13 @@ export default {
                         bar: this.bar,
                         pur: this.pur,
                         year: this.year,
-                        // division: this.division_selected
+
                     },
                     {
                         preserveScroll: true,
                         preserveState: true,
                         replace: true,
-                        onSuccess: () => {
-                            this.componentKey++; // Force re-render of chart
-                        }
-                        // onSuccess: () => {
-                        //     window.location.reload();
-                        // },
+
                     }
                 );
         },
