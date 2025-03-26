@@ -115,17 +115,44 @@
                                 <thead class="thead-dark">
                                     <tr >
                                         <th colspan="6" style="background-color: grey; color: white">
-                                            <b>RISK LEVEL DISTRIBUTION BY
-                                                <span v-if="auth.user.level==='Barangay'">PUROK/SITIO</span>
-                                                <span v-if="auth.user.level==='Municipal'">BARANGAY</span>
-                                                <span v-if="auth.user.level==='Provincial'">
-                                                    MUNICIPALITY
+                                            <b> RISK LEVEL DISTRIBUTION BY LOCATION
+                                                <!-- <span v-if="auth.user.level==='Barangay'">PUROK/SITIO</span>
+                                                <span v-if="auth.user.level==='Municipal'">BARANGAY
+                                                    <span v-if="bar!==''">PUROK/SITIO</span>
+                                                    <span v-if="bar===''&&pur==='' ">BARANGAY</span>
                                                 </span>
+                                                <span v-if="auth.user.level==='Provincial'">
+                                                    <span v-if="bar!==''">PUROK/SITIO</span>
+                                                    <span v-if="mun!=='' && (pur===''&&pur===NULL)">BARANGAY</span>
+                                                    <span v-if="mun==='' && bar===''&&pur==='' ">MUNICIPALITY</span>
+                                                </span> -->
+                                                 <!-- <span v-if="auth.user.level === 'Barangay'">PUROK/SITIO</span>
+                                                <span v-else-if="auth.user.level === 'Municipal'">
+                                                    <span v-if="bar">PUROK/SITIO</span>
+                                                    <span v-else>BARANGAY</span>
+                                                </span>
+                                                <span v-else-if="auth.user.level === 'Provincial'">
+                                                    <span v-if="bar">PUROK/SITIO</span>
+                                                    <span v-else-if="mun && pur!==''">BARANGAY</span>
+                                                    <span v-else>MUNICIPALITY</span>
+                                                </span> -->
                                             </b>
                                         </th>
                                     </tr>
                                     <tr style="background-color: #c1c9c4">
-                                        <th>Municipality</th>
+                                        <th>
+                                            <!-- <span v-if="auth.user.level==='Barangay'">PUROK/SITIO</span>
+                                            <span v-if="auth.user.level==='Municipal'">BARANGAY
+                                                <span v-if="bar!==''">PUROK/SITIO</span>
+                                                <span v-if="bar===''&&pur==='' ">BARANGAY</span>
+                                            </span>
+                                            <span v-if="auth.user.level==='Provincial'">
+                                                <span v-if="bar!==''">PUROK/SITIO</span>
+                                                <span v-if="mun!==''">BARANGAY</span>
+                                                <span v-if="mun==='' && bar===''&&pur==='' ">MUNICIPALITY</span>
+                                            </span> -->
+                                            Location
+                                        </th>
                                         <th>Open Defecation -G0</th>
                                         <th>Zero Open Defecation -G1</th>
                                         <th>Basic Sanitation G2</th>
@@ -239,10 +266,10 @@ export default {
     },
     data() {
         return{
-            mun: "",
-            bar: "",
-            year: "",
-            purok: "",
+            mun: '',
+            bar: '',
+            year: '',
+            purok: '',
             filter: false,
         }
     },
