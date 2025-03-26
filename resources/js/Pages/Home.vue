@@ -15,6 +15,8 @@
                             <span v-if="auth.user.level==='Municipal'">Municipality of {{ auth.user.municipality }}</span>
                             <span v-if="auth.user.level==='Provincial'">Province of Davao de Oro</span>
                         </h2>
+
+
                     <div class="peers">
                         <div class="peer">
 
@@ -23,6 +25,69 @@
                             <button class="btn btn-primary btn-sm mL-2 text-white" @click="showFilter()">Filter</button>
                         </div>
                     </div>
+            </div>
+            <div class="col-md-12" v-if="bar || mun || year">
+                <span >Filters:&nbsp;&nbsp;</span>
+                <span>
+                    <span v-if="year"
+                    class="
+                        d-ib
+                        lh-0
+                        va-m
+                        fw-600
+                        bdrs-10em
+                        pX-15
+                        pY-15
+                        bgc-red-50
+                        c-red-500
+                    "
+                    >{{ year }}</span
+                >&nbsp;&nbsp;
+                </span>
+                <span>
+                    <span v-if="mun"
+                    class="
+                        d-ib
+                        lh-0
+                        va-m
+                        fw-600
+                        bdrs-10em
+                        pX-15
+                        pY-15
+                        bgc-yellow-50
+                        c-black-500
+                    "
+                    >{{ mun }}</span
+                >&nbsp;&nbsp;
+                </span>
+                <span v-if="bar"
+                    class="
+                        d-ib
+                        lh-0
+                        va-m
+                        fw-600
+                        bdrs-10em
+                        pX-15
+                        pY-15
+                        bgc-blue-50
+                        c-blue-500
+                    "
+                    >{{ bar }}</span>&nbsp;&nbsp;
+                    <!-- <button
+                    class="
+                        d-ib
+                        lh-0
+                        va-m
+                        fw-600
+                        bdrs-10em
+                        pX-15
+                        pY-15
+                        bgc-red-500
+                        c-red-50
+                    " @click="clearFilter"
+                    >X </button
+                > -->
+
             </div>
                 <!-- TOTAL HOUSEHOLDS -->
                 <div class="col-md-4">
@@ -111,6 +176,7 @@
                 <div class="col-md-6 ">
                     <div class="layers bd bgc-white p-20">
                         <div class="layer w-100 mB-10">
+
                             <table class="table table-sm table-bordered table-striped table-hover" >
                                 <thead class="thead-dark">
                                     <tr >
@@ -182,7 +248,7 @@
 
 
                 <filtering v-if="filter" @closeFilter="filter=false" title="DATA FILTERS">
-                    {{ auth.user.level }}
+
                     <h4>FILTERS<br></h4>
                     <b>Year:</b>
                     <select class="form-control" v-model="year" @change="filter_me('year')">
@@ -193,7 +259,7 @@
                         <option>2026</option>
                         <option>2027</option>
                     </select>
-                    <hr>
+                    <!-- <hr> -->
                     <span v-if="auth.user.level==='Provincial'">
                         <b>Municipality:</b> &nbsp;
                         <select class="form-control" v-model="mun" @change="filter_me('mun')">
@@ -225,8 +291,8 @@
                         </option>
                     </select> -->
                     &nbsp;
-
-
+                    <hr>
+                    <button class="btn btn-danger text-white" @click="clearFilter">Clear Filters</button>
 
                 </filtering>
             </div>
@@ -355,6 +421,13 @@ export default {
         showFilter() {
             this.filter = !this.filter
         },
+        clearFilter(){
+            this.bar="";
+            this.mun="";
+            this.pur="";
+            this.year="";
+            this.filter_me("clear");
+        }
     }
 };
 </script>
