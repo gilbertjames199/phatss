@@ -195,6 +195,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/store', [HouseHoldController::class, 'store']);
         Route::get('/{id}/edit', [HouseHoldController::class, 'edit']);
         Route::patch('/{id}/update', [HouseHoldController::class, 'update']);
+        Route::post('/generate/historical/data', [HouseHoldController::class, 'historical']);
         Route::delete('/{id}', [HouseHoldController::class, 'destroy']);
     });
     //PLACES

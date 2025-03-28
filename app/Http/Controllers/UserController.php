@@ -372,22 +372,22 @@ class UserController extends Controller
     {
         $mun_where = $request->mun;
         //dd($mun_where);
-        $data = DB::table('y01_personal_infos')
+        $data = DB::table('house_holds')
             ->distinct()
-            ->select(DB::raw('(y01_personal_infos.barangay)'))
-            ->where('y01_personal_infos.municipality', 'LIKE', '%' . $mun_where . '%')
-            ->orderBy('y01_personal_infos.barangay', 'ASC')
+            ->select(DB::raw('(house_holds.barangay)'))
+            ->where('house_holds.municipality', 'LIKE', '%' . $mun_where . '%')
+            ->orderBy('house_holds.barangay', 'ASC')
             ->get();
         return ['data' => $data];
     }
 
     public function getPuroks(Request $request)
     {
-        $data = DB::table('y01_personal_infos')
+        $data = DB::table('house_holds')
             ->distinct()
-            ->select(DB::raw('(y01_personal_infos.purok_sitio)'))
-            ->where([['y01_personal_infos.barangay', 'LIKE', '%' . $request->bar . '%'], ['y01_personal_infos.municipality', 'LIKE', '%' . $request->mun . '%']])
-            ->orderBy('y01_personal_infos.purok_sitio', 'ASC')
+            ->select(DB::raw('(house_holds.purok_sitio)'))
+            ->where([['house_holds.barangay', 'LIKE', '%' . $request->bar . '%'], ['house_holds.municipality', 'LIKE', '%' . $request->mun . '%']])
+            ->orderBy('house_holds.purok_sitio', 'ASC')
             ->get();
         return ['data' => $data];
     }

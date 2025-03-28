@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barangay;
 use App\Models\HouseHold;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -30,7 +31,7 @@ class HouseHoldController extends Controller
     //Index
     public function index(Request $request)
     {
-        // dd(auth()->user());
+        // dd($request);
         $us = auth()->user();
         $mun_us = $us->municipality;
         $bar_us = $us->barangay;
@@ -95,6 +96,9 @@ class HouseHoldController extends Controller
             ->when($request->pur, function ($query, $pur) {
                 $query->where('purok_sitio', 'LIKE', '%' . $pur . '%');
             })
+            ->when($request->relrisk, function ($query, $relrisk) {
+                $query->where('relative_risk_assessment', 'LIKE', '%' . $relrisk . '%');
+            })
             ->when($request->search, function ($query, $search) {
                 $query->where(function ($query) use ($search) {
                     $query->whereRaw('TRIM(LAST_NAME) LIKE ?', ['%' . $search . '%'])
@@ -149,6 +153,7 @@ class HouseHoldController extends Controller
     //STORE
     public function store(Request $request)
     {
+        // dd("store");
         // dd($request->all());
         $request->validate([
             'date_survey' => 'required',
@@ -169,11 +174,11 @@ class HouseHoldController extends Controller
             'LAST_NAME' => 'required',
             'FIRST_NAME' => 'required',
             'MIDDLENAME' => 'required',
-            'SUFFIX' => 'required',
+            // 'SUFFIX' => 'required',
             'LAST_NAME2' => 'required',
             'FIRST_NAME2' => 'required',
             'MIDDLENAME2' => 'required',
-            'SUFFIX2' => 'required',
+            // 'SUFFIX2' => 'required',
             '_1_has_toilet' => 'required',
             '_2_toilet_used' => 'required',
             '_3_toilet_functional' => 'required',
@@ -292,6 +297,27 @@ class HouseHoldController extends Controller
         return redirect('/households')
             ->with('message', 'Household survey added');
     }
+    //STORE
+    public function historical(Request $request)
+    {
+        // dd("historical");
+        // dd($request);
+        $year = date('Y', strtotime($request->date_survey));
+        $request->merge([
+            'date_survey' => Carbon::parse($request->date_survey)->format('Y-m-d H:i:s')
+        ]);
+        // Extracts "2025"
+
+        $households = HouseHold::whereYear('date_survey', $year)->where('id', $request->id)->get();
+        // dd(count($households));
+        if (count($households) > 0) {
+            $this->update($request, $request->id);
+        } else {
+            $this->store($request);
+        }
+        return redirect('/households')
+            ->with('message', 'Household survey updated');
+    }
     //EDIT
     public function edit(Request $request, $id)
     {
@@ -306,6 +332,8 @@ class HouseHoldController extends Controller
     {
         // dd($id);
         // dd($request->all());
+        // dd("update");
+        // dd($request);
         $hh = HouseHold::where("id", $id)->first();
         // dd($request);
         $hh->date_survey = $request->date_survey;
