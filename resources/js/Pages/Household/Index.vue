@@ -176,6 +176,18 @@ export default{
 
         }
     },
+    mounted(){
+        if(this.auth.user.level==='Municipal'){
+            this.select_mun=this.auth.user.municipality
+            this.loadBarangays(this.select_mun)
+        }
+        if(this.auth.user.level==='Barangay'){
+            // this.select_mun=this.auth.user.municipality
+
+            this.select_bar = this.auth.user.barangay
+            this.loadPuroks(this.select_bar, this.select_mun)
+        }
+    },
     watch: {
         search: _.debounce(function (value) {
             this.$inertia.get(
