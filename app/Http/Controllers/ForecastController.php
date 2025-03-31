@@ -175,20 +175,22 @@ class ForecastController extends Controller
                 $total_score = array_sum($queryParams);
 
                 // Call the API
-                $response = Http::get("http://eservices.dvodeoro.ph:5000/predict", $queryParams);
+                // $response = Http::get("http://eservices.dvodeoro.ph:5000/predict", $queryParams);
 
                 // Extract risk assessment value
                 $sanitation_status = "Good Sanitation";
-                if ($response->successful() && isset($response->json()['relative_risk_assessment'])) {
-                    $sanitation_status = $response->json()['relative_risk_assessment'] == 0
-                        ? 'Bad/Inadequate Sanitation'
-                        : 'Good Sanitation';
-                } else {
-                    $sanitation_status = 'Unknown';
-                }
+                // if ($response->successful() && isset($response->json()['relative_risk_assessment'])) {
+                //     $sanitation_status = $response->json()['relative_risk_assessment'] == 0
+                //         ? 'Bad/Inadequate Sanitation'
+                //         : 'Good Sanitation';
+                // } else {
+                //     $sanitation_status = 'Unknown';
+                // }
                 // Determine Phatss value
                 $phatss = $this->getPhatss($queryParams, $total_score);
-
+                if ($total_score < 12) {
+                    $sanitation_status = "Bad Sanitation";
+                }
                 // Construct API URL with parameters
                 // $apiBaseUrl = "http://eservices.dvodeoro.ph:5000/predict";
                 // $apiUrl = $apiBaseUrl . '?' . http_build_query($queryParams);
