@@ -76,6 +76,7 @@ class LoginController extends Controller
                 }
                 TransactionLog::create([
                     'user_id' => $user->id,
+                    'user_name' => $user->name,
                     'type' => 'login',
                     'action' => 'login',
                     'address' => $host,
