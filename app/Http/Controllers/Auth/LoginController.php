@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\TransactionLog;
 use App\Providers\RouteServiceProvider;
+use Exception;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,7 +67,20 @@ class LoginController extends Controller
             if (Hash::check($pepperedPassword, $user->password)) {
                 // Login the user
                 Auth::login($user);
-
+                $host = "";
+                $add = "";
+                try {
+                    $host = $request->header('User-Agent');
+                    $add = $request->ip();
+                } catch (Exception $ex) {
+                }
+                TransactionLog::create([
+                    'user_id' => $user->id,
+                    'type' => 'login',
+                    'action' => 'login',
+                    'address' => $host,
+                    'host' => $add,
+                ]);
                 return redirect()->intended('dashboard'); // Replace 'dashboard' with your intended route
             }
         }
