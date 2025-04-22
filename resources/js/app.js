@@ -68,14 +68,40 @@ createInertiaApp({
             .mixin({
                 data() {
                     return {
-                        municipalities_global: ['Compostela', 'Laak', 'Mabini', 'Maco', 'Maragusan', 'Mawab', 'Monkayo', 'Montevista', 'New Bataan', 'Nabunturan', 'Pantukan']
-                    }
+                        municipalities_global: ['Compostela', 'Laak', 'Mabini', 'Maco', 'Maragusan', 'Mawab', 'Monkayo', 'Montevista', 'New Bataan', 'Nabunturan', 'Pantukan'],
+                        mun_coordinates: {
+                            "Compostela": [7.6660, 126.0847],
+                            "Laak": [7.8771, 125.7844],
+                            "Mabini": [7.2821, 125.8574],
+                            "Maco": [7.3593, 125.8580],
+                            "Maragusan": [7.3522, 126.1545],
+                            "Mawab": [7.4969, 125.9588],
+                            "Monkayo": [7.8514, 126.0458],
+                            "Montevista": [7.7305, 125.9806],
+                            "Nabunturan": [7.6038, 125.9632],
+                            "New Bataan": [7.5547, 126.1404],
+                            "Pantukan": [7.17728, 126.02043],
+                        },
 
+
+                    }
                 },
                 methods: {
                     format_number(number, num_decimals, include_comma) {
                         var numm = parseFloat(number);
                         return numm.toLocaleString('en-US', { useGrouping: include_comma, minimumFractionDigits: num_decimals, maximumFractionDigits: num_decimals });
+                    },
+                    getYearFromDate(dateStr) {
+                        const date = new Date(dateStr);
+                        return date.getFullYear();
+                    },
+                    getMonthFromDate(dateStr) {
+                        const date = new Date(dateStr);
+                        return date.toLocaleString('default', { month: 'long' });
+                    },
+                    getDayFromDate(dateStr) {
+                        const date = new Date(dateStr);
+                        return date.getDate();
                     },
                     goBack() {
                         window.history.back()

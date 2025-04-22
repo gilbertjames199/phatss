@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Barangay;
 use App\Models\HouseHold;
+use App\Models\TransactionLog;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -78,6 +80,12 @@ class HouseHoldController extends Controller
                         ->where('LAST_NAME2', 'like', '%' . $searchItem . '%')
                         ->orWhere('FIRST_NAME2', 'like', '%' . $searchItem . '%')
                         ->orWhere('MIDDLENAME2', 'like', '%' . $searchItem . '%');
+                });
+                //$quer
+            })
+            ->when($request->year_survey, function ($query, $year_survey) {
+                $query->where(function ($q) use ($year_survey) { // Group the ORs together
+                    $q->whereYear("date_survey", $year_survey);
                 });
                 //$quer
             })
@@ -294,8 +302,29 @@ class HouseHoldController extends Controller
         $hh->_index = $request->_index;
         $hh->save();
         // dd(HouseHold::orderBy('id', 'DESC')->first());
+        $transact_type = "Created household with uuid " . $request->_uuid;
+        $this->generateTransactionLog($request, "create", $transact_type);
         return redirect('/households')
             ->with('message', 'Household survey added');
+    }
+    //GENERATE TRANSACTION LOG
+    protected function generateTransactionLog(Request $request, $action, $transact_type)
+    {
+        $host = "";
+        $add = "";
+        try {
+            $host = $request->header('User-Agent');
+            $add = $request->ip();
+        } catch (Exception $ex) {
+        }
+        $transaction_log = new TransactionLog();
+        $transaction_log->user_id = auth()->user()->id;
+        $transaction_log->action = $action;
+        $transaction_log->type =  $transact_type;
+        $transaction_log->host = $host;
+        $transaction_log->address = $add;
+        $transaction_log->user_name = auth()->user()->name;
+        $transaction_log->save();
     }
     //STORE
     public function historical(Request $request)
@@ -313,7 +342,7 @@ class HouseHoldController extends Controller
         if (count($households) > 0) {
             $this->update($request, $request->id);
         } else {
-            $this->store($request);
+            $this->histo_generate($request);
         }
         return redirect('/households')
             ->with('message', 'Household survey updated');
@@ -403,9 +432,161 @@ class HouseHoldController extends Controller
         $hh->_tags = $request->_tags;
         $hh->_index = $request->_index;
         $hh->save();
+        $transact_type = "Edited household with uuid " . $request->_uuid;
+        $this->generateTransactionLog($request, "edit", $transact_type);
         // dd(HouseHold::orderBy('id', 'DESC')->first());
         return redirect('/households')
             ->with('message', 'Household survey updated');
+    }
+    //GENERATE HISTO
+    //STORE
+    public function histo_generate(Request $request)
+    {
+        // dd("store");
+        // dd($request->all());
+        $request->validate([
+            'date_survey' => 'required',
+            'time_started' => 'required',
+            'ENUMERATOR' => 'required',
+            'district' => 'required',
+            'municipality' => 'required',
+            'barangay' => 'required',
+            'purok_sitio' => 'required',
+            // 'street' => 'required',
+            // 'housenumber' => 'required',
+            // 'unitnumber' => 'required',
+            // 'Location' => 'required',
+            // '_Location_latitude' => 'required',
+            // '_Location_longitude' => 'required',
+            // '_Location_altitude' => 'required',
+            // '_Location_precision' => 'required',
+            'LAST_NAME' => 'required',
+            'FIRST_NAME' => 'required',
+            'MIDDLENAME' => 'required',
+            // 'SUFFIX' => 'required',
+            'LAST_NAME2' => 'required',
+            'FIRST_NAME2' => 'required',
+            'MIDDLENAME2' => 'required',
+            // 'SUFFIX2' => 'required',
+            '_1_has_toilet' => 'required',
+            '_2_toilet_used' => 'required',
+            '_3_toilet_functional' => 'required',
+            '_4_soap' => 'required',
+            '_5_children' => 'required',
+            '_6_spaces' => 'required',
+            '_7_feces' => 'required',
+            '_8_composting' => 'required',
+            '_9_dispose' => 'required',
+            '_10_emptied' => 'required',
+            // '_11_do_sludge' => 'required',
+            // '_12_do_tank' => 'required',
+            '_13_sewer' => 'required',
+            // '_14_check' => 'required',
+            // '_14_check_flush_pour_to_sewer' => 'required',
+            // '_14_check_flush_pour_to_septic_tank' => 'required',
+            // '_14_check_flush_pour_to_pit' => 'required',
+            // '_14_check_ventilated_imrpoved_pit_Latrine' => 'required',
+            // '_14_check_pit_latrine' => 'required',
+            '_15_household' => 'required',
+            // '_15_1_people' => 'required',
+            '_16_household' => 'required',
+            '_17_using' => 'required',
+            // '_18_If_the_household_mediate_surroundings' => 'required',
+            // 'Take_a_photo_for_question_18' => 'required',
+            // 'Take_a_photo_for_question_18_url' => 'required',
+            '_19_materials' => 'required',
+            'Name_of_MRF' => 'required',
+            'location_mrf' => 'required',
+            'risk_level' => 'required',
+            // 'risk_level_value' => 'required',
+            'relative_risk_assessment' => 'required',
+            // 'Relative_risk_is_re_tive_risk_assessment' => 'required',
+            // '_id' => 'required',
+            '_uuid' => 'required',
+            // '_submission_time' => 'required',
+            // '_validation_status' => 'required',
+            // '_notes' => 'required',
+            // '_status' => 'required',
+            // '_submitted_by' => 'required',
+            // '__version__' => 'required',
+            // '_tags' => 'required',
+            // '_index' => 'required',
+        ]);
+        // dd($request->all());
+        // $this->household->create($request->all());
+        $hh = new HouseHold();
+        $hh->date_survey = $request->date_survey;
+        $hh->time_started = $request->time_started;
+        $hh->ENUMERATOR = $request->ENUMERATOR;
+        $hh->district = $request->district;
+        $hh->municipality = $request->municipality;
+        $hh->barangay = $request->barangay;
+        $hh->purok_sitio = $request->purok_sitio;
+        $hh->street = $request->street;
+        $hh->housenumber = $request->housenumber;
+        $hh->unitnumber = $request->unitnumber;
+        $hh->Location = $request->Location;
+        $hh->_Location_latitude = $request->_Location_latitude;
+        $hh->_Location_longitude = $request->_Location_longitude;
+        $hh->_Location_altitude = $request->_Location_altitude;
+        $hh->_Location_precision = $request->_Location_precision;
+        $hh->LAST_NAME = $request->LAST_NAME;
+        $hh->FIRST_NAME = $request->FIRST_NAME;
+        $hh->MIDDLENAME = $request->MIDDLENAME;
+        $hh->SUFFIX = $request->SUFFIX;
+        $hh->LAST_NAME2 = $request->LAST_NAME2;
+        $hh->FIRST_NAME2 = $request->FIRST_NAME2;
+        $hh->MIDDLENAME2 = $request->MIDDLENAME2;
+        $hh->SUFFIX2 = $request->SUFFIX2;
+        $hh->_1_has_toilet = $request->_1_has_toilet;
+        $hh->_2_toilet_used = $request->_2_toilet_used;
+        $hh->_3_toilet_functional = $request->_3_toilet_functional;
+        $hh->_4_soap = $request->_4_soap;
+        $hh->_5_children = $request->_5_children;
+        $hh->_6_spaces = $request->_6_spaces;
+        $hh->_7_feces = $request->_7_feces;
+        $hh->_8_composting = $request->_8_composting;
+        $hh->_9_dispose = $request->_9_dispose;
+        $hh->_10_emptied = $request->_10_emptied;
+        $hh->_11_do_sludge = $request->_11_do_sludge;
+        $hh->_12_do_tank = $request->_12_do_tank;
+        $hh->_13_sewer = $request->_13_sewer;
+        $hh->_14_check = $request->_14_check;
+        $hh->_14_check_flush_pour_to_sewer = $request->_14_check_flush_pour_to_sewer;
+        $hh->_14_check_flush_pour_to_septic_tank = $request->_14_check_flush_pour_to_septic_tank;
+        $hh->_14_check_flush_pour_to_pit = $request->_14_check_flush_pour_to_pit;
+        $hh->_14_check_ventilated_imrpoved_pit_Latrine = $request->_14_check_ventilated_imrpoved_pit_Latrine;
+        $hh->_14_check_pit_latrine = $request->_14_check_pit_latrine;
+        $hh->_15_household = $request->_15_household;
+        $hh->_15_1_people = $request->_15_1_people;
+        $hh->_16_household = $request->_16_household;
+        $hh->_17_using = $request->_17_using;
+        $hh->_18_If_the_household_mediate_surroundings = $request->_18_If_the_household_mediate_surroundings;
+        $hh->Take_a_photo_for_question_18 = $request->Take_a_photo_for_question_18;
+        $hh->Take_a_photo_for_question_18_url = $request->Take_a_photo_for_question_18_url;
+        $hh->_19_materials = $request->_19_materials;
+        $hh->Name_of_MRF = $request->Name_of_MRF;
+        $hh->location_mrf = $request->location_mrf;
+        $hh->risk_level = $request->risk_level;
+        $hh->risk_level_value = $request->risk_level_value;
+        $hh->relative_risk_assessment = $request->relative_risk_assessment;
+        $hh->Relative_risk_is_re_tive_risk_assessment = $request->Relative_risk_is_re_tive_risk_assessment;
+        $hh->_id = $request->_id;
+        $hh->_uuid = $request->_uuid;
+        $hh->_submission_time = $request->_submission_time;
+        $hh->_validation_status = $request->_validation_status;
+        $hh->_notes = $request->_notes;
+        $hh->_status = $request->_status;
+        $hh->_submitted_by = $request->_submitted_by;
+        $hh->__version__ = $request->__version__;
+        $hh->_tags = $request->_tags;
+        $hh->_index = $request->_index;
+        $hh->save();
+        // dd(HouseHold::orderBy('id', 'DESC')->first());
+        $transact_type = "Generate historical data with uuid " . $request->_uuid . " with year " . $request->year;
+        $this->generateTransactionLog($request, "create", $transact_type);
+        return redirect('/households')
+            ->with('message', 'Historical data generate');
     }
     //DELETE
     public function destroy(Request $request)

@@ -7,6 +7,13 @@ import pandas as pd
 import joblib
 import numpy as np
 
+
+
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.impute import SimpleImputer
+
 # from dotenv import load_dotenv
 # import os
 # import mysql.connector
@@ -109,6 +116,107 @@ def recommend_municipality():
     finally:
         cursor.close()
         connection.close()
+
+@app.route('/all-households-data', methods=['GET'])
+def fetch_data():
+    # Replace with your actual database path or use SQLAlchemy if needed
+    """Fetch all households from the database and return as JSON."""
+    try:
+        connection = get_db_connection()
+        cursor = connection.cursor(dictionary=True)
+        query = """
+            SELECT
+                (CASE WHEN _1_has_toilet = 'Yes' THEN 1 ELSE 0 END) AS _1_has_toilet,
+                (CASE WHEN _2_toilet_used = 'Yes' THEN 1 ELSE 0 END) AS _2_toilet_used,
+                (CASE WHEN _3_toilet_functional = 'Yes' THEN 1 ELSE 0 END) AS _3_toilet_functional,
+                (CASE WHEN _4_soap = 'Yes' THEN 1 ELSE 0 END) AS _4_soap,
+                (CASE WHEN _5_children = 'Yes' THEN 1 ELSE 0 END) AS _5_children,
+                (CASE WHEN _6_spaces = 'Yes' THEN 1 ELSE 0 END) AS _6_spaces,
+                (CASE WHEN _7_feces = 'Yes' THEN 1 ELSE 0 END) AS _7_feces,
+                (CASE WHEN _8_composting = 'Yes' THEN 1 ELSE 0 END) AS _8_composting,
+                (CASE WHEN _9_dispose = 'Yes' THEN 1 ELSE 0 END) AS _9_dispose,
+                (CASE WHEN _10_emptied = 'Yes' THEN 1 WHEN _10_emptied = 'No' THEN 0 END) AS _10_emptied,
+                (CASE WHEN _13_sewer = 'Yes' THEN 1 WHEN _13_sewer = 'No' THEN 0 END) AS _13_sewer,
+                (CASE WHEN _15_household = 'Yes' THEN 1 WHEN _15_household = 'No' THEN 0 END) AS _15_household,
+                (CASE WHEN _16_household = 'Yes' THEN 0 WHEN _16_household = 'No' THEN 0 END) AS _16_household,
+                (CASE WHEN _17_using = 'Yes' THEN 1 WHEN _17_using = 'No' THEN 0 END) AS _17_using,
+                (CASE WHEN _19_materials = 'Yes' THEN 1 WHEN _19_materials = 'No' THEN 0 END) AS _19_materials,
+                (CASE WHEN relative_risk_assessment='Open Defecation G0' THEN 0
+                    WHEN relative_risk_assessment="Zero Open Defecation G1" THEN 1
+                    WHEN relative_risk_assessment="Basic Sanitation G2" THEN 2
+                    WHEN relative_risk_assessment="Safely Managed G3" THEN 3 END) AS relative_risk_assessment
+            FROM house_holds
+        """
+        cursor.execute(query)
+        users = cursor.fetchall()  # Fetch all rows as a list of dictionaries
+        return users
+        # return jsonify(users), 200
+    except mysql.connector.Error as err:
+        return jsonify({'error': str(err)}), 500
+    finally:
+        cursor.close()
+        connection.close()
+
+@app.route('/train-gbm', methods=['GET'])
+def train_gradient_boosting():
+    global trained_gbm_model, feature_columns
+
+    data = fetch_data()
+    df = pd.DataFrame(data)
+
+    df_clean = df.dropna()
+    X = df_clean.drop(columns=['relative_risk_assessment'])
+    y = df_clean['relative_risk_assessment']
+
+    # Enforce rule: if _6_spaces == 0 or _7_feces == 0, then risk = 0
+    force_zero_condition = (X['_6_spaces'] == 0) | (X['_7_feces'] == 0)
+    y[force_zero_condition] = 0  # Overwrite labels where condition is met
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+    model = GradientBoostingClassifier(random_state=42)
+    model.fit(X_train, y_train)
+
+    trained_gbm_model = model
+    feature_columns = list(X.columns)  # Save for use in prediction
+
+    y_pred = model.predict(X_test)
+
+    # Metrics
+    accuracy = accuracy_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred, average='weighted', zero_division=0)
+    recall = recall_score(y_test, y_pred, average='weighted', zero_division=0)
+    f1 = f1_score(y_test, y_pred, average='weighted', zero_division=0)
+
+    # Calculate feature importances
+    feature_importances = model.feature_importances_
+    importance_dict = {
+        feature: round(importance, 4)
+        for feature, importance in zip(feature_columns, feature_importances)
+    }
+    return jsonify({
+        'Accuracy': round(accuracy, 4),
+        'Precision': round(precision, 4),
+        'Recall': round(recall, 4),
+        'F1 Score': round(f1, 4),
+        'Feature Importances': importance_dict
+    })
+
+@app.route('/predict-gbm', methods=['GET'])
+def predict_gradient_boosting():
+    global trained_gbm_model, feature_columns
+
+    if trained_gbm_model is None:
+        return jsonify({'error': 'Model has not been trained yet. Call /train-gbm first.'}), 400
+
+    # Extract feature values from query parameters
+    try:
+        features = [int(request.args.get(col)) for col in feature_columns]
+        input_array = np.array([features])
+        prediction = trained_gbm_model.predict(input_array)[0]
+        return jsonify({'prediction': int(prediction)})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
 
 @app.route('/me')
 def me():

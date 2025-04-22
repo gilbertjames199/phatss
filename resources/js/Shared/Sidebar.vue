@@ -203,6 +203,62 @@
                     </ul>
                 </li>
 
+                <!--RESOURCES-->
+                <li class="nav-item dropdown" v-if="$page.props.auth.user.level==='Provincial'">
+                    <a class="dropdown-toggle" href="javascript:void(0);">
+                        <span class="icon-holder">
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-backpack4-fill" viewBox="0 0 16 16">
+                            <path d="M8 0a2 2 0 0 0-2 2H3.5a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h4v.5a.5.5 0 0 0 1 0V7h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H10a2 2 0 0 0-2-2m1 2a1 1 0 0 0-2 0zm-4 9v2h6v-2h-1v.5a.5.5 0 0 1-1 0V11z"/>
+                            <path d="M14 7.599A3 3 0 0 1 12.5 8H9.415a1.5 1.5 0 0 1-2.83 0H3.5A3 3 0 0 1 2 7.599V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5z"/>
+                            </svg> -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-droplet-half" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M7.21.8C7.69.295 8 0 8 0q.164.544.371 1.038c.812 1.946 2.073 3.35 3.197 4.6C12.878 7.096 14 8.345 14 10a6 6 0 0 1-12 0C2 6.668 5.58 2.517 7.21.8m.413 1.021A31 31 0 0 0 5.794 3.99c-.726.95-1.436 2.008-1.96 3.07C3.304 8.133 3 9.138 3 10c0 0 2.5 1.5 5 .5s5-.5 5-.5c0-1.201-.796-2.157-2.181-3.7l-.03-.032C9.75 5.11 8.5 3.72 7.623 1.82z"/>
+                                <path fill-rule="evenodd" d="M4.553 7.776c.82-1.641 1.717-2.753 2.093-3.13l.708.708c-.29.29-1.128 1.311-1.907 2.87z"/>
+                            </svg>
+                        </span>
+                        <span class="title">Water Resource</span>
+
+                        <span class="arrow">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <Link class="sidebar-link" :href="`/water/resources/level-1`"
+                                :class="{ 'active': $page.url === `/supplies` }">
+                            <span class="title">Water Level I</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link class="sidebar-link" :href="`/water/resources/level-2`"
+                                :class="{ 'active': $page.url === `/supplies` }">
+                            <span class="title">Water Level II</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link class="sidebar-link" :href="`/water/resources/level-3`"
+                                :class="{ 'active': $page.url === `/supplies` }">
+                            <span class="title">Water Level III</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link class="sidebar-link" :href="`/water/resources/refilling`"
+                                :class="{ 'active': $page.url === `/supplies` }">
+                            <span class="title">Water Refilling Stations</span>
+                            </Link>
+                        </li>
+                        <!-- <li>
+                            <Link class="sidebar-link" href="/respondents"
+                                :class="{ 'active': $page.url === '/respondents' }">
+                            <span class="title">Responders</span>
+                            </Link>
+                        </li> -->
+                    </ul>
+                </li>
                 <!--Rerouting-->
                 <!-- <li class="nav-item">
                     <Link class="sidebar-link" href="/map/route/optimize">

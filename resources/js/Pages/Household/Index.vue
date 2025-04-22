@@ -74,6 +74,16 @@
                 <option>G2</option>
                 <option>G3</option>
             </select>
+
+            <b>Year:</b>
+            <select class="form-control" v-model="year_survey" @change="filterData()">
+                <option></option>
+                <option>2023</option>
+                <option>2024</option>
+                <option>2025</option>
+                <option>2026</option>
+                <option>2027</option>
+            </select>
             <button class="btn btn-sm btn-primary mT-5 text-white" @click="">Filter</button>&nbsp;
             <button class="btn btn-sm btn-danger mT-5 text-white" @click="clearFilter">Clear Filter</button>
         </filtering>
@@ -90,6 +100,7 @@
                                 <th>Name</th>
                                 <th>Address</th>
                                 <th>Relative Risk Assessment</th>
+                                <th>Year</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -107,6 +118,7 @@
                                     <span v-if="dat.barangay">{{ dat.barangay }}</span>
                                 </td>
                                 <td>{{ dat.relative_risk_assessment }}</td>
+                                <td>{{ getYearFromDate(dat.date_survey) }}</td>
                                 <td>
                                     <div class="dropdown dropstart">
                                         <button class="btn btn-secondary btn-sm action-btn" type="button"
@@ -173,6 +185,7 @@ export default{
             all_puroks: [],
             my_level: '',
             relrisk: '',
+            year_survey: '',
 
         }
     },
@@ -225,6 +238,7 @@ export default{
                     bar: this.select_bar,
                     mun: this.select_mun,
                     relrisk: this.relrisk,
+                    year_survey: this.year_survey,
                     search: this.search
                 },
                 {

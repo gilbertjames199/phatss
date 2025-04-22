@@ -6,7 +6,7 @@
 @import 'variables';
 
 @import 'theme.css';
- 
+
 @import "~filepond/dist/filepond.min.css";
 @import "~filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
 @import '~filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css';
@@ -39,9 +39,10 @@
 .action-btn:hover {
     background-color: #dce4eb !important;
 }
+
 .action-btn:focus {
-     background-color: #dce4eb !important;
-     box-shadow: unset !important;
+    background-color: #dce4eb !important;
+    box-shadow: unset !important;
 }
 
 .action-dropdown {
@@ -57,3 +58,51 @@
     width: 15rem !important;
 }
 
+//TABSTYLE
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc cv z;
+    //background-color: #f1f1f1;
+    background-color: #011744;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-weight: bold;
+    color: rgb(236, 237, 194) !important;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: rgb(103, 99, 22);
+    color: #f3ec11 !important;
+}
+
+/* Create an active/current tablink class */
+/*color: #fff;
+      background-color: #6c757d;*/
+.tab button.active {
+    color: #f6f3f3 !important;
+    font-weight: bold;
+    background-color: #cd3706;
+}
+
+.tab button.active:hover {
+    background-color: rgb(243, 102, 7);
+    color: #f3ec11 !important;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid rgb(157, 157, 157);
+    border-top: none;
+}
