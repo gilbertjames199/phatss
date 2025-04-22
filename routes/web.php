@@ -28,6 +28,8 @@ use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\TimeSheetController;
 use App\Http\Controllers\WaterLevel1Controller;
+use App\Http\Controllers\WaterLevel2Controller;
+use App\Http\Controllers\WaterLevel3Controller;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Http;
 use App\Mail\MessageMail;
@@ -209,11 +211,20 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('python')->group(function () {
         Route::get('get', [PythonController::class, 'all_households']);
     });
-    //WATER RESOURCES
-    // /water/resources/level-1
+    //WATER RESOURCES LEVEL I
     Route::prefix('/water/resources/level-1')->group(function () {
         Route::get('/', [WaterLevel1Controller::class, 'index']);
         // Route::get('/level-2', [PythonController::class, 'all_households']);
         // Route::get('/level-1', [PythonController::class, 'all_households']);
+    });
+
+    //WATER RESOURCES LEVEL II
+    Route::prefix('/water/resources/level-2')->group(function () {
+        Route::get('/', [WaterLevel2Controller::class, 'index']);
+    });
+
+    //WATER RESOURCES LEVEL III
+    Route::prefix('/water/resources/level-3')->group(function () {
+        Route::get('/', [WaterLevel3Controller::class, 'index']);
     });
 });
