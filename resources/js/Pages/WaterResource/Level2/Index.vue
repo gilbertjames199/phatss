@@ -336,7 +336,7 @@ export default {
             this.pur="";
         }
         this.$inertia.get(
-                "/water/resources/level-1",
+                "/water/resources/level-2",
                 {
                     mun: this.mun,
                     bar: this.bar,
