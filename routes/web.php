@@ -41,6 +41,10 @@ use Inertia\Inertia;
 // Route::prefix('traction')->group(function () {
 //     Route::get('get', [UserController::class, 'register_user'])->name('user.registration.get');
 // });
+Route::prefix('/mobile')->group(function () {
+    Route::get('/login', [DashBoardController::class, 'm_login']);
+    Route::get('/dashboard', [DashBoardController::class, 'index']);
+});
 Route::get('web/register', [UserController::class, 'register_user'])->name('user.registration.get');
 Auth::routes(['verify' => false]);
 /*

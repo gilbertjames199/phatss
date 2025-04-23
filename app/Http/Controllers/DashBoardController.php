@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class DashBoardController extends Controller
 {
@@ -211,5 +212,36 @@ class DashBoardController extends Controller
     public function videos(Request $request)
     {
         return inertia('Videos/Index');
+    }
+    public function m_login(Request $request)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        // Find user by username
+        $user = User::where('email', $request->username)->first();
+
+        // Check if user exists
+        if (!$user) {
+            return response()->json([
+                'error' => 'Username not found'
+            ], 404);
+        }
+
+        // Check password
+        if (!Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'error' => 'Incorrect credentials'
+            ], 401);
+        }
+
+        // If credentials are valid, return success (you can return token or user info as needed)
+        return response()->json([
+            'message' => 'Login successful',
+            'user' => $user // Or just needed parts of user
+        ], 200);
     }
 }

@@ -79,8 +79,8 @@ class LoginController extends Controller
                     'user_name' => $user->name,
                     'type' => 'login',
                     'action' => 'login',
-                    'address' => $host,
-                    'host' => $add,
+                    'address' => $add,
+                    'host' => $host,
                 ]);
                 return redirect()->intended('dashboard'); // Replace 'dashboard' with your intended route
             }
