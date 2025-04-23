@@ -30,7 +30,7 @@
             <!-- {{ auth.user }} -->
             <div v-if="auth.user.level==='Provincial'">
                 Municipalities
-                <select v-model="select_mun" class="form-control" @change="loadBarangays(select_mun)">
+                <select v-model="select_mun" class="form-control" @change="loadBarangays(select_mun)" v-if="auth.user.level==='Provincial'">
                     <option></option>
                     <option>Compostela</option>
                     <option>Laak</option>

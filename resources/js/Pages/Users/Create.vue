@@ -74,6 +74,7 @@
             <button type="button" class="btn btn-primary mt-3" @click="submit()" :disabled="form.processing">
                 Save changes
             </button>
+            {{ editData }}
         </form>
     </div>
 </div>
@@ -120,6 +121,9 @@ export default {
             this.form.name = this.editData.name
             this.form.email = this.editData.email
             this.form.id = this.editData.id
+            this.form.level = this.editData.level
+            this.form.municipality = this.editData.municipality
+            this.form.barangay = this.editData.barangay
         } else {
             this.pageTitle = "Create"
         }

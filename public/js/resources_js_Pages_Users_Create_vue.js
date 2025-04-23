@@ -84,6 +84,9 @@ __webpack_require__.r(__webpack_exports__);
       this.form.name = this.editData.name;
       this.form.email = this.editData.email;
       this.form.id = this.editData.id;
+      this.form.level = this.editData.level;
+      this.form.municipality = this.editData.municipality;
+      this.form.barangay = this.editData.barangay;
     } else {
       this.pageTitle = "Create";
     }
@@ -496,7 +499,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     disabled: $data.form.processing
   }, " Save changes ", 8
   /* PROPS */
-  , _hoisted_28)], 32
+  , _hoisted_28), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.editData), 1
+  /* TEXT */
+  )], 32
   /* HYDRATE_EVENTS */
   )])]);
 }

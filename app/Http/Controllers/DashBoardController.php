@@ -215,11 +215,20 @@ class DashBoardController extends Controller
     }
     public function m_login(Request $request)
     {
+        $username = $request->input('username');
+        $password = $request->input('password');
         // Validate the incoming request
-        $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string',
-        ]);
+        if (is_null($username)) {
+            return response()->json([
+                'error' => 'Username is required'
+            ], 400);
+        }
+
+        if (is_null($password)) {
+            return response()->json([
+                'error' => 'Password is required'
+            ], 400);
+        }
 
         // Find user by username
         $user = User::where('email', $request->username)->first();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HouseHold;
 use App\Models\PhatssData;
 use App\Models\WaterLevel1;
 use Illuminate\Http\Request;
@@ -120,7 +121,7 @@ class WaterLevel1Controller extends Controller
         // dd(count($data));
         // dd($dataG1);
         // dd($data->pluck('count'));
-        $municipalities = PhatssData::where('municipality', '<>', 'MUNICIPALITY')
+        $municipalities = WaterLevel1::where('municipality', '<>', 'MUNICIPALITY')
             ->where('municipality', '<>', '')
             ->distinct('municipality')
             ->orderBy('municipality', 'ASC')
@@ -128,7 +129,7 @@ class WaterLevel1Controller extends Controller
         // dd($municipalities);
         $barangays = [];
         if ($mun) {
-            $barangays = PhatssData::where('municipality', 'LIKE', '%' . $mun . '%')
+            $barangays = WaterLevel1::where('municipality', 'LIKE', '%' . $mun . '%')
                 ->distinct('barangay')
                 ->orderBy('barangay', 'ASC')
                 ->pluck('barangay');
@@ -136,7 +137,7 @@ class WaterLevel1Controller extends Controller
         }
         $puroks = [];
         if ($bar) {
-            $puroks = PhatssData::where('barangay', 'LIKE', '%' . $bar . '%')
+            $puroks = WaterLevel1::where('barangay', 'LIKE', '%' . $bar . '%')
                 ->distinct('purok_sitio')
                 ->orderBy('purok_sitio', 'ASC')
                 ->pluck('purok_sitio');

@@ -30,6 +30,7 @@ use App\Http\Controllers\TimeSheetController;
 use App\Http\Controllers\WaterLevel1Controller;
 use App\Http\Controllers\WaterLevel2Controller;
 use App\Http\Controllers\WaterLevel3Controller;
+use App\Http\Controllers\WaterRefillingController;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Http;
 use App\Mail\MessageMail;
@@ -230,5 +231,10 @@ Route::middleware(['auth'])->group(function () {
     //WATER RESOURCES LEVEL III
     Route::prefix('/water/resources/level-3')->group(function () {
         Route::get('/', [WaterLevel3Controller::class, 'index']);
+    });
+
+    //WATER REFILLING STATIONS
+    Route::prefix('/water/resources/refilling')->group(function () {
+        Route::get('/', [WaterRefillingController::class, 'index']);
     });
 });

@@ -5,7 +5,7 @@
                 <!--MAP-->
 
                 <div class="peers fxw-nw jc-sb ai-c">
-                    <h1>Water Resources Level I</h1>
+                    <h1>Water Refilling Stations</h1>
 
                     <div class="peers">
                         <div class="peer">
@@ -14,6 +14,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="peers d-flex flex-wrap align-items-center justify-content-start">
 
                     <!-- COUNT RESULTS -->
@@ -105,9 +106,8 @@
                     </span>
 
                 </div>
-                <div class="peers fxw-nw jc-sb ai-c">
-                    <h5></h5>
-                </div>
+
+
                 <div class="col-12">
                     <div class="tab">
                         <!-- <button class="tablinks font-weight-bold" @click="openTab('table')" :class="{'active': (tab_selected === 'table')}">Table</button> -->
@@ -212,15 +212,15 @@
                 <filtering v-if="filter" @closeFilter="filter=false" title="HEATMAP FILTERS">
                     <h4>FILTERS<br></h4>
                     <hr>
-                    <span v-if="auth.user.level==='Provincial'">
+                    <div v-if="auth.user.level==='Provincial'">
                         <b>Municipality:</b> &nbsp;
-                        <select class="form-control" v-model="mun" @change="filter_me('mun')" >
+                        <select class="form-control" v-model="mun" @change="filter_me('mun')">
                             <option></option>
                             <option v-for="municipality in municipalities">
                                 {{ municipality }}
                             </option>
                         </select>
-                    </span>
+                    </div>
 
                     &nbsp;
                     <b>Barangays: </b>
@@ -281,7 +281,6 @@
             </div>
         </div>
     </div>
-    <!-- {{ auth }} -->
     <!-- {{ mun_coordinates }}
     {{ p_data[0] }} -->
 </template>
@@ -434,7 +433,7 @@ export default {
             this.pur="";
         }
         this.$inertia.get(
-                "/water/resources/level-1",
+                "/water/resources/refilling",
                 {
                     mun: this.mun,
                     bar: this.bar,
