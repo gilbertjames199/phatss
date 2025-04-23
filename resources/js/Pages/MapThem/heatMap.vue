@@ -3,6 +3,7 @@
         <div class="masonry-item w-100">
             <div class="row gap-20">
                 <!--MAP-->
+                <h1>Philippine Approach to Sustainable Sanitation -Households</h1>
                 <div class="peers fxw-nw jc-sb ai-c">
                     <h4>{{ getOptionText(my_filter) }}</h4>
                     <div class="peers">
@@ -12,7 +13,97 @@
                         </div>
                     </div>
                 </div>
+                <div class="peers d-flex flex-wrap align-items-center justify-content-start">
 
+                    <!-- COUNT RESULTS -->
+                    <span
+                        class="
+                            d-ib
+                            lh-0
+                            va-m
+                            fw-600
+                            bdrs-10em
+                            pX-15
+                            pY-15
+                            bgc-blue-50
+                            c-blue-500
+                            me-2
+                        ">
+                        {{ format_number(count,0,true) }} results found
+                    </span>
+
+                    <!-- MUNICIPALITY -->
+                    <span
+                        v-if="mun"
+                        class="
+                            d-ib
+                            lh-0
+                            va-m
+                            fw-600
+                            bdrs-10em
+                            pX-15
+                            pY-15
+                            bgc-yellow-50
+                            c-black-500
+                            me-2
+                        ">
+                        {{ mun }}
+                    </span>
+
+                    <!-- BARANGAY -->
+                    <span
+                        v-if="bar"
+                        class="
+                            d-ib
+                            lh-0
+                            va-m
+                            fw-600
+                            bdrs-10em
+                            pX-15
+                            pY-15
+                            bgc-red-50
+                            c-red-500
+                            me-2
+                        ">
+                        {{ bar }}
+                    </span>
+
+                    <!-- PUROK -->
+                    <span
+                        v-if="pur"
+                        class="
+                            d-ib
+                            lh-0
+                            va-m
+                            fw-600
+                            bdrs-10em
+                            pX-15
+                            pY-15
+                            bgc-blue-50
+                            c-blue-500
+                            me-2
+                        ">
+                        {{ pur }}
+                    </span>
+
+                    <!-- TYPE -->
+                    <span
+                        v-if="relrisk"
+                        class="
+                            d-ib
+                            lh-0
+                            va-m
+                            fw-600
+                            bdrs-10em
+                            pX-15
+                            pY-15
+                            bgc-red-50
+                            c-red-500
+                        ">
+                        {{ relrisk }}
+                    </span>
+
+                </div>
                 <div class="col-md-9">
 
                     <div class="layers bd bgc-white p-20">

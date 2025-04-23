@@ -30,7 +30,7 @@
                             c-blue-500
                             me-2
                         ">
-                        {{ count }} results found
+                        {{ format_number(count,0,true) }} results found
                     </span>
 
                     <!-- MUNICIPALITY -->
