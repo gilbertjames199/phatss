@@ -20,5 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::prefix('/issues')->group(function () {
     Route::get('/', [IssueController::class, 'mobile_list']);
-    Route::get('/store', [IssueController::class, 'mobile_store']);
+    Route::post('/store', [IssueController::class, 'mobile_store']);
 });
