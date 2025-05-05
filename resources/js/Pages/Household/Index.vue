@@ -7,6 +7,9 @@
             <h3>Households</h3>
             <div class="peers">
                 <div class="peer mR-10"><input v-model="search" type="text" class="form-control form-control-sm" placeholder="Search..."></div>
+                <!-- <button @click="exportHouseholds" class="btn btn-success">Export to Excel</button>
+                  -->
+                <a :href="downloadLink" target="_blank">Download Households Excel</a>
 
                 <div class="peer mR-10">
 
@@ -171,6 +174,7 @@ export default{
     },
     data() {
         return{
+            downloadLink: 'http://127.0.0.1:8000/export-households?level=Provincial',
             count_per_page: 10,
             bar: "",
             mun: "",
@@ -280,6 +284,18 @@ export default{
             }
             this.filterData();
         },
+        exportHouseholds() {
+            // Build the URL with query params (if any)
+            const level = 'Municipal'; // Example, change based on your state or data
+            const mun_us = 'Nabunturan';    // Example, set accordingly
+
+            // You can dynamically set these variables (mun_us, bar_us, etc.) based on user input
+            const url = `/export-households?level=${level}&mun_us=${mun_us}`;
+
+            // Trigger the export by opening the URL in a new tab (this will initiate the stream download)
+            window.open(url, '_blank');
+        }
+
 
     }
 }

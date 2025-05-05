@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -252,5 +253,161 @@ class DashBoardController extends Controller
             'message' => 'Login successful',
             'user' => $user // Or just needed parts of user
         ], 200);
+    }
+    public function masterlist(Request $request)
+    {
+        if (ob_get_length()) {
+            ob_end_clean(); // clean any previous outputs
+        }
+
+        $level = $request->query('level');
+        $mun_us = $request->query('mun_us');
+        $bar_us = $request->query('bar_us');
+        $mun = $request->query('mun');
+        $bar = $request->query('bar');
+        $pur = $request->query('pur');
+
+        $query = HouseHold::query()
+            ->when($level === 'Municipal', function ($query) use ($mun_us) {
+                $query->where('municipality', $mun_us);
+            })
+            ->when($level === 'Barangay', function ($query) use ($bar_us) {
+                $query->where('barangay', $bar_us);
+            })
+            ->when($mun, function ($query, $mun) {
+                $query->where('municipality', 'LIKE', "%$mun%");
+            })
+            ->when($bar, function ($query, $bar) {
+                $query->where('barangay', 'LIKE', "%$bar%");
+            })
+            ->when($pur, function ($query, $pur) {
+                $query->where('purok_sitio', 'LIKE', "%$pur%");
+            });
+        // ->cursor(); // cursor, not ->get()
+
+        $writer = WriterEntityFactory::createXLSXWriter();
+        $writer->openToBrowser('households.xlsx'); // important to open browser output here
+
+        $writer->addRow(WriterEntityFactory::createRowFromArray([
+            'ID',
+            'Name',
+            'Municipality',
+            'Barangay',
+            'Purok/Sitio',
+            'Created At'
+        ]));
+
+        foreach ($query->cursor() as $household) {
+            $writer->addRow(WriterEntityFactory::createRowFromArray([
+                $household->id,
+                $household->name,
+                $household->municipality,
+                $household->barangay,
+                $household->purok_sitio,
+                $household->created_at,
+            ]));
+        }
+
+        $writer->close();
+        exit; //
+        // return response()->streamDownload(function () use ($level, $mun_us, $bar_us, $request) {
+        //     $writer = WriterEntityFactory::createXLSXWriter();
+        //     $writer->openToOutput();
+
+        //     // Write the header
+        //     $writer->addRow(WriterEntityFactory::createRowFromArray([
+        //         'ID',
+        //         'Name',
+        //         'Municipality',
+        //         'Barangay',
+        //         'Purok/Sitio',
+        //         'Created At'
+        //     ]));
+
+        //     // Apply your filters using Eloquent
+        //     $query = HouseHold::query()
+        //         ->when($level == 'Municipal', function ($query) use ($mun_us) {
+        //             $query->where('municipality', $mun_us);
+        //         })
+        //         ->when($level == 'Barangay', function ($query) use ($bar_us) {
+        //             $query->where('barangay', $bar_us);
+        //         })
+        //         ->when($request->mun, function ($query, $mun) {
+        //             $query->where('municipality', 'LIKE', '%' . $mun . '%');
+        //         })
+        //         ->when($request->bar, function ($query, $bar) {
+        //             $query->where('barangay', 'LIKE', '%' . $bar . '%');
+        //         })
+        //         ->when($request->pur, function ($query, $pur) {
+        //             $query->where('purok_sitio', 'LIKE', '%' . $pur . '%');
+        //         });
+
+        //     // Stream the filtered data
+        //     foreach ($query->cursor() as $household) {
+        //         $writer->addRow(WriterEntityFactory::createRowFromArray([
+        //             $household->id,
+        //             $household->name,
+        //             $household->municipality,
+        //             $household->barangay,
+        //             $household->purok_sitio,
+        //             $household->created_at,
+        //         ]));
+        //     }
+
+        //     $writer->close();
+        // }, $fileName, [
+        //     'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        // ]);
+        // $results = [];
+
+        // HouseHold::when($level == 'Municipal', function ($query) use ($mun_us) {
+        //     $query->where('municipality', $mun_us);
+        // })
+        //     ->when($level == 'Barangay', function ($query) use ($bar_us) {
+        //         $query->where('barangay', $bar_us);
+        //     })
+        //     ->when($request->mun, function ($query, $mun) {
+        //         $query->where('municipality', 'LIKE', '%' . $mun . '%');
+        //     })
+        //     ->when($request->bar, function ($query, $bar) {
+        //         $query->where('barangay', 'LIKE', '%' . $bar . '%');
+        //     })
+        //     ->when($request->pur, function ($query, $pur) {
+        //         $query->where('purok_sitio', 'LIKE', '%' . $pur . '%');
+        //     })
+        //     ->chunk(1000, function ($households) use (&$results) {
+        //         foreach ($households as $item) {
+        //             $results[] = [
+        //                 'item' => $item
+        //             ];
+        //         }
+        //     });
+
+        // return $results;
+    }
+    public function phatss(Request $request)
+    {
+        dd("asdsadsad");
+    }
+    public function mun(Request $request)
+    {
+        return HouseHold::where('district', 'LIKE', '%' . $request->dist . '%')
+            ->distinct('municipality')
+            ->orderBy('municipality', 'ASC')
+            ->pluck('municipality');
+    }
+    public function bar(Request $request)
+    {
+        return HouseHold::where('municipality', 'LIKE', '%' . $request->mun . '%')
+            ->distinct('barangay')
+            ->orderBy('barangay', 'ASC')
+            ->pluck('barangay');
+    }
+    public function pur(Request $request)
+    {
+        return HouseHold::where('barangay', 'LIKE', '%' . $request->bar . '%')
+            ->distinct('purok_sitio')
+            ->orderBy('purok_sitio', 'ASC')
+            ->pluck('purok_sitio');
     }
 }

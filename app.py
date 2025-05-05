@@ -10,7 +10,9 @@ import numpy as np
 
 
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.impute import SimpleImputer
 
@@ -217,6 +219,149 @@ def predict_gradient_boosting():
         return jsonify({'prediction': int(prediction)})
     except Exception as e:
         return jsonify({'error': str(e)}), 400
+
+@app.route('/train-rf-local', methods=['GET'])
+def train_random_forest_local():
+    global trained_rf_model, feature_columns
+
+    data = fetch_data()
+    df = pd.DataFrame(data)
+
+    df_clean = df.dropna()
+    X = df_clean.drop(columns=['relative_risk_assessment'])
+    y = df_clean['relative_risk_assessment']
+
+    # Enforce rule: if _6_spaces == 0 or _7_feces == 0, then risk = 0
+    force_zero_condition = (X['_6_spaces'] == 0) | (X['_7_feces'] == 0)
+    y[force_zero_condition] = 0  # Overwrite labels where condition is met
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+    model = RandomForestClassifier(random_state=42)
+    model.fit(X_train, y_train)
+
+    trained_rf_model = model
+    feature_columns = list(X.columns)  # Save for use in prediction
+
+    y_pred = model.predict(X_test)
+
+    # Metrics
+    accuracy = accuracy_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred, average='weighted', zero_division=0)
+    recall = recall_score(y_test, y_pred, average='weighted', zero_division=0)
+    f1 = f1_score(y_test, y_pred, average='weighted', zero_division=0)
+
+    # Calculate feature importances
+    feature_importances = model.feature_importances_
+    importance_dict = {
+        feature: round(importance, 4)
+        for feature, importance in zip(feature_columns, feature_importances)
+    }
+
+    return jsonify({
+        'Accuracy': round(accuracy, 4),
+        'Precision': round(precision, 4),
+        'Recall': round(recall, 4),
+        'F1 Score': round(f1, 4),
+        'Feature Importances': importance_dict
+    })
+
+@app.route('/train-dt', methods=['GET'])
+def train_decision_tree():
+    global trained_dt_model, feature_columns
+
+    data = fetch_data()
+    df = pd.DataFrame(data)
+
+    df_clean = df.dropna()
+    X = df_clean.drop(columns=['relative_risk_assessment'])
+    y = df_clean['relative_risk_assessment']
+
+    # Enforce rule: if _6_spaces == 0 or _7_feces == 0, then risk = 0
+    force_zero_condition = (X['_6_spaces'] == 0) | (X['_7_feces'] == 0)
+    y[force_zero_condition] = 0  # Overwrite labels where condition is met
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+    model = DecisionTreeClassifier(random_state=42)
+    model.fit(X_train, y_train)
+
+    trained_dt_model = model
+    feature_columns = list(X.columns)  # Save for use in prediction
+
+    y_pred = model.predict(X_test)
+
+    # Metrics
+    accuracy = accuracy_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred, average='weighted', zero_division=0)
+    recall = recall_score(y_test, y_pred, average='weighted', zero_division=0)
+    f1 = f1_score(y_test, y_pred, average='weighted', zero_division=0)
+
+    # Calculate feature importances
+    feature_importances = model.feature_importances_
+    importance_dict = {
+        feature: round(importance, 4)
+        for feature, importance in zip(feature_columns, feature_importances)
+    }
+
+    return jsonify({
+        'Accuracy': round(accuracy, 4),
+        'Precision': round(precision, 4),
+        'Recall': round(recall, 4),
+        'F1 Score': round(f1, 4),
+        'Feature Importances': importance_dict
+    })
+
+@app.route('/train-lr', methods=['GET'])
+def train_logistic_regression():
+    global trained_lr_model, feature_columns
+
+    data = fetch_data()
+    df = pd.DataFrame(data)
+
+    df_clean = df.dropna()
+    X = df_clean.drop(columns=['relative_risk_assessment'])
+    y = df_clean['relative_risk_assessment']
+
+    # Enforce rule: if _6_spaces == 0 or _7_feces == 0, then risk = 0
+    force_zero_condition = (X['_6_spaces'] == 0) | (X['_7_feces'] == 0)
+    y[force_zero_condition] = 0  # Overwrite labels where condition is met
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+    model = LogisticRegression(max_iter=1000, random_state=42)
+    model.fit(X_train, y_train)
+
+    trained_lr_model = model
+    feature_columns = list(X.columns)  # Save for use in prediction
+
+    y_pred = model.predict(X_test)
+
+    # Metrics
+    accuracy = accuracy_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred, average='weighted', zero_division=0)
+    recall = recall_score(y_test, y_pred, average='weighted', zero_division=0)
+    f1 = f1_score(y_test, y_pred, average='weighted', zero_division=0)
+
+    # Feature importances using model coefficients (mean absolute values across classes)
+    coefs = model.coef_
+    if len(coefs.shape) > 1:
+        mean_abs_coefs = abs(coefs).mean(axis=0)
+    else:
+        mean_abs_coefs = abs(coefs)
+
+    importance_dict = {
+        feature: round(importance, 4)
+        for feature, importance in zip(feature_columns, mean_abs_coefs)
+    }
+
+    return jsonify({
+        'Accuracy': round(accuracy, 4),
+        'Precision': round(precision, 4),
+        'Recall': round(recall, 4),
+        'F1 Score': round(f1, 4),
+        'Feature Importances (via Coefficients)': importance_dict
+    })
 
 @app.route('/me')
 def me():

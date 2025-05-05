@@ -18,6 +18,7 @@ use App\Http\Controllers\IssueController;
 use App\Http\Controllers\IssueInterventionController;
 use App\Http\Controllers\MapPlotterController;
 use App\Http\Controllers\OtherController;
+use App\Http\Controllers\PatientRecordController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\PythonController;
 use App\Http\Controllers\RespondentController;
@@ -45,6 +46,20 @@ use Inertia\Inertia;
 Route::prefix('/mobile')->group(function () {
     Route::get('/login', [DashBoardController::class, 'm_login']);
     Route::get('/dashboard', [DashBoardController::class, 'index']);
+});
+Route::prefix('/address')->group(function () {
+    Route::get('/municipality', [DashBoardController::class, 'mun']);
+    Route::get('/barangay', [DashBoardController::class, 'bar']);
+    Route::get('/purok_sitio', [DashBoardController::class, 'pur']);
+});
+Route::prefix('/issues')->group(function () {
+    Route::get('/', [IssueController::class, 'mobile_list']);
+    Route::post('/store', [IssueController::class, 'mobile_store']);
+});
+Route::prefix('/jasper_reports')->group(function () {
+    Route::prefix('/masterlist')->group(function () {
+        Route::get('/', [DashBoardController::class, 'phatss']);
+    });
 });
 Route::get('web/register', [UserController::class, 'register_user'])->name('user.registration.get');
 Auth::routes(['verify' => false]);
@@ -74,7 +89,9 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('/home')->group(function () {
         Route::get('/', [DashBoardController::class, 'index']);
     });
-
+    Route::prefix('/export-households')->group(function () {
+        Route::get('/', [DashBoardController::class, 'masterlist']);
+    });
     //Users
     Route::prefix('/users')->group(function () {
         // ->can('create', 'App\Model\User');
@@ -236,5 +253,14 @@ Route::middleware(['auth'])->group(function () {
     //WATER REFILLING STATIONS
     Route::prefix('/water/resources/refilling')->group(function () {
         Route::get('/', [WaterRefillingController::class, 'index']);
+    });
+
+    //PATIENT RECORDS
+    Route::prefix('/patient-records')->group(function () {
+        Route::get('/', [PatientRecordController::class, 'index']);
+        Route::get('/create', [PatientRecordController::class, 'create']);
+        // Route::post('/store', [PatientRecordController::class, 'store']);
+        // Route::get('/{id}/edit', [PatientRecordController::class, 'edit']);
+        // Route::patch('/{id}/update', [PatientRecordController::class, 'update']);
     });
 });
