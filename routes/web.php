@@ -54,7 +54,7 @@ Route::prefix('/address')->group(function () {
 });
 Route::prefix('/issues')->group(function () {
     Route::get('/', [IssueController::class, 'mobile_list']);
-    Route::post('/store', [IssueController::class, 'mobile_store']);
+    Route::get('/store', [IssueController::class, 'mobile_store']);
 });
 Route::prefix('/jasper_reports')->group(function () {
     Route::prefix('/masterlist')->group(function () {

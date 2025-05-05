@@ -207,10 +207,21 @@ class IssueController extends Controller
     }
     public function mobile_list(Request $request)
     {
-        $us = $request->user();
-        $mun_us = $us->municipality;
-        $bar_us = $us->barangay;
-        $level = auth()->user()->level;
+        $validator = Validator::make($request->all(), [
+            'level' => 'required',
+
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+        $mun_us = $request->mun;
+        $bar_us = $request->bar;
+        $level = $request->level;
+
         return $this->model
             ->when($request->search, function ($query, $searchItem) {
                 $query->where('issue', 'like', '%' . $searchItem . '%');
@@ -231,6 +242,6 @@ class IssueController extends Controller
                 $query->where('barangay', $bar_us);
             })
             ->orderBy('updated_at', 'DESC')
-            ->withQueryString();
+            ->get();
     }
 }
