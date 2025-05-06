@@ -69,10 +69,12 @@
                         bdrs-10em
                         pX-15
                         pY-15
-                        bgc-blue-50
-                        c-blue-500
+                        bgc-green-50
+                        c-green-500
                     "
-                    >{{ bar }}</span>&nbsp;&nbsp;
+                    >
+                    {{ bar }}
+                </span>&nbsp;&nbsp;
                     <!-- <button
                     class="
                         d-ib
@@ -151,7 +153,7 @@
                                 </table>
                             </h6>
                             <hr>
-                            <h2 style="color: blue; font-weight: bold; text-align: center">{{ format_number(with_functional_toilet,0,true) }}</h2>
+                            <h2 style="color: #02ab75; font-weight: bold; text-align: center">{{ format_number(with_functional_toilet,0,true) }}</h2>
 
                         </div>
 
@@ -234,6 +236,14 @@
                                         <td>{{ result.Basic_Sanitation_G2 }}</td>
                                         <td>{{ result.Safely_Managed_G3 }}</td>
                                         <td>{{ result.total }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total</th>
+                                        <td>{{ totalG0 }}</td>
+                                        <td>{{ totalG1 }}</td>
+                                        <td>{{ totalG2 }}</td>
+                                        <td>{{ totalG3 }}</td>
+                                        <td>{{ totalOverall }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -344,23 +354,23 @@ export default {
             return[
                 {
                     label: 'G0',
-                    backgroundColor: '#025da6',
+                    backgroundColor: '#fc1303',
                     data: this.dt_g0,
                 },
                 {
                     label: 'G1',
-                    backgroundColor: '#2196f3',
+                    backgroundColor: '#fc7600',
                     data: this.dt_g1,
                 },
                 {
                     label: 'G2',
-                    backgroundColor: '#f44336',
+                    backgroundColor: '#d1f505',
                     data: this.dt_g2
                 },
                 {
                     //#D4D468
                     label: 'G3',
-                    backgroundColor: '#c8cf04',
+                    backgroundColor: '#02ab75',
                     data: this.dt_g3
                 },
                 // {
@@ -381,6 +391,21 @@ export default {
         number_of_households(){
             return this.total.reduce((sum, value) => sum + value, 0);
         },
+        totalG0() {
+            return this.results.reduce((sum, r) => sum + parseFloat(r.Open_Defecation_G0 || 0), 0);
+        },
+        totalG1() {
+            return this.results.reduce((sum, r) => sum + parseFloat(r.Zero_Open_Defecation_G1 || 0), 0);
+        },
+        totalG2() {
+            return this.results.reduce((sum, r) => sum + parseFloat(r.Basic_Sanitation_G2 || 0), 0);
+        },
+        totalG3() {
+            return this.results.reduce((sum, r) => sum + parseFloat(r.Safely_Managed_G3 || 0), 0);
+        },
+        totalOverall() {
+            return this.results.reduce((sum, r) => sum + parseFloat(r.total || 0), 0);
+        }
 
     },
     methods: {
