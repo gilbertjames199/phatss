@@ -82,7 +82,16 @@ createInertiaApp({
                             "New Bataan": [7.5547, 126.1404],
                             "Pantukan": [7.17728, 126.02043],
                         },
-
+                        get api_source() {
+                            // var lo = "192.168.6.23:8080/";
+                            // var gl = "122.54.19.171:8080/";
+                            // var nw = "122.54.19.172:8080/";
+                            // var nw_loc = "192.168.6.48:8080/";
+                            //var nw_temp = "120.72.21.122:8080/"
+                            // var nw_oct = "paps.dvodeoro.ph:8080/"
+                            var nw_nov = "192.168.80.89:5030/"
+                            return nw_nov;
+                        }
 
                     }
                 },

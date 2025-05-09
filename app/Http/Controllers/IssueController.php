@@ -100,7 +100,6 @@ class IssueController extends Controller
         + sin(radians(?)) * sin(radians(Latitude)))) AS distance",
             [$lat, $long, $lat]
         )
-            ->where('municipality', $issue->municipality)
             ->orderBy('distance', 'ASC')
             ->first();
         $long_to = floatval($nhc->Longitude);
@@ -190,6 +189,8 @@ class IssueController extends Controller
             $issue->type = $request->type;
             $issue->status = '0';
             $issue->user_id = $request->user_id; // Assuming user_id is passed in the request
+            $issue->disease_type1 = $request->disease_type1; // Assuming disease_type1 is passed in the request
+            $issue->patient_code = $request->patient_code; // Assuming patient_code is passed in the request
             $issue->save();
 
             return response()->json([

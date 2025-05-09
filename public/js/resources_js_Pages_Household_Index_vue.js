@@ -58,14 +58,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   mounted: function mounted() {
     if (this.auth.user.level === 'Municipal') {
-      this.select_mun = this.auth.user.municipality;
-      this.loadBarangays(this.select_mun);
+      if (!this.select_mun) {
+        this.select_mun = this.auth.user.municipality;
+        this.loadBarangays(this.select_mun);
+      }
     }
 
     if (this.auth.user.level === 'Barangay') {
       // this.select_mun=this.auth.user.municipality
-      this.select_bar = this.auth.user.barangay;
-      this.loadPuroks(this.select_bar, this.select_mun);
+      if (!this.select_bar) {
+        this.select_bar = this.auth.user.barangay;
+        this.loadPuroks(this.select_bar, this.select_mun);
+      }
     }
   },
   watch: {
@@ -125,7 +129,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   mun: _this2.select_mun,
                   relrisk: _this2.relrisk,
                   year_survey: _this2.year_survey,
-                  search: _this2.search
+                  search: _this2.search,
+                  page: _this2.data.current_page
                 }, {
                   preserveScroll: true,
                   preserveState: true,
@@ -724,12 +729,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     , ["onClick"])])])])])]);
   }), 256
   /* UNKEYED_FRAGMENT */
-  ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_pagination, {
+  ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ data.page }} "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_pagination, {
     next: $props.data.next_page_url,
     prev: $props.data.prev_page_url
   }, null, 8
   /* PROPS */
-  , ["next", "prev"])])])])])], 64
+  , ["next", "prev"])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.data.current_page), 1
+  /* TEXT */
+  )])], 64
   /* STABLE_FRAGMENT */
   );
 }

@@ -79,17 +79,24 @@ class ForecastController extends Controller
                 $total_score = array_sum($queryParams);
 
                 // Call the API
-                // $response = Http::get("http://eservices.dvodeoro.ph:5000/predict", $queryParams);
+                $response = Http::get("http://eservices.dvodeoro.ph:5030/predict-svm", $queryParams);
 
                 // Extract risk assessment value
                 $sanitation_status = "Good Sanitation";
-                // if ($response->successful() && isset($response->json()['relative_risk_assessment'])) {
-                //     $sanitation_status = $response->json()['relative_risk_assessment'] == 0
-                //         ? 'Bad/Inadequate Sanitation'
-                //         : 'Good Sanitation';
-                // } else {
-                //     $sanitation_status = 'Unknown';
-                // }
+                if ($response->successful() && isset($response->json()['predicted_relative_risk_assessment'])) {
+                    // dd($response->json()['predicted_relative_risk_assessment']);
+                    $sanitation_status = $response->json()['predicted_relative_risk_assessment'] == 0
+                        ? "High Risk" : (
+                            $response->json()['predicted_relative_risk_assessment'] == 1
+                            ? "Medium Risk"
+                            : ($response->json()['predicted_relative_risk_assessment'] == 2
+                                ? "Low Risk"
+                                : "No Risk")
+                        );
+                } else {
+                    // dd($response->json()['predicted_relative_risk_assessment']);
+                    $sanitation_status = 'Unknown';
+                }
                 // Determine Phatss value
                 $phatss = $this->getPhatss($queryParams, $total_score);
 
@@ -178,22 +185,29 @@ class ForecastController extends Controller
                 $total_score = array_sum($queryParams);
 
                 // Call the API
-                // $response = Http::get("http://eservices.dvodeoro.ph:5000/predict", $queryParams);
+                $response = Http::get("http://eservices.dvodeoro.ph:5030/predict-svm", $queryParams);
 
                 // Extract risk assessment value
                 $sanitation_status = "Good Sanitation";
-                // if ($response->successful() && isset($response->json()['relative_risk_assessment'])) {
-                //     $sanitation_status = $response->json()['relative_risk_assessment'] == 0
-                //         ? 'Bad/Inadequate Sanitation'
-                //         : 'Good Sanitation';
-                // } else {
-                //     $sanitation_status = 'Unknown';
-                // }
+                if ($response->successful() && isset($response->json()['predicted_relative_risk_assessment'])) {
+                    // dd($response->json()['predicted_relative_risk_assessment']);
+                    $sanitation_status = $response->json()['predicted_relative_risk_assessment'] == 0
+                        ? "High Risk" : (
+                            $response->json()['predicted_relative_risk_assessment'] == 1
+                            ? "Medium Risk"
+                            : ($response->json()['predicted_relative_risk_assessment'] == 2
+                                ? "Low Risk"
+                                : "No Risk")
+                        );
+                } else {
+                    // dd("unknown");
+                    $sanitation_status = 'Unknown';
+                }
                 // Determine Phatss value
                 $phatss = $this->getPhatss($queryParams, $total_score);
-                if ($total_score < 12) {
-                    $sanitation_status = "Bad Sanitation";
-                }
+                // if ($total_score < 12) {
+                //     $sanitation_status = "Bad Sanitation";
+                // }
                 // Construct API URL with parameters
                 // $apiBaseUrl = "http://eservices.dvodeoro.ph:5000/predict";
                 // $apiUrl = $apiBaseUrl . '?' . http_build_query($queryParams);
@@ -213,9 +227,40 @@ class ForecastController extends Controller
         $mun_us = $us->municipality;
         $bar_us = $us->barangay;
         $level = auth()->user()->level;
-        return HouseHold::when($type == 'bar', function ($query) use ($location) {
-            $query->where('barangay', '=', $location);
-        })
+        $household_level = $request->household_level;
+        return HouseHold::select(
+            'LAST_NAME',
+            'FIRST_NAME',
+            'MIDDLENAME',
+            'barangay',
+            'municipality',
+            'relative_risk_assessment',
+            DB::raw("(CASE WHEN _1_has_toilet = 'Yes' THEN 1 ELSE 0 END) AS _1_has_toilet"),
+            DB::raw("(CASE WHEN _2_toilet_used = 'Yes' THEN 1 ELSE 0 END) AS _2_toilet_used"),
+            DB::raw("(CASE WHEN _3_toilet_functional = 'Yes' THEN 1 ELSE 0 END) AS _3_toilet_functional"),
+            DB::raw("(CASE WHEN _4_soap = 'Yes' THEN 1 ELSE 0 END) AS _4_soap"),
+            DB::raw("(CASE WHEN _5_children = 'Yes' THEN 1 ELSE 0 END) AS _5_children"),
+            DB::raw("(CASE WHEN _6_spaces = 'Yes' THEN 1 ELSE 0 END) AS _6_spaces"),
+            DB::raw("(CASE WHEN _7_feces = 'Yes' THEN 1 ELSE 0 END) AS _7_feces"),
+            DB::raw("(CASE WHEN _8_composting = 'Yes' THEN 1 ELSE 0 END) AS _8_composting"),
+            DB::raw("(CASE WHEN _9_dispose = 'Yes' THEN 1 ELSE 0 END) AS _9_dispose"),
+            DB::raw("(CASE WHEN _10_emptied = 'Yes' THEN 1 WHEN _10_emptied = 'No' THEN 0 END) AS _10_emptied"),
+            DB::raw("(CASE WHEN _13_sewer = 'Yes' THEN 1 WHEN _13_sewer = 'No' THEN 0 END) AS _13_sewer"),
+            DB::raw("(CASE WHEN _15_household = 'Yes' THEN 1 WHEN _15_household = 'No' THEN 0 END) AS _15_household"),
+            DB::raw("(CASE WHEN _16_household = 'Yes' THEN 0 WHEN _16_household = 'No' THEN 0 END) AS _16_household"),
+            DB::raw("(CASE WHEN _17_using = 'Yes' THEN 1 WHEN _17_using = 'No' THEN 0 END) AS _17_using"),
+            DB::raw("(CASE WHEN _19_materials = 'Yes' THEN 1 WHEN _19_materials = 'No' THEN 0 END) AS _19_materials"),
+            DB::raw("(CASE
+                WHEN relative_risk_assessment='Open Defecation G0' THEN 0
+                WHEN relative_risk_assessment='Zero Open Defecation G1' THEN 1
+                WHEN relative_risk_assessment='Basic Sanitation G2' THEN 2
+                WHEN relative_risk_assessment='Safely Managed G3' THEN 3
+            END) AS relative_risk_assessment")
+
+        )
+            ->when($type == 'bar', function ($query) use ($location) {
+                $query->where('barangay', '=', $location);
+            })
             ->when($type == 'mun', function ($query) use ($location) {
                 $query->where('municipality', '=', $location);
             })
@@ -231,6 +276,9 @@ class ForecastController extends Controller
                         ->orWhere('FIRST_NAME', 'like', '%' . $request->search . '%')
                         ->orWhere('MIDDLENAME', 'like', '%' . $request->search . '%');
                 });
+            })
+            ->when($request->household_level, function ($query) use ($household_level) {
+                $query->where('relative_risk_assessment', 'like', '%' . $household_level . '%');
             })
             ->orderBy('LAST_NAME')
             ->paginate(500);

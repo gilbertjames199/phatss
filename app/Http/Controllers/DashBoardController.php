@@ -39,12 +39,11 @@ class DashBoardController extends Controller
         $bar_us = $us->barangay;
         $level = auth()->user()->level;
         $place = "";
+        //Retrieving results from the HouseHolds***********************
         if ($level == 'Municipal') {
             if ($bar) {
-
                 $place = 'purok_sitio';
-            }
-            if (!$bar) {
+            } else {
                 $place = 'barangay';
             }
         } else if ($level == 'Barangay') {
@@ -55,107 +54,113 @@ class DashBoardController extends Controller
                 $place = 'barangay';
             }
             if ($bar) {
-
                 $place = 'purok_sitio';
             }
         }
 
-        $results = HouseHold::select([
-            $place . ' as municipality',
-            DB::raw("SUM(CASE WHEN relative_risk_assessment = 'Open Defecation G0' THEN 1 ELSE 0 END) AS Open_Defecation_G0"),
-            DB::raw("SUM(CASE WHEN relative_risk_assessment = 'Zero Open Defecation G1' THEN 1 ELSE 0 END) Zero_Open_Defecation_G1"),
-            // DB::raw("SUM(CASE WHEN relative_risk_assessment IN ('Zero Open Defecation G1', 'Open Defecation G0') THEN 1 ELSE 0 END) AS Zero_Open_Defecation_G1"),
-            DB::raw("SUM(CASE WHEN relative_risk_assessment = 'Basic Sanitation G2' THEN 1 ELSE 0 END) AS Basic_Sanitation_G2"),
-            DB::raw("SUM(CASE WHEN relative_risk_assessment = 'Safely Managed G3' THEN 1 ELSE 0 END) AS Safely_Managed_G3"),
-            DB::raw("COUNT(*) AS total"),
-        ])->where('municipality', '<>', '')
+        // Subquery to select the latest entry per _uuid
+        $subQuery = HouseHold::selectRaw('*, ROW_NUMBER() OVER (PARTITION BY _uuid ORDER BY date_survey DESC) as rn')
+            ->where('municipality', '<>', '')
             ->when($level == 'Municipal', function ($query) use ($mun_us) {
                 $query->where('municipality', $mun_us);
             })
             ->when($level == 'Barangay', function ($query) use ($bar_us) {
                 $query->where('barangay', $bar_us);
             })
-            ->when($mun,  function ($query) use ($mun) {
+            ->when($mun, function ($query) use ($mun) {
                 $query->where('municipality', $mun);
             })
-            ->when($bar,  function ($query) use ($bar) {
+            ->when($bar, function ($query) use ($bar) {
                 $query->where('barangay', $bar);
             })
             ->when($year, function ($query) use ($year) {
                 $query->whereYear('date_survey', $year);
             });
-        // ->when($pur,  function ($query) use ($pur) {
-        //     $query->where('barangay', $bar);
-        // });
 
-        if ($level == 'Barangay') {
-            $results = $results->groupBy('purok_sitio')->get();
-        } else if ($level == 'Municipal') {
-
-            if ($bar) {
-
-                $results = $results->groupBy('purok_sitio')->get();
-            }
-            if (!$bar) {
-
-                $results = $results->groupBy('barangay')->get();
-            }
-        } else if ($level == 'Provincial') {
-            if ($mun && !$bar) {
-
-                $results = $results->groupBy('barangay')->get();
-            }
-            if ($bar) {
-                $results = $results->groupBy('purok_sitio')->get();
-            }
-            if (!$mun && !$bar) {
-                $results = $results->groupBy('municipality')->get();
-            }
-        }
-
-
-        // dd($results);
+        // Build the main query with aggregation
+        $results = DB::table(DB::raw("({$subQuery->toSql()}) as sub"))
+            ->mergeBindings($subQuery->getQuery())
+            ->select([
+                DB::raw("sub.{$place} as municipality"),
+                DB::raw("SUM(CASE WHEN sub.relative_risk_assessment = 'Open Defecation G0' THEN 1 ELSE 0 END) AS Open_Defecation_G0"),
+                DB::raw("SUM(CASE WHEN sub.relative_risk_assessment = 'Zero Open Defecation G1' THEN 1 ELSE 0 END) AS Zero_Open_Defecation_G1"),
+                DB::raw("SUM(CASE WHEN sub.relative_risk_assessment = 'Basic Sanitation G2' THEN 1 ELSE 0 END) AS Basic_Sanitation_G2"),
+                DB::raw("SUM(CASE WHEN sub.relative_risk_assessment = 'Safely Managed G3' THEN 1 ELSE 0 END) AS Safely_Managed_G3"),
+                DB::raw("COUNT(*) AS total"),
+            ])
+            ->where('sub.rn', 1)
+            ->groupBy(DB::raw("sub.{$place}"))
+            ->get();
+        // ************************************************************
         $dt_g0 = $results->pluck('Open_Defecation_G0');
         $dt_g1 = $results->pluck('Zero_Open_Defecation_G1');
         $dt_g2 = $results->pluck('Basic_Sanitation_G2');
         $dt_g3 = $results->pluck('Safely_Managed_G3');
         $mun = $results->pluck('municipality');
         $total = $results->pluck('total');
+        // dd($results);
 
-        $with_toilets = HouseHold::where('_1_has_toilet', 'Yes')
+
+        // $with_toilets = HouseHold::where('_1_has_toilet', 'Yes')
+        //     ->when($level == 'Municipal', function ($query) use ($mun_us) {
+        //         $query->where('municipality', $mun_us);
+        //     })
+        //     ->when($level == 'Barangay', function ($query) use ($bar_us) {
+        //         $query->where('barangay', $bar_us);
+        //     })
+        //     ->when($request->mun,  function ($query) use ($request) {
+        //         $query->where('municipality', $request->mun);
+        //     })
+        //     ->when($bar,  function ($query) use ($bar) {
+        //         $query->where('barangay', $bar);
+        //     })
+        //     ->when($year, function ($query) use ($year) {
+        //         $query->whereYear('date_survey', $year);
+        //     })
+        //     ->count()
+        //     ->unique('_uuid');
+        $latestRecords = HouseHold::select(DB::raw('MAX(id) as id'))
             ->when($level == 'Municipal', function ($query) use ($mun_us) {
                 $query->where('municipality', $mun_us);
             })
             ->when($level == 'Barangay', function ($query) use ($bar_us) {
                 $query->where('barangay', $bar_us);
             })
-            ->when($request->mun,  function ($query) use ($request) {
+            ->when($request->mun, function ($query) use ($request) {
                 $query->where('municipality', $request->mun);
             })
-            ->when($bar,  function ($query) use ($bar) {
+            ->when($bar, function ($query) use ($bar) {
                 $query->where('barangay', $bar);
             })
             ->when($year, function ($query) use ($year) {
                 $query->whereYear('date_survey', $year);
             })
+            ->groupBy('_uuid');
+
+        $with_toilets = HouseHold::whereIn('id', $latestRecords)
+            ->where('_1_has_toilet', 'Yes')
             ->count();
-        $with_functional_toilet = HouseHold::where('_3_toilet_functional', 'Yes')->where('_1_has_toilet', 'Yes')
-            ->when($level == 'Municipal', function ($query) use ($mun_us) {
-                $query->where('municipality', $mun_us);
-            })
-            ->when($level == 'Barangay', function ($query) use ($bar_us) {
-                $query->where('barangay', $bar_us);
-            })
-            ->when($request->mun,  function ($query) use ($request) {
-                $query->where('municipality', $request->mun);
-            })
-            ->when($bar,  function ($query) use ($bar) {
-                $query->where('barangay', $bar);
-            })
-            ->when($year, function ($query) use ($year) {
-                $query->whereYear('date_survey', $year);
-            })
+        $with_functional_toilet = HouseHold::whereIn('id', $latestRecords)
+            ->where('_1_has_toilet', 'Yes')
+            ->where('_3_toilet_functional', 'Yes')
             ->count();
+        // $with_functional_toilet = HouseHold::where('_3_toilet_functional', 'Yes')->where('_1_has_toilet', 'Yes')
+        //     ->when($level == 'Municipal', function ($query) use ($mun_us) {
+        //         $query->where('municipality', $mun_us);
+        //     })
+        //     ->when($level == 'Barangay', function ($query) use ($bar_us) {
+        //         $query->where('barangay', $bar_us);
+        //     })
+        //     ->when($request->mun,  function ($query) use ($request) {
+        //         $query->where('municipality', $request->mun);
+        //     })
+        //     ->when($bar,  function ($query) use ($bar) {
+        //         $query->where('barangay', $bar);
+        //     })
+        //     ->when($year, function ($query) use ($year) {
+        //         $query->whereYear('date_survey', $year);
+        //     })
+        //     ->count();
         // $_8_composting = HouseHold::where('_8_composting', 'Yes')->count();
         $_8_composting = 0;
         $municipalities = HouseHold::where('municipality', '<>', 'MUNICIPALITY')
@@ -209,6 +214,78 @@ class DashBoardController extends Controller
                 'canUpdateUserPermissions' => Auth::user()->can('can_update_user_permissions', User::class),
             ],
         ]);
+    }
+    public function household(Request $request, $mun, $bar, $year, $pur, $level, $mun_us, $bar_us)
+    {
+        if ($level == 'Municipal') {
+            if ($bar) {
+
+                $place = 'purok_sitio';
+            }
+            if (!$bar) {
+                $place = 'barangay';
+            }
+        } else if ($level == 'Barangay') {
+            $place = 'purok_sitio';
+        } else if ($level == 'Provincial') {
+            $place = 'municipality';
+            if ($mun) {
+                $place = 'barangay';
+            }
+            if ($bar) {
+
+                $place = 'purok_sitio';
+            }
+        }
+
+        $results = HouseHold::select([
+            $place . ' as municipality',
+            DB::raw("SUM(CASE WHEN relative_risk_assessment = 'Open Defecation G0' THEN 1 ELSE 0 END) AS Open_Defecation_G0"),
+            DB::raw("SUM(CASE WHEN relative_risk_assessment = 'Zero Open Defecation G1' THEN 1 ELSE 0 END) Zero_Open_Defecation_G1"),
+            // DB::raw("SUM(CASE WHEN relative_risk_assessment IN ('Zero Open Defecation G1', 'Open Defecation G0') THEN 1 ELSE 0 END) AS Zero_Open_Defecation_G1"),
+            DB::raw("SUM(CASE WHEN relative_risk_assessment = 'Basic Sanitation G2' THEN 1 ELSE 0 END) AS Basic_Sanitation_G2"),
+            DB::raw("SUM(CASE WHEN relative_risk_assessment = 'Safely Managed G3' THEN 1 ELSE 0 END) AS Safely_Managed_G3"),
+            DB::raw("COUNT(*) AS total"),
+        ])->where('municipality', '<>', '')
+            ->when($level == 'Municipal', function ($query) use ($mun_us) {
+                $query->where('municipality', $mun_us);
+            })
+            ->when($level == 'Barangay', function ($query) use ($bar_us) {
+                $query->where('barangay', $bar_us);
+            })
+            ->when($mun,  function ($query) use ($mun) {
+                $query->where('municipality', $mun);
+            })
+            ->when($bar,  function ($query) use ($bar) {
+                $query->where('barangay', $bar);
+            })
+            ->when($year, function ($query) use ($year) {
+                $query->whereYear('date_survey', $year);
+            });
+        // ->when($pur,  function ($query) use ($pur) {
+        //     $query->where('barangay', $bar);
+        // });
+
+        if ($level == 'Barangay') {
+            $results = $results->groupBy('purok_sitio')->get();
+        } else if ($level == 'Municipal') {
+            if ($bar) {
+                $results = $results->groupBy('purok_sitio')->get();
+            }
+            if (!$bar) {
+                $results = $results->groupBy('barangay')->get();
+            }
+        } else if ($level == 'Provincial') {
+            if ($mun && !$bar) {
+                $results = $results->groupBy('barangay')->get();
+            }
+            if ($bar) {
+                $results = $results->groupBy('purok_sitio')->get();
+            }
+            if (!$mun && !$bar) {
+                $results = $results->groupBy('municipality')->get();
+            }
+        }
     }
     public function videos(Request $request)
     {

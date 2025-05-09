@@ -149,11 +149,12 @@
                             </tr>
                         </tbody>
                     </table>
+                    <!-- {{ data.page }} -->
                     <pagination :next="data.next_page_url" :prev="data.prev_page_url" />
                 </div>
             </div>
         </div>
-
+        {{ data.current_page }}
     </div>
 </template>
 <script>
@@ -195,14 +196,18 @@ export default{
     },
     mounted(){
         if(this.auth.user.level==='Municipal'){
-            this.select_mun=this.auth.user.municipality
-            this.loadBarangays(this.select_mun)
+            if (!this.select_mun) {
+                this.select_mun = this.auth.user.municipality;
+                this.loadBarangays(this.select_mun);
+            }
         }
         if(this.auth.user.level==='Barangay'){
             // this.select_mun=this.auth.user.municipality
 
-            this.select_bar = this.auth.user.barangay
-            this.loadPuroks(this.select_bar, this.select_mun)
+            if (!this.select_bar) {
+                this.select_bar = this.auth.user.barangay;
+                this.loadPuroks(this.select_bar, this.select_mun);
+            }
         }
     },
     watch: {
@@ -243,7 +248,8 @@ export default{
                     mun: this.select_mun,
                     relrisk: this.relrisk,
                     year_survey: this.year_survey,
-                    search: this.search
+                    search: this.search,
+                    page: this.data.current_page,
                 },
                 {
                     preserveScroll: true,

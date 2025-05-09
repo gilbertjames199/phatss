@@ -172,7 +172,7 @@ class MapPlotterController extends Controller
         // $dataG2 = $this->dataGetter($request, 'Basic Sanitation G2');
         // $dataG3 = $this->dataGetter($request, 'Safely Managed G3');
         // ->take(40500)
-        $cluster_size = '0.0022';
+        $cluster_size = '0.0042';
         if (!empty($request->mun)) {
             $cluster_size = '0.0009'; // Approx. 100m
         }
