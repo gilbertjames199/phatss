@@ -58,7 +58,8 @@ class DashBoardController extends Controller
             }
         }
 
-        // Subquery to select the latest entry per _uuid
+        // ************************************************************************
+        // // Subquery to select the latest entry per _uuid
         $subQuery = HouseHold::selectRaw('*, ROW_NUMBER() OVER (PARTITION BY _uuid ORDER BY date_survey DESC) as rn')
             ->where('municipality', '<>', '')
             ->when($level == 'Municipal', function ($query) use ($mun_us) {
@@ -75,7 +76,10 @@ class DashBoardController extends Controller
             })
             ->when($year, function ($query) use ($year) {
                 $query->whereYear('date_survey', $year);
-            });
+            })
+            ->whereNotNull('municipality')
+            ->whereNotNull('barangay')
+            ->whereNotNull('purok_sitio');
 
         // Build the main query with aggregation
         $results = DB::table(DB::raw("({$subQuery->toSql()}) as sub"))
@@ -99,7 +103,7 @@ class DashBoardController extends Controller
         $mun = $results->pluck('municipality');
         $total = $results->pluck('total');
         // dd($results);
-
+        // ****************************************************************************************************************************
 
         // $with_toilets = HouseHold::where('_1_has_toilet', 'Yes')
         //     ->when($level == 'Municipal', function ($query) use ($mun_us) {
