@@ -158,6 +158,16 @@ class HouseHoldController extends Controller
 
         return $uuid; // Return the unique UUID
     }
+    //VIEW
+    public function view(Request $request, $id)
+    {
+        // dd($id);
+        $data = HouseHold::where('id', $id)->first();
+        // dd($data);
+        return inertia('Household/View', [
+            'data' => $data,
+        ]);
+    }
     //STORE
     public function store(Request $request)
     {

@@ -217,7 +217,8 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('/households')->group(function () {
         Route::get('/', [HouseHoldController::class, 'index']);
         Route::get('/create', [HouseHoldController::class, 'create']);
-        Route::post('/store', [HouseHoldController::class, 'store']);
+        Route::get('/{id}/view/dataset', [HouseHoldController::class, 'view']);
+        Route::get('/create', [HouseHoldController::class, 'create']);
         Route::get('/{id}/edit', [HouseHoldController::class, 'edit']);
         Route::patch('/{id}/update', [HouseHoldController::class, 'update']);
         Route::post('/generate/historical/data', [HouseHoldController::class, 'historical']);

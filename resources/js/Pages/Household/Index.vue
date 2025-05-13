@@ -135,6 +135,12 @@
                                         <ul class="dropdown-menu action-dropdown" aria-labelledby="dropdownMenuButton1">
                                             <li>
                                                 <Link class="dropdown-item"
+                                                    :href="`/households/${dat.id}/view/dataset`">
+                                                View
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link class="dropdown-item"
                                                     :href="`/households/${dat.id}/edit`">
                                                 Edit</Link>
                                             </li>

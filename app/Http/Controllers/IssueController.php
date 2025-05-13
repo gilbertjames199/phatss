@@ -191,6 +191,7 @@ class IssueController extends Controller
             $issue->user_id = $request->user_id; // Assuming user_id is passed in the request
             $issue->disease_type1 = $request->disease_type1; // Assuming disease_type1 is passed in the request
             $issue->patient_code = $request->patient_code; // Assuming patient_code is passed in the request
+            $issue->hospital = $request->hospital;
             $issue->save();
 
             return response()->json([
