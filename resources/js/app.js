@@ -115,6 +115,12 @@ createInertiaApp({
                     goBack() {
                         window.history.back()
                     },
+                    formatDateToStringMonth(dateString) {
+                        console.log(dateString);
+                        const options = { year: 'numeric', month: 'long', day: '2-digit' };
+                        const date = new Date(dateString);
+                        return date.toLocaleDateString('en-US', options);
+                    }
 
                 }
             })
