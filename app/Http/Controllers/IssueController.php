@@ -261,9 +261,9 @@ class IssueController extends Controller
     }
     public function update_number_of_patients(Request $request, $id)
     {
-        $request->validate([
-            'number_of_patients' => 'required|integer',
-        ]);
+        // $request->validate([
+        //     'number_of_patients' => 'required|integer',
+        // ]);
         $issue = Issue::where('id', $id)->first();
         $issue->number_of_patients = $request->number_of_patients;
         $issue->save();

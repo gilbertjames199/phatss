@@ -161,11 +161,15 @@ export default{
                 number_of_patients: this.number_of_patients[index]
             })
             .then(response => {
+                this.$inertia.reload({ only: ['notifs'] });
                 console.log(response.data.message);
             })
             .catch(error => {
                 console.error("Error updating:", error.response?.data || error);
             });
+
+            this.$inertia.reload({ only: ['notifs'] });
+
         }
     }
 }
