@@ -151,6 +151,7 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::prefix('/issue/diseases')->group(function () {
         Route::get('/', [IssueController::class, 'diseases']);
+        Route::post('/update_quantity/{id}', [IssueController::class, 'update_number_of_patients']);
     });
     Route::prefix('/issue-intervention')->group(function () {
         Route::get('/', [IssueInterventionController::class, 'index']);

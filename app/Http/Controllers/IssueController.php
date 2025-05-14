@@ -248,10 +248,25 @@ class IssueController extends Controller
     }
     public function diseases(Request $request)
     {
-        $diseases = Issue::where('hospital', '<>', null)
-            ->select('disease_type1')
+        $data = Issue::where('hospital', '<>', null)
             ->distinct()
             ->get();
-        return response()->json($diseases);
+        // dd($data);
+
+        return inertia('Issues/Diseases/Index', [
+            "filters" => $request->only(['search']),
+            'data' => $data,
+            'num_patients' => $data->pluck('number_of_patients'),
+        ]);
+    }
+    public function update_number_of_patients(Request $request, $id)
+    {
+        $request->validate([
+            'number_of_patients' => 'required|integer',
+        ]);
+        $issue = Issue::where('id', $id)->first();
+        $issue->number_of_patients = $request->number_of_patients;
+        $issue->save();
+        return redirect()->back()->with('message', 'Number of patients updated successfully');
     }
 }

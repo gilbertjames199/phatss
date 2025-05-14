@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Issue;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -19,7 +20,7 @@ class HandleInertiaRequests extends Middleware
     {
         if (auth()->check()) {
             $profile =  User::where('id', auth()->user()->id)->first()->getFirstMedia('avatars');
-
+            $notifs = Issue::where('hospital', '<>', NULL)->where('number_of_patients', NULL)->count();
             return array_merge(parent::share($request), [
                 'auth' => auth()->user() ? [ //if there is a user
                     'user' => [
@@ -30,7 +31,9 @@ class HandleInertiaRequests extends Middleware
                         'photo' => $profile ? $profile->getUrl() : '',
 
                     ]
+
                 ] : null,
+                'notifs' => $notifs,
                 'flash' => [
                     'message' => fn() => $request->session()->get('message'),
                     'error' => fn() => $request->session()->get('error'),
