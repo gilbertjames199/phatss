@@ -229,13 +229,43 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="result in results">
+                                    <!-- <tr v-for="result in results">
                                         <td>{{ result.municipality }}</td>
-                                        <td>{{ result.Open_Defecation_G0 }}</td>
+                                        <td>{{ result.Open_Defecation_G0 }}
+
+                                        </td>
                                         <td>{{ result.Zero_Open_Defecation_G1 }}</td>
                                         <td>{{ result.Basic_Sanitation_G2 }}</td>
                                         <td>{{ result.Safely_Managed_G3 }}</td>
                                         <td>{{ result.total }}</td>
+                                    </tr> -->
+                                    <tr v-for="result in results" :key="result.municipality">
+                                        <th>{{ result.municipality }}</th>
+                                        <td>
+                                            <a :href="generateUrl('G0', result.municipality)" target="_blank">
+                                                {{ result.Open_Defecation_G0 }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a :href="generateUrl('G1', result.municipality)" target="_blank">
+                                                {{ result.Zero_Open_Defecation_G1 }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a :href="generateUrl('G2', result.municipality)" target="_blank">
+                                                {{ result.Basic_Sanitation_G2 }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a :href="generateUrl('G3', result.municipality)" target="_blank">
+                                                {{ result.Safely_Managed_G3 }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a :href="generateUrl('ALL', result.municipality)" target="_blank">
+                                                {{ result.total }}
+                                            </a>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>Total</th>
@@ -452,6 +482,34 @@ export default {
             this.pur="";
             this.year="";
             this.filter_me("clear");
+        },
+        generateUrl(riskLevel, municipality) {
+            const bar = this.bar;
+            const mun = this.mun;
+            const year = this.year;
+
+            const params = new URLSearchParams();
+
+            if (bar) {
+                params.append('pur', municipality);
+                // params.append('mun', NULL);
+            } else if (mun) {
+                // params.append('bar', '');
+                params.append('bar', municipality);
+            } else {
+                // fallback if neither bar nor mun is set
+                // params.append('bar', NULL);
+                params.append('mun', municipality);
+            }
+
+            params.append('relrisk', riskLevel);
+            params.append('year_survey', year);
+
+            // return `http://127.0.0.1:8000/households?${params.toString()}`;
+            // Dynamic base URL using browser location
+            const baseUrl = `${window.location.origin}/households`;
+
+            return `${baseUrl}?${params.toString()}`;
         }
     }
 };

@@ -246,4 +246,12 @@ class IssueController extends Controller
             ->orderBy('updated_at', 'DESC')
             ->get();
     }
+    public function diseases(Request $request)
+    {
+        $diseases = Issue::where('hospital', '<>', null)
+            ->select('disease_type1')
+            ->distinct()
+            ->get();
+        return response()->json($diseases);
+    }
 }

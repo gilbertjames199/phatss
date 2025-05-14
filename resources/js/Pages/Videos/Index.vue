@@ -16,7 +16,7 @@
 
                             <video controls width="100%">
 
-                            <source src="http://eservices.dvodeoro.ph:5000/pho_ddo" type="video/mp4" />
+                            <source src="http://eservices.dvodeoro.ph:5030/pho_ddo" type="video/mp4" />
                             Your browser does not support the video tag.
                             </video>
 
@@ -29,7 +29,7 @@
                         <div class="layer w-100 mB-10">
 
                             <video controls width="100%">
-                            <source src="http://192.168.80.89:5000/mawab" type="video/mp4" />
+                            <source src="http://192.168.80.89:5030/mawab" type="video/mp4" />
                             Your browser does not support the video tag.
                             </video>
 
@@ -43,7 +43,7 @@
                         <div class="layer w-100 mB-10">
 
                             <video controls width="100%">
-                            <source src="http://192.168.80.89:5000/maragusan" type="video/mp4" />
+                            <source src="http://192.168.80.89:5030/maragusan" type="video/mp4" />
                             Your browser does not support the video tag.
                             </video>
                             <h5>Maragusan ZOD Accomplishment</h5>
@@ -60,7 +60,7 @@
                         </video> -->
 
                         <video controls width="100%">
-                            <source src="http://192.168.80.89:5000/maco" type="video/mp4" />
+                            <source src="http://192.168.80.89:5030/maco" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
                         <h5>Maco Environmental Summit</h5>

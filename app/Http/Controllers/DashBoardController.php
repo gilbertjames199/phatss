@@ -426,22 +426,26 @@ class DashBoardController extends Controller
         $writer->openToBrowser('households.xlsx'); // important to open browser output here
 
         $writer->addRow(WriterEntityFactory::createRowFromArray([
-            'ID',
-            'Name',
             'Municipality',
             'Barangay',
             'Purok/Sitio',
-            'Created At'
+            'Name',
+            // 'Pour/flush type connected to septic tank',
+            // 'Pour/flush type connected to toilet',
+            // 'ventilated pit',
+            // 'Water sealed'
         ]));
 
         foreach ($query->cursor() as $household) {
             $writer->addRow(WriterEntityFactory::createRowFromArray([
-                $household->id,
-                $household->name,
                 $household->municipality,
                 $household->barangay,
                 $household->purok_sitio,
-                $household->created_at,
+                $household->LAST_NAME . ', ' . $household->FIRST_NAME . ' ' . $household->MIDDLENAME,
+                // $household->_14_check_flush_pour_to_septic_tank,
+                // $household->_14_check_flush_pour_to_sewer,
+                // $household->_14_check_ventilated_imrpoved_pit_Latrine,
+                // $household->_14_check_pit_latrine,
             ]));
         }
 

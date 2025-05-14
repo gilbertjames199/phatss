@@ -9,7 +9,7 @@
                 <div class="peer mR-10"><input v-model="search" type="text" class="form-control form-control-sm" placeholder="Search..."></div>
                 <!-- <button @click="exportHouseholds" class="btn btn-success">Export to Excel</button>
                   -->
-                <a :href="downloadLink" target="_blank">Download Households Excel</a>
+
 
                 <div class="peer mR-10">
 
@@ -88,7 +88,16 @@
                 <option>2027</option>
             </select>
             <button class="btn btn-sm btn-primary mT-5 text-white" @click="">Filter</button>&nbsp;
-            <button class="btn btn-sm btn-danger mT-5 text-white" @click="clearFilter">Clear Filter</button>
+            <button class="btn btn-sm btn-danger mT-5 text-white" @click="clearFilter">Clear Filter</button>&nbsp;<br>
+            <a class="btn btn-sm btn-success mT-5 text-white"
+                :class="{ disabled: !select_bar }"
+                :href="downloadLink"
+                target="_blank"
+                @click.prevent="!select_bar"
+            >
+                Download Households Excel
+            </a>
+            <!-- {{ downloadLink }} -->
         </filtering>
         <div class="masonry-sizer col-md-6"></div>
         <div class="masonry-item w-100">
@@ -133,12 +142,12 @@
                                             </svg>
                                         </button>
                                         <ul class="dropdown-menu action-dropdown" aria-labelledby="dropdownMenuButton1">
-                                            <li>
+                                            <!-- <li>
                                                 <Link class="dropdown-item"
                                                     :href="`/households/${dat.id}/view/dataset`">
                                                 View
                                                 </Link>
-                                            </li>
+                                            </li> -->
                                             <li>
                                                 <Link class="dropdown-item"
                                                     :href="`/households/${dat.id}/edit`">
@@ -160,7 +169,7 @@
                 </div>
             </div>
         </div>
-        {{ data.current_page }}
+        <!-- {{ data.current_page }} -->
     </div>
 </template>
 <script>
@@ -181,7 +190,9 @@ export default{
     },
     data() {
         return{
-            downloadLink: 'http://127.0.0.1:8000/export-households?level=Provincial',
+            // http://eservices.dvodeoro.ph:8081/export-households
+            baseLink: '/export-households',
+            downloadLink: '',
             count_per_page: 10,
             bar: "",
             mun: "",
@@ -201,11 +212,13 @@ export default{
         }
     },
     mounted(){
+        this.my_level = this.auth.user.level;
         if(this.auth.user.level==='Municipal'){
             if (!this.select_mun) {
                 this.select_mun = this.auth.user.municipality;
                 this.loadBarangays(this.select_mun);
             }
+            this.downloadLink = this.baseLink + '?level='+this.my_level+'&mun=' + select_mun;
         }
         if(this.auth.user.level==='Barangay'){
             // this.select_mun=this.auth.user.municipality
@@ -214,6 +227,7 @@ export default{
                 this.select_bar = this.auth.user.barangay;
                 this.loadPuroks(this.select_bar, this.select_mun);
             }
+            this.downloadLink = this.baseLink + '?level='+this.my_level+'&bar=' + select_bar;
         }
     },
     watch: {
@@ -283,6 +297,7 @@ export default{
                 axios.post("/users/get-barangays",{mun: select_mun}).then((response)=>{
                     this.all_barangays = response.data.data
                 });
+                this.downloadLink = this.baseLink + '?level='+this.my_level+'&mun=' + select_mun;
             }
             this.filterData();
         },
@@ -293,6 +308,7 @@ export default{
                 axios.post("/users/get-puroks",{bar: select_bar, mun: select_mun}).then((response)=>{
                     this.all_puroks = response.data.data
                 });
+                this.downloadLink = this.baseLink + '?level='+this.my_level+'&mun=' + select_mun+'&bar=' + select_bar;
             }
             this.filterData();
         },

@@ -149,6 +149,9 @@ Route::middleware(['auth'])->group(function () {
         Route::patch('/update', [IssueController::class, 'update']);
         Route::delete('/{id}', [IssueController::class, 'destroy']);
     });
+    Route::prefix('/issue/diseases')->group(function () {
+        Route::get('/', [IssueController::class, 'diseases']);
+    });
     Route::prefix('/issue-intervention')->group(function () {
         Route::get('/', [IssueInterventionController::class, 'index']);
         Route::get('/view/{id}', [IssueInterventionController::class, 'view']);
