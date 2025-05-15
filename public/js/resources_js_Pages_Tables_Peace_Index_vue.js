@@ -341,19 +341,19 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   "xml:space": "preserve"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("g", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   fill: "currentColor",
-  d: "M69.684,384.436l116.312-116.312c11.096-11.096,14.282-26.938,9.933-40.952l36.01-36.01\n                                                c10.762,8.763,21.923,15.769,32.896,20.882c0.837-2.495,2.13-4.788,4.016-6.674l60.306-60.306c1.87-1.87,4.178-3.138,6.706-3.942\n                                                c-7.381-15.867-18.696-32.173-33.555-47.032c-15.152-15.152-31.807-26.654-47.975-34.018c-0.845,2.341-2.065,4.511-3.853,6.308\n                                                l-60.306,60.306c-1.78,1.78-3.902,3.081-6.267,3.95c5.145,11.266,12.331,22.752,21.338,33.823l-36.01,36.01\n                                                c-14.014-4.349-29.856-1.162-40.952,9.933L11.955,326.715c-15.94,15.94-15.94,41.781,0,57.721\n                                                C27.895,400.376,53.744,400.376,69.684,384.436z"
+  d: "M69.684,384.436l116.312-116.312c11.096-11.096,14.282-26.938,9.933-40.952l36.01-36.01\r\n                                                c10.762,8.763,21.923,15.769,32.896,20.882c0.837-2.495,2.13-4.788,4.016-6.674l60.306-60.306c1.87-1.87,4.178-3.138,6.706-3.942\r\n                                                c-7.381-15.867-18.696-32.173-33.555-47.032c-15.152-15.152-31.807-26.654-47.975-34.018c-0.845,2.341-2.065,4.511-3.853,6.308\r\n                                                l-60.306,60.306c-1.78,1.78-3.902,3.081-6.267,3.95c5.145,11.266,12.331,22.752,21.338,33.823l-36.01,36.01\r\n                                                c-14.014-4.349-29.856-1.162-40.952,9.933L11.955,326.715c-15.94,15.94-15.94,41.781,0,57.721\r\n                                                C27.895,400.376,53.744,400.376,69.684,384.436z"
 }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   fill: "currentColor",
-  d: "M274.589,211.127c-1.122,1.122-1.837,2.544-2.276,4.121c-1.496,5.414,0.91,12.9,6.576,18.566\n                                                c4.438,4.43,10.128,7.08,15.233,7.08c2.138,0,5.162-0.48,7.454-2.772l18.647-18.647l23.012-23.012l18.647-18.647\n                                                c2.284-2.284,3.211-5.779,2.593-9.836c-0.683-4.519-3.138-9.08-6.901-12.843c-4.438-4.43-10.128-7.08-15.225-7.08\n                                                c-0.984,0-2.162,0.13-3.365,0.463c-1.414,0.39-2.861,1.073-4.097,2.317L274.589,211.127z"
+  d: "M274.589,211.127c-1.122,1.122-1.837,2.544-2.276,4.121c-1.496,5.414,0.91,12.9,6.576,18.566\r\n                                                c4.438,4.43,10.128,7.08,15.233,7.08c2.138,0,5.162-0.48,7.454-2.772l18.647-18.647l23.012-23.012l18.647-18.647\r\n                                                c2.284-2.284,3.211-5.779,2.593-9.836c-0.683-4.519-3.138-9.08-6.901-12.843c-4.438-4.43-10.128-7.08-15.225-7.08\r\n                                                c-0.984,0-2.162,0.13-3.365,0.463c-1.414,0.39-2.861,1.073-4.097,2.317L274.589,211.127z"
 }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   fill: "currentColor",
-  d: "M176.949,123.728c1.105,0,2.455-0.146,3.82-0.593c1.26-0.415,2.536-1.081,3.642-2.187l60.306-60.306\n                                                c1.008-1.008,1.658-2.284,2.113-3.666c1.772-5.438-0.585-13.185-6.422-19.013c-4.438-4.43-10.128-7.08-15.225-7.08\n                                                c-2.138,0-5.162,0.48-7.454,2.772l-20.549,20.549l-19.216,19.208l-20.549,20.549c-4.975,4.983-3.008,15.371,4.308,22.687\n                                                C166.162,121.078,171.852,123.728,176.949,123.728z"
+  d: "M176.949,123.728c1.105,0,2.455-0.146,3.82-0.593c1.26-0.415,2.536-1.081,3.642-2.187l60.306-60.306\r\n                                                c1.008-1.008,1.658-2.284,2.113-3.666c1.772-5.438-0.585-13.185-6.422-19.013c-4.438-4.43-10.128-7.08-15.225-7.08\r\n                                                c-2.138,0-5.162,0.48-7.454,2.772l-20.549,20.549l-19.216,19.208l-20.549,20.549c-4.975,4.983-3.008,15.371,4.308,22.687\r\n                                                C166.162,121.078,171.852,123.728,176.949,123.728z"
 }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   fill: "currentColor",
-  d: "M300.438,387.313c9.892-0.975,20.5-1.252,31.579-1.252c4.723,0,9.559,0.033,14.485,0.073\n                                                c10.209,0.081,21.004,0.081,31.214,0c4.926-0.041,9.762-0.073,14.485-0.073c11.079,0,21.687,0.276,31.579,1.252v-23.589H300.438\n                                                V387.313z"
+  d: "M300.438,387.313c9.892-0.975,20.5-1.252,31.579-1.252c4.723,0,9.559,0.033,14.485,0.073\r\n                                                c10.209,0.081,21.004,0.081,31.214,0c4.926-0.041,9.762-0.073,14.485-0.073c11.079,0,21.687,0.276,31.579,1.252v-23.589H300.438\r\n                                                V387.313z"
 }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   fill: "currentColor",
-  d: "M392.202,394.19c-4.698,0-9.51,0.033-14.42,0.073c-10.258,0.073-21.086,0.073-31.336,0\n                                                c-4.91-0.041-9.722-0.073-14.42-0.073c-11.502,0-22.053,0.228-31.579,1.13c-31.417,2.967-51.129,13.567-52.47,50.04h228.267\n                                                c-1.341-36.473-21.053-47.064-52.47-50.039C414.255,394.418,403.695,394.19,392.202,394.19z"
+  d: "M392.202,394.19c-4.698,0-9.51,0.033-14.42,0.073c-10.258,0.073-21.086,0.073-31.336,0\r\n                                                c-4.91-0.041-9.722-0.073-14.42-0.073c-11.502,0-22.053,0.228-31.579,1.13c-31.417,2.967-51.129,13.567-52.47,50.04h228.267\r\n                                                c-1.341-36.473-21.053-47.064-52.47-50.039C414.255,394.418,403.695,394.19,392.202,394.19z"
 })])])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Crime Victims ")], -1
 /* HOISTED */
 );
@@ -830,7 +830,7 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNod
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Link");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" \n            I intend to recreate a simple pagination [simplePaginate()] for performance purpose \n            read https://laravel.com/docs/8.x/pagination#simple-pagination\n\n            If you think you will not have huge dataset in the future you can use\n            the paginate() by uncommenting below and in the actual component.\n        "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Component \n            :is=\"link.url ? 'Link' : 'span'\"\n            v-for=\"link in links\" \n            :href=\"link.url\" \n            v-html=\"link.label\"\n            class=\"p-3 text-decoration-none\"\n            :class=\"{'text-muted' : !link.url, 'fw-bold' : link.active}\"\n        /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_2, [$props.prev ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Link, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" \r\n            I intend to recreate a simple pagination [simplePaginate()] for performance purpose \r\n            read https://laravel.com/docs/8.x/pagination#simple-pagination\r\n\r\n            If you think you will not have huge dataset in the future you can use\r\n            the paginate() by uncommenting below and in the actual component.\r\n        "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Component \r\n            :is=\"link.url ? 'Link' : 'span'\"\r\n            v-for=\"link in links\" \r\n            :href=\"link.url\" \r\n            v-html=\"link.label\"\r\n            class=\"p-3 text-decoration-none\"\r\n            :class=\"{'text-muted' : !link.url, 'fw-bold' : link.active}\"\r\n        /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_2, [$props.prev ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Link, {
     key: 0,
     "class": "page-link",
     href: $props.prev,
@@ -941,13 +941,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Index_vue_vue_type_template_id_03373af0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Index.vue?vue&type=template&id=03373af0 */ "./resources/js/Pages/Tables/Peace/Index.vue?vue&type=template&id=03373af0");
 /* harmony import */ var _Index_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Index.vue?vue&type=script&lang=js */ "./resources/js/Pages/Tables/Peace/Index.vue?vue&type=script&lang=js");
-/* harmony import */ var C_xampp_htdocs_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_xampp_htdocs_PhATSS_ML_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,C_xampp_htdocs_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Index_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Index_vue_vue_type_template_id_03373af0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Pages/Tables/Peace/Index.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_xampp_htdocs_PhATSS_ML_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Index_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Index_vue_vue_type_template_id_03373af0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Pages/Tables/Peace/Index.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -969,7 +969,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Filter_vue_vue_type_template_id_09f80c58__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Filter.vue?vue&type=template&id=09f80c58 */ "./resources/js/Shared/Filter.vue?vue&type=template&id=09f80c58");
 /* harmony import */ var _Filter_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Filter.vue?vue&type=script&lang=js */ "./resources/js/Shared/Filter.vue?vue&type=script&lang=js");
 /* harmony import */ var _Filter_vue_vue_type_style_index_0_id_09f80c58_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Filter.vue?vue&type=style&index=0&id=09f80c58&lang=css */ "./resources/js/Shared/Filter.vue?vue&type=style&index=0&id=09f80c58&lang=css");
-/* harmony import */ var C_xampp_htdocs_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_xampp_htdocs_PhATSS_ML_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -977,7 +977,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,C_xampp_htdocs_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_Filter_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Filter_vue_vue_type_template_id_09f80c58__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Shared/Filter.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_xampp_htdocs_PhATSS_ML_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_Filter_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Filter_vue_vue_type_template_id_09f80c58__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Shared/Filter.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -998,13 +998,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Pagination_vue_vue_type_template_id_7ed7fa14__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pagination.vue?vue&type=template&id=7ed7fa14 */ "./resources/js/Shared/Pagination.vue?vue&type=template&id=7ed7fa14");
 /* harmony import */ var _Pagination_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pagination.vue?vue&type=script&lang=js */ "./resources/js/Shared/Pagination.vue?vue&type=script&lang=js");
-/* harmony import */ var C_xampp_htdocs_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_xampp_htdocs_PhATSS_ML_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,C_xampp_htdocs_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Pagination_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Pagination_vue_vue_type_template_id_7ed7fa14__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Shared/Pagination.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_xampp_htdocs_PhATSS_ML_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Pagination_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Pagination_vue_vue_type_template_id_7ed7fa14__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Shared/Pagination.vue"]])
 /* hot reload */
 if (false) {}
 

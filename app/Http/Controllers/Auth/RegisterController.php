@@ -38,7 +38,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -64,10 +64,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // dd($data);
+        // Define the pepper (retrieved securely from environment/config)
+        $pepper = config('app.pepper'); // Ensure 'app.pepper' is set in your config or .env
+
+        // Combine the password with the pepper
+        $pepperedPassword = $data['password'] . $pepper;
+
+        // Hash the password with salt and pepper
+        $hashedPassword = Hash::make($pepperedPassword);
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => $hashedPassword,
         ]);
     }
 }

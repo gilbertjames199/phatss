@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,29 +12,35 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
 //use App\Models\Permission;
+use Spatie\Permission\Traits\HasRoles;
+
 
 //for email verification
-use Illuminate\Auth\Events\Registered;
+// use Illuminate\Auth\Events\Registered;
 
-class User extends Authenticatable implements HasMedia, MustVerifyEmail
+class User extends Authenticatable implements HasMedia
 {
-    use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia;
-
-    protected $fillable = [
-        'name',
-        'email',
-        'email_verified_at',
-        'password'
-    ];
+    // , MustVerifyEmail
+    use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia, HasRoles;
+    protected $guarded = ['id'];
+    // protected $fillable = [
+    //     'name',
+    //     'email',
+    //     'email_verified_at',
+    //     'password',
+    //     'level',
+    //     'municipality',
+    //     'barangay'
+    // ];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    // ];
 
     // public function setPasswordAttribute($value)
     // {
@@ -49,18 +55,15 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     }
 
 
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-
-    }
+    // public function setPasswordAttribute($value)
+    // {
+    //     $this->attributes['password'] = bcrypt($value);
+    // }
     //,'user_id','permission_id'
     // //
     //for email verification
-    public function verifyUserEmail($value)
-    {
-        event(new Registered($value));
-    }
-
-
+    // public function verifyUserEmail($value)
+    // {
+    //     event(new Registered($value));
+    // }
 }

@@ -89,34 +89,6 @@
                     </Link>
                 </li> -->
 
-
-                <!--Interventions  -->
-                <!-- <li class="nav-item">
-                    <Link class="sidebar-link" href="/intervention">
-                        <span></span>
-                        <span class="icon-holder">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-postcard-fill" viewBox="0 0 16 16">
-                            <path d="M11 8h2V6h-2z"/>
-                            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zM2 5.5a.5.5 0 0 0 .5.5H6a.5.5 0 0 0 0-1H2.5a.5.5 0 0 0-.5.5M2.5 7a.5.5 0 0 0 0 1H6a.5.5 0 0 0 0-1zM2 9.5a.5.5 0 0 0 .5.5H6a.5.5 0 0 0 0-1H2.5a.5.5 0 0 0-.5.5m8-4v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5"/>
-                            </svg>
-                        </span>
-                        <span class="title">Interventions</span>
-                    </Link>
-                </li> -->
-
-                <!--Schools  -->
-                <!-- <li class="nav-item">
-                    <Link class="sidebar-link" href="/schools">
-                        <span></span>
-                        <span class="icon-holder">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-backpack4-fill" viewBox="0 0 16 16">
-                                <path d="M8 0a2 2 0 0 0-2 2H3.5a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h4v.5a.5.5 0 0 0 1 0V7h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H10a2 2 0 0 0-2-2m1 2a1 1 0 0 0-2 0zm-4 9v2h6v-2h-1v.5a.5.5 0 0 1-1 0V11z"/>
-                                <path d="M14 7.599A3 3 0 0 1 12.5 8H9.415a1.5 1.5 0 0 1-2.83 0H3.5A3 3 0 0 1 2 7.599V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5z"/>
-                            </svg>
-                        </span>
-                        <span class="title">Schools</span>
-                    </Link>
-                </li> -->
                 <!--Households-->
                 <li class="nav-item">
                     <Link class="sidebar-link" href="/households">
@@ -141,8 +113,220 @@
                         <span class="title">Map</span>
                     </Link>
                 </li>
-                <!--Users-->
+
+                <!--Prediction/Forecasting-->
                 <li class="nav-item">
+                    <Link class="sidebar-link" href="/sanitation-assessment">
+                        <span></span>
+                        <span class="icon-holder">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M0 0h1v15h15v1H0zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5"/>
+                            </svg>
+                        </span>
+                        <span class="title">Sanitation Analysis</span>
+                    </Link>
+                </li>
+                <!--ISSUES-->
+                <li class="nav-item dropdown" >
+                    <a class="dropdown-toggle" href="javascript:void(0);">
+                        <span class="icon-holder">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrows-expand" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10"/>
+                            </svg>
+                        </span>
+                        <span class="title">Issues&nbsp;</span>
+                        <span style="color: red; font-weight: bold" v-if="(parseFloat($page.props.notifs)>0)">({{ $page.props.notifs }})</span>
+                        <span class="arrow">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <Link class="sidebar-link" :href="`/issue/diseases`"
+                                :class="{ 'active': $page.url === `/supplies` }">
+                            <span class="title">Diseases&nbsp;</span>
+                            <span style="color: red; font-weight: bold" v-if="(parseFloat($page.props.notifs)>0)">({{ $page.props.notifs }})</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link class="sidebar-link" href="/issue"
+                                :class="{ 'active': $page.url === `/supplies` }">
+                            <span class="title">Rerouting</span>
+                            </Link>
+                        </li>
+
+
+                    </ul>
+                </li>
+                <!--Rerouting-->
+                <!-- <li class="nav-item">
+                    <Link class="sidebar-link" href="/issue">
+                        <span></span>
+                        <span class="icon-holder">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrows-expand" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10"/>
+                            </svg>
+                        </span>
+                        <span class="title">Issues -Rerouting</span>
+                    </Link>
+                </li> -->
+                <!--Interventions  -->
+                <li class="nav-item" v-if="$page.props.auth.user.level==='Provincial'">
+                    <Link class="sidebar-link" href="/intervention">
+                        <span></span>
+                        <span class="icon-holder">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-postcard-fill" viewBox="0 0 16 16">
+                            <path d="M11 8h2V6h-2z"/>
+                            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zM2 5.5a.5.5 0 0 0 .5.5H6a.5.5 0 0 0 0-1H2.5a.5.5 0 0 0-.5.5M2.5 7a.5.5 0 0 0 0 1H6a.5.5 0 0 0 0-1zM2 9.5a.5.5 0 0 0 .5.5H6a.5.5 0 0 0 0-1H2.5a.5.5 0 0 0-.5.5m8-4v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5"/>
+                            </svg>
+                        </span>
+                        <span class="title">Interventions</span>
+                    </Link>
+                </li>
+
+                <!--Schools  -->
+                <!-- <li class="nav-item">
+                    <Link class="sidebar-link" href="/schools">
+                        <span></span>
+                        <span class="icon-holder">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-backpack4-fill" viewBox="0 0 16 16">
+                                <path d="M8 0a2 2 0 0 0-2 2H3.5a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h4v.5a.5.5 0 0 0 1 0V7h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H10a2 2 0 0 0-2-2m1 2a1 1 0 0 0-2 0zm-4 9v2h6v-2h-1v.5a.5.5 0 0 1-1 0V11z"/>
+                                <path d="M14 7.599A3 3 0 0 1 12.5 8H9.415a1.5 1.5 0 0 1-2.83 0H3.5A3 3 0 0 1 2 7.599V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5z"/>
+                            </svg>
+                        </span>
+                        <span class="title">Schools</span>
+                    </Link>
+                </li> -->
+
+
+
+                <!--RESOURCES-->
+                <li class="nav-item dropdown" v-if="$page.props.auth.user.level==='Provincial'">
+                    <a class="dropdown-toggle" href="javascript:void(0);">
+                        <span class="icon-holder">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-backpack4-fill" viewBox="0 0 16 16">
+                            <path d="M8 0a2 2 0 0 0-2 2H3.5a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h4v.5a.5.5 0 0 0 1 0V7h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H10a2 2 0 0 0-2-2m1 2a1 1 0 0 0-2 0zm-4 9v2h6v-2h-1v.5a.5.5 0 0 1-1 0V11z"/>
+                            <path d="M14 7.599A3 3 0 0 1 12.5 8H9.415a1.5 1.5 0 0 1-2.83 0H3.5A3 3 0 0 1 2 7.599V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5z"/>
+                            </svg>
+                        </span>
+                        <span class="title">Resources</span>
+
+                        <span class="arrow">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <Link class="sidebar-link" :href="`/supplies`"
+                                :class="{ 'active': $page.url === `/supplies` }">
+                            <span class="title">Supplies</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link class="sidebar-link" href="/respondents"
+                                :class="{ 'active': $page.url === '/respondents' }">
+                            <span class="title">Responders</span>
+                            </Link>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--WATER RESOURCES-->
+                <li class="nav-item dropdown" >
+                    <a class="dropdown-toggle" href="javascript:void(0);">
+                        <span class="icon-holder">
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-backpack4-fill" viewBox="0 0 16 16">
+                            <path d="M8 0a2 2 0 0 0-2 2H3.5a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h4v.5a.5.5 0 0 0 1 0V7h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H10a2 2 0 0 0-2-2m1 2a1 1 0 0 0-2 0zm-4 9v2h6v-2h-1v.5a.5.5 0 0 1-1 0V11z"/>
+                            <path d="M14 7.599A3 3 0 0 1 12.5 8H9.415a1.5 1.5 0 0 1-2.83 0H3.5A3 3 0 0 1 2 7.599V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5z"/>
+                            </svg> -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-droplet-half" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M7.21.8C7.69.295 8 0 8 0q.164.544.371 1.038c.812 1.946 2.073 3.35 3.197 4.6C12.878 7.096 14 8.345 14 10a6 6 0 0 1-12 0C2 6.668 5.58 2.517 7.21.8m.413 1.021A31 31 0 0 0 5.794 3.99c-.726.95-1.436 2.008-1.96 3.07C3.304 8.133 3 9.138 3 10c0 0 2.5 1.5 5 .5s5-.5 5-.5c0-1.201-.796-2.157-2.181-3.7l-.03-.032C9.75 5.11 8.5 3.72 7.623 1.82z"/>
+                                <path fill-rule="evenodd" d="M4.553 7.776c.82-1.641 1.717-2.753 2.093-3.13l.708.708c-.29.29-1.128 1.311-1.907 2.87z"/>
+                            </svg>
+                        </span>
+                        <span class="title">Water Resource</span>
+
+                        <span class="arrow">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <Link class="sidebar-link" :href="`/water/resources/level-1`"
+                                :class="{ 'active': $page.url === `/supplies` }">
+                            <span class="title">Water Level I</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link class="sidebar-link" :href="`/water/resources/level-2`"
+                                :class="{ 'active': $page.url === `/supplies` }">
+                            <span class="title">Water Level II</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link class="sidebar-link" :href="`/water/resources/level-3`"
+                                :class="{ 'active': $page.url === `/supplies` }">
+                            <span class="title">Water Level III</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link class="sidebar-link" :href="`/water/resources/refilling`"
+                                :class="{ 'active': $page.url === `/supplies` }">
+                            <span class="title">Water Refilling Stations</span>
+                            </Link>
+                        </li>
+                        <!-- <li>
+                            <Link class="sidebar-link" href="/respondents"
+                                :class="{ 'active': $page.url === '/respondents' }">
+                            <span class="title">Responders</span>
+                            </Link>
+                        </li> -->
+                    </ul>
+                </li>
+                <!--Rerouting-->
+                <!-- <li class="nav-item">
+                    <Link class="sidebar-link" href="/map/route/optimize">
+                        <span></span>
+                        <span class="icon-holder">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrows-expand" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10"/>
+                            </svg>
+                        </span>
+                        <span class="title">Rerouting</span>
+                    </Link>
+                </li> -->
+
+
+
+                <!--Multimedia-->
+                <li class="nav-item">
+                    <Link class="sidebar-link" href="/videos">
+                        <span></span>
+                        <span class="icon-holder">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-camera-reels-fill" viewBox="0 0 16 16">
+                                <path d="M6 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                <path d="M9 6a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                                <path d="M9 6h.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 7.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 16H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/>
+                            </svg>
+                        </span>
+                        <span class="title">Sanitation Insights</span>
+                    </Link>
+                </li>
+                <!--Users-->
+                <li class="nav-item" v-if="$page.props.auth.user.level==='Provincial'">
                     <Link class="sidebar-link" href="/users">
                         <span></span>
                         <span class="icon-holder">

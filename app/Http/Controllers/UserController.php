@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    protected $model;
     public function __construct(User $model)
     {
         $this->middleware(['auth', 'verified']);
@@ -25,42 +26,47 @@ class UserController extends Controller
         // dd("user");
         // $user_data;
         // if (Auth::user()->can('create', User::class)) {
-        $user_data = $this->model->when($request->search, function ($query, $searchItem) {
-            $query->where('name', 'like', '%' . $searchItem . '%');
-        })
-            ->orderBy('created_at', 'desc')
-            ->simplePaginate(10)
-            ->withQueryString()
-            ->through(fn($user) => [
-                'id' => $user->id,
-                'name' => $user->name,
-                "can" => [
-                    'edit' => auth()->user()->can('edit', $user),
-                    'delete' => auth()->user()->can('delete', $user),
-                    'canViewUsers' => auth()->user()->can('can_view_users', $user),
-                    'canInsertUsers' => auth()->user()->can('can_insert_users', $user),
-                    'canEditUsers' => auth()->user()->can('can_edit_users', $user),
-                    'canDeleteUsers' => auth()->user()->can('can_delete_users', $user),
-                    'canUpdateUserPermissions' => auth()->user()->can('can_update_user_permissions', $user),
-                ],
-            ]);
+        if (auth()->user()->level == 'Provincial') {
+            $user_data = $this->model->when($request->search, function ($query, $searchItem) {
+                $query->where('name', 'like', '%' . $searchItem . '%');
+            })
+                ->orderBy('created_at', 'desc')
+                ->simplePaginate(10)
+                ->withQueryString()
+                ->through(fn($user) => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    "can" => [
+                        'edit' => auth()->user()->can('edit', $user),
+                        'delete' => auth()->user()->can('delete', $user),
+                        'canViewUsers' => auth()->user()->can('can_view_users', $user),
+                        'canInsertUsers' => auth()->user()->can('can_insert_users', $user),
+                        'canEditUsers' => auth()->user()->can('can_edit_users', $user),
+                        'canDeleteUsers' => auth()->user()->can('can_delete_users', $user),
+                        'canUpdateUserPermissions' => auth()->user()->can('can_update_user_permissions', $user),
+                    ],
+                ]);
 
-        return inertia('Users/Index', [
-            //returns an array of users with name field only
-            // "permissions_all" => Permission::all(),
-            "users" => $user_data,
-            "filters" => $request->only(['search']),
-            // "can" => [
-            //     'createUser' => Auth::user()->can('create', User::class),
-            //     'editUser' => Auth::user()->can('edit', User::class),
-            //     'deleteUser' => Auth::user()->can('delete', User::class),
-            //     'canViewUsers' => Auth::user()->can('can_view_users', User::class),
-            //     'canInsertUsers' => Auth::user()->can('can_insert_users', User::class),
-            //     'canEditUsers' => Auth::user()->can('can_edit_users', User::class),
-            //     'canDeleteUsers' => Auth::user()->can('can_delete_users', User::class),
-            //     'canUpdateUserPermissions' => Auth::user()->can('can_update_user_permissions', User::class),
-            // ],
-        ]);
+            return inertia('Users/Index', [
+                //returns an array of users with name field only
+                // "permissions_all" => Permission::all(),
+                "users" => $user_data,
+                "filters" => $request->only(['search']),
+                // "can" => [
+                //     'createUser' => Auth::user()->can('create', User::class),
+                //     'editUser' => Auth::user()->can('edit', User::class),
+                //     'deleteUser' => Auth::user()->can('delete', User::class),
+                //     'canViewUsers' => Auth::user()->can('can_view_users', User::class),
+                //     'canInsertUsers' => Auth::user()->can('can_insert_users', User::class),
+                //     'canEditUsers' => Auth::user()->can('can_edit_users', User::class),
+                //     'canDeleteUsers' => Auth::user()->can('can_delete_users', User::class),
+                //     'canUpdateUserPermissions' => Auth::user()->can('can_update_user_permissions', User::class),
+                // ],
+            ]);
+        } else {
+            return redirect('/')->with('error', 'forbidden');
+        }
+
         // } else {
         //     return inertia('Forbidden/Index', [
         //         "can" => [
@@ -100,9 +106,19 @@ class UserController extends Controller
     {
 
         // $permissions = DB::table('permissions')->get();
-
+        $barangay = DB::table('barangays')
+            ->select(DB::raw('(barangays.barangay)'), 'municipalities.municipality')
+            ->join('municipalities', 'barangays.muni_filter', "municipalities.code")
+            ->get();
+        // $municipalities = DB::table('y01_personal_infos')
+        //     ->distinct()
+        //     ->select(DB::raw('(y01_personal_infos.municipality)'))
+        //     ->get();
+        // dd($barangay);
         return inertia('Users/Create', [
             // "permissions" => $permissions,
+            "barangays" => $barangay,
+            // "municipalities" => $municipalities,
             "can" => [
                 'createUser' => Auth::user()->can('create', User::class),
                 'editUser' => Auth::user()->can('edit', User::class),
@@ -114,17 +130,35 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
+        $request->validate(
+            [
+                'name' => 'required',
+                'password' => 'required',
+                'email' => 'required',
+                'level' => 'required'
+            ]
+        );
+        // Define the pepper (retrieved securely from environment/config)
+        $pepper = config('app.pepper'); // Ensure 'app.pepper' is set in your config or .env
 
-        $attributes = $request->validate([
-            'name' => 'required',
-            'email' => ['required', 'email'],
-            'password' => 'required'
+        // Combine the password with the pepper
+        $pepperedPassword = $request->password . $pepper;
+
+        // Hash the password with salt and pepper
+        $hashedPassword = Hash::make($pepperedPassword);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $hashedPassword,
+            'level' => $request->level,
+            'barangay' => $request->barangay,
+            'municipality' => $request->municipality
         ]);
 
-        $this->model->create($attributes);
 
-
-
+        // dd($hashedPassword);
         return redirect('/users')->with('message', 'User created');
     }
 
@@ -338,22 +372,22 @@ class UserController extends Controller
     {
         $mun_where = $request->mun;
         //dd($mun_where);
-        $data = DB::table('y01_personal_infos')
+        $data = DB::table('house_holds')
             ->distinct()
-            ->select(DB::raw('(y01_personal_infos.barangay)'))
-            ->where('y01_personal_infos.municipality', 'LIKE', '%' . $mun_where . '%')
-            ->orderBy('y01_personal_infos.barangay', 'ASC')
+            ->select(DB::raw('(house_holds.barangay)'))
+            ->where('house_holds.municipality', 'LIKE', '%' . $mun_where . '%')
+            ->orderBy('house_holds.barangay', 'ASC')
             ->get();
         return ['data' => $data];
     }
 
     public function getPuroks(Request $request)
     {
-        $data = DB::table('y01_personal_infos')
+        $data = DB::table('house_holds')
             ->distinct()
-            ->select(DB::raw('(y01_personal_infos.purok_sitio)'))
-            ->where([['y01_personal_infos.barangay', 'LIKE', '%' . $request->bar . '%'], ['y01_personal_infos.municipality', 'LIKE', '%' . $request->mun . '%']])
-            ->orderBy('y01_personal_infos.purok_sitio', 'ASC')
+            ->select(DB::raw('(house_holds.purok_sitio)'))
+            ->where([['house_holds.barangay', 'LIKE', '%' . $request->bar . '%'], ['house_holds.municipality', 'LIKE', '%' . $request->mun . '%']])
+            ->orderBy('house_holds.purok_sitio', 'ASC')
             ->get();
         return ['data' => $data];
     }
@@ -362,5 +396,10 @@ class UserController extends Controller
     {
         $personnel = json_decode(file_get_contents(storage_path() . "/personnel.json"), true);
         return $personnel;
+    }
+
+    public function register_user(Request $reuqest)
+    {
+        dd('register_user');
     }
 }

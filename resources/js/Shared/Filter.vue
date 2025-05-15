@@ -1,10 +1,10 @@
 <template>
-    <div 
-        id="sidebar-wrapper" 
-        class="sidebar-nav nav navbar-inverse" 
+    <div
+        id="sidebar-wrapper"
+        class="sidebar-nav nav navbar-inverse"
     >
         <div class="row" style="width: 380px;">
-            <div class="bgc-white">  
+            <div class="bgc-white">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLiveLabel">Filtering</h5>
                     <button type="button" class="btn-close" @click="$emit('closeFilter')"></button>

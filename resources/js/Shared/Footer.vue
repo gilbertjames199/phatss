@@ -1,13 +1,13 @@
 <template>
      <!-- ### $App Screen Footer ### -->
     <footer class="bdT ta-c p-30 lh-0 fsz-sm c-grey-600">
-        <span
+        <!-- <span
             >Developed by
             <a
                 href="https://davaodeoro.gov.ph/"
                 >PICTO</a
             >
-        </span>
+        </span> -->
     </footer>
 </template>
 

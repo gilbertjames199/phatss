@@ -3,7 +3,7 @@
         <div class="peers fxw-nw jc-sb ai-c">
             <div class="col-md-12">
                 <!-- {{ pageTitle }}  -->
-                <h2 class="text-secondary">Edit Household</h2>
+                <h2 class="text-secondary">{{ pageTitle }} Household</h2>
                 <hr>
             </div>
         </div>
@@ -20,6 +20,12 @@
                     </div>
 
                     <div class="col-md-11">
+
+                        <label for="">Date of Survey</label>
+                        <!-- {{ form.date_survey }} --{{ editData.date_survey }} --{{ historical_date_classifier }} -->
+                        <input type="date" class="form-control" v-model="form.date_survey" />
+                        <div class="fs-6 c-red-500" v-if="form.errors.district">{{ form.errors.district }}</div>
+
                         <label for="" style="font-weight: bold">ADDRESS</label>
                         <br />
                         <label for="">District</label>
@@ -361,7 +367,7 @@
                 Save changes
             </button>
         </form>
-
+        <!-- {{ editData }} -->
     </div>
 </template>
 <script>
@@ -456,6 +462,7 @@ export default {
             all_puroks: [],
             created_at: "",
             updated_at: "",
+            historical_date_classifier: ""
 
         };
     },
@@ -463,7 +470,9 @@ export default {
         if(this.editData!==undefined){
             this.pageTitle="Edit";
             this.form.id = this.editData.id;
-            this.form.date_survey=this.editData.date_survey;
+            // this.form.date_survey=this.editData.date_survey;
+            this.form.date_survey =this.formatDate(this.editData.date_survey);
+            this.historical_date_classifier=this.formatDate(this.editData.date_survey);
             this.form.time_started=this.editData.time_started;
             this.form.ENUMERATOR=this.editData.ENUMERATOR;
             this.form.district=this.editData.district;
@@ -541,7 +550,7 @@ export default {
             // alert("form set")
         }else{
             const now = new Date();
-            this.pageTitle="Create";
+            this.pageTitle="New";
             this.form.ENUMERATOR="System";
             this.form.date_survey= now.getFullYear() + '-' +
                         String(now.getMonth() + 1).padStart(2, '0') + '-' +
@@ -559,10 +568,32 @@ export default {
             this.calculateRiskLevel();
             if (this.editData !== undefined) {
                 // alert(this.form.y01);
-                this.form.patch("/households/" + this.form.id + "/update", this.form);
+                if (this.historical_date_classifier !== this.form.date_survey) {
+                    if (!confirm("Changing the date_survey value will not update the household data but will generate new historical data. Do you want to continue?")) {
+                        return; // Stop submission if user cancels
+                    }else{
+
+                        this.form.post("/households/generate/historical/data", this.form);
+                    }
+                }else{
+                    this.form.patch("/households/" + this.form.id + "/update", this.form);
+                }
+
+
+
             } else {
                 this.form.post("/households/store", this.form);
             }
+        },
+        formatDate(dateString) {
+            // if (!dateString) return ""; // Handle empty input
+
+            // let dateOnly = dateString.split(" ")[0]; // Extract "15/10/2023"
+            // let parts = dateOnly.split("-"); // ["15", "10", "2023"]
+
+            // return parts.length === 3 ? `${parts[2]}-${parts[1]}-${parts[0]}` : "";
+            if (!dateString) return ""; // Handle empty input
+            return dateString.split(" ")[0]; // Extract "YYYY-MM-DD" (removing time part)
         },
         no_10_set_affected(){
             if(this.form._10_emptied=='Yes'){

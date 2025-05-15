@@ -10,30 +10,70 @@ use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\GovernmentController;
 use App\Http\Controllers\EconomicController;
+use App\Http\Controllers\ForecastController;
 use App\Http\Controllers\HealthController;
 use App\Http\Controllers\HouseHoldController;
 use App\Http\Controllers\InterventionController;
+use App\Http\Controllers\IssueController;
+use App\Http\Controllers\IssueInterventionController;
 use App\Http\Controllers\MapPlotterController;
 use App\Http\Controllers\OtherController;
+use App\Http\Controllers\PatientRecordController;
 use App\Http\Controllers\PlaceController;
+use App\Http\Controllers\PythonController;
+use App\Http\Controllers\RespondentController;
+use App\Http\Controllers\ResponseCenterController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SocialInclusionController;
+use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\TimeSheetController;
+use App\Http\Controllers\WaterLevel1Controller;
+use App\Http\Controllers\WaterLevel2Controller;
+use App\Http\Controllers\WaterLevel3Controller;
+use App\Http\Controllers\WaterRefillingController;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Http;
 use App\Mail\MessageMail;
+use App\Models\ResponseCenter;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-Auth::routes(['verify' => true]);
+// Auth::routes(); ['register' => false, 'verify' => false]
+// Route::prefix('traction')->group(function () {
+//     Route::get('get', [UserController::class, 'register_user'])->name('user.registration.get');
+// });
+Route::prefix('/mobile')->group(function () {
+    Route::get('/login', [DashBoardController::class, 'm_login']);
+    Route::get('/dashboard', [DashBoardController::class, 'index']);
+});
+Route::prefix('/address')->group(function () {
+    Route::get('/municipality', [DashBoardController::class, 'mun']);
+    Route::get('/barangay', [DashBoardController::class, 'bar']);
+    Route::get('/purok_sitio', [DashBoardController::class, 'pur']);
+});
+Route::prefix('/issues')->group(function () {
+    Route::get('/', [IssueController::class, 'mobile_list']);
+    Route::get('/store', [IssueController::class, 'mobile_store']);
+});
+Route::prefix('/jasper_reports')->group(function () {
+    Route::prefix('/masterlist')->group(function () {
+        Route::get('/', [DashBoardController::class, 'phatss']);
+    });
+});
+Route::get('web/register', [UserController::class, 'register_user'])->name('user.registration.get');
+Auth::routes(['verify' => false]);
 /*
 Route::get('/email', function(){
     Mail::to('email@email.com')->send(new MessageMail());
     return new MessageMail();
 });
 */
-Route::middleware('auth')->group(function () {
+
+Route::middleware(['auth'])->group(function () {
     Route::prefix('/')->group(function () {
         Route::get('/', [DashBoardController::class, 'index']);
+        Route::get('/dashboard', [DashBoardController::class, 'index']);
     });
     Route::prefix('/import')->group(function () {
         Route::get('/', [ImportDataController::class, 'importindex']);
@@ -49,7 +89,9 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/home')->group(function () {
         Route::get('/', [DashBoardController::class, 'index']);
     });
-
+    Route::prefix('/export-households')->group(function () {
+        Route::get('/', [DashBoardController::class, 'masterlist']);
+    });
     //Users
     Route::prefix('/users')->group(function () {
         // ->can('create', 'App\Model\User');
@@ -71,12 +113,64 @@ Route::middleware('auth')->group(function () {
         Route::post('/get-barangays', [UserController::class, 'getBarangays']);
         Route::post('/get-puroks', [UserController::class, 'getPuroks']);
     });
-    //Charts
-
+    //Forecasts
+    Route::prefix('/forecasts')->group(function () {
+        Route::get('/', [ForecastController::class, 'index']);
+        // Route::get('/heat', [MapPlotterController::class, 'heat_map']);
+        // Route::get('/route/optimize', [MapPlotterController::class, 'route_optimize']);
+    });
+    // Risk level by munixipality/barangay
+    Route::prefix('/sanitation-assessment')->group(function () {
+        Route::get('/', [ForecastController::class, 'sanitation_level']);
+        Route::get('/{mun}', [ForecastController::class, 'getBarangays']);
+        Route::get('/{type}/{location}', [ForecastController::class, 'getHouseholds']);
+    });
+    //Respondents
+    Route::prefix('/respondents')->group(function () {
+        Route::get('/', [RespondentController::class, 'index']);
+        // Route::get('/heat', [MapPlotterController::class, 'heat_map']);
+        // Route::get('/route/optimize', [MapPlotterController::class, 'route_optimize']);
+    });
     //MAP THEM
     Route::prefix('/map')->group(function () {
         Route::get('/', [MapPlotterController::class, 'index']);
         Route::get('/heat', [MapPlotterController::class, 'heat_map']);
+        Route::get('/route/optimize', [MapPlotterController::class, 'route_optimize']);
+        Route::get('/k/means/training', [MapPlotterController::class, 'kmeans']);
+    });
+
+
+    Route::prefix('/issue')->group(function () {
+        Route::get('/', [IssueController::class, 'index']);
+        Route::get('/view/{id}', [IssueController::class, 'view']);
+        Route::get('/{id}/lfdsf/23/4afoaip/edit', [IssueController::class, 'edit']);
+        Route::get('/report', [IssueController::class, 'report']);
+        Route::post('/store', [IssueController::class, 'store']);
+        Route::patch('/update', [IssueController::class, 'update']);
+        Route::delete('/{id}', [IssueController::class, 'destroy']);
+    });
+    Route::prefix('/issue/diseases')->group(function () {
+        Route::get('/', [IssueController::class, 'diseases']);
+        Route::post('/update_quantity/{id}', [IssueController::class, 'update_number_of_patients']);
+    });
+    Route::prefix('/issue-intervention')->group(function () {
+        Route::get('/', [IssueInterventionController::class, 'index']);
+        Route::get('/view/{id}', [IssueInterventionController::class, 'view']);
+        Route::get('/{id}/mgdsg/23/4agobip/edit', [IssueInterventionController::class, 'edit']);
+        Route::get('/create/{issue_id}/123jk423', [IssueInterventionController::class, 'create']);
+        Route::post('/store', [IssueInterventionController::class, 'store']);
+        Route::patch('/update', [IssueInterventionController::class, 'update']);
+        Route::delete('/{id}', [IssueInterventionController::class, 'destroy']);
+    });
+    Route::get('/location-search', function () {
+        $query = request('q');
+        $response = Http::get("https://nominatim.openstreetmap.org/search?format=json&q={$query}");
+        return $response->json();
+    });
+
+    //ResponseCenters
+    Route::prefix('/response-center')->group(function () {
+        Route::get('/', [ResponseCenterController::class, 'index']);
     });
     Route::prefix('/survey')->group(function () {
         Route::get('/', [SurveyController::class, 'index']);
@@ -84,6 +178,15 @@ Route::middleware('auth')->group(function () {
         Route::post('/store', [SurveyController::class, 'store']);
         Route::get('/household/edit/{id}', [SurveyController::class, 'edit']);
         Route::patch('/household/update/{id}', [SurveyController::class, 'update']);
+    });
+    // SUPPLIES
+    Route::prefix('/supplies')->group(function () {
+        Route::get('/', [SupplyController::class, 'index']);
+        Route::get('/create', [SupplyController::class, 'create']);
+        Route::post('/store', [SupplyController::class, 'store']);
+        Route::get('/edit/{id}', [SupplyController::class, 'edit']);
+        Route::patch('/update/{id}', [SupplyController::class, 'update']);
+        Route::delete('/{id}', [SupplyController::class, 'destroy']);
     });
     //Avatar file upload
     Route::post('/files/upload', [FileHandleController::class, 'uploadAvatar']);
@@ -110,13 +213,19 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/reg')->group(function () {
         Route::get('/analyze', [HouseHoldController::class, 'analyze_reg']);
     });
+    //Videos
+    Route::prefix('/videos')->group(function () {
+        Route::get('/', [DashBoardController::class, 'videos']);
+    });
     //HOUSEHOLDS
     Route::prefix('/households')->group(function () {
         Route::get('/', [HouseHoldController::class, 'index']);
         Route::get('/create', [HouseHoldController::class, 'create']);
-        Route::post('/store', [HouseHoldController::class, 'store']);
+        Route::get('/{id}/view/dataset', [HouseHoldController::class, 'view']);
+        Route::get('/create', [HouseHoldController::class, 'create']);
         Route::get('/{id}/edit', [HouseHoldController::class, 'edit']);
         Route::patch('/{id}/update', [HouseHoldController::class, 'update']);
+        Route::post('/generate/historical/data', [HouseHoldController::class, 'historical']);
         Route::delete('/{id}', [HouseHoldController::class, 'destroy']);
     });
     //PLACES
@@ -124,5 +233,39 @@ Route::middleware('auth')->group(function () {
         Route::get('/municipalities', [PlaceController::class, 'index']);
         Route::get('/{mun}/barangays', [PlaceController::class, 'bar']);
         Route::get('/barangay/{bar}/purok-sitio', [PlaceController::class, 'pur']);
+    });
+    //PYTHON
+    Route::prefix('python')->group(function () {
+        Route::get('get', [PythonController::class, 'all_households']);
+    });
+    //WATER RESOURCES LEVEL I
+    Route::prefix('/water/resources/level-1')->group(function () {
+        Route::get('/', [WaterLevel1Controller::class, 'index']);
+        // Route::get('/level-2', [PythonController::class, 'all_households']);
+        // Route::get('/level-1', [PythonController::class, 'all_households']);
+    });
+
+    //WATER RESOURCES LEVEL II
+    Route::prefix('/water/resources/level-2')->group(function () {
+        Route::get('/', [WaterLevel2Controller::class, 'index']);
+    });
+
+    //WATER RESOURCES LEVEL III
+    Route::prefix('/water/resources/level-3')->group(function () {
+        Route::get('/', [WaterLevel3Controller::class, 'index']);
+    });
+
+    //WATER REFILLING STATIONS
+    Route::prefix('/water/resources/refilling')->group(function () {
+        Route::get('/', [WaterRefillingController::class, 'index']);
+    });
+
+    //PATIENT RECORDS
+    Route::prefix('/patient-records')->group(function () {
+        Route::get('/', [PatientRecordController::class, 'index']);
+        Route::get('/create', [PatientRecordController::class, 'create']);
+        // Route::post('/store', [PatientRecordController::class, 'store']);
+        // Route::get('/{id}/edit', [PatientRecordController::class, 'edit']);
+        // Route::patch('/{id}/update', [PatientRecordController::class, 'update']);
     });
 });

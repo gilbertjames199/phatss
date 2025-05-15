@@ -2,16 +2,97 @@
     <Head>
         <title>Home</title>
     </Head>
-    <!-- <h1 style="color: #26394a; font-weight: bold; font-family: verdana;">Imports</h1> -->
-    <!--<p style="text-align: justify;">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet consectetur.
-    </p>-->
+
     <div class="row gap-20 masonry pos-r">
-        <h1 style="color: #26394a; font-weight: bold; font-family: verdana;">Philippine Approach to Sustainable Sanitation -2023</h1>
-        <div class="masonry-sizer col-md-6"></div>
+
         <div class="masonry-item w-100">
             <div class="row gap-20">
+                <h1 style="color: #26394a; font-weight: bold; font-family: verdana;">Sanitation Management System</h1>
+
+                <div class="peers fxw-nw jc-sb ai-c">
+                 <h2>
+                            <span v-if="auth.user.level==='Barangay'">Barangay {{ auth.user.barangay }}</span>
+                            <span v-if="auth.user.level==='Municipal'">Municipality of {{ auth.user.municipality }}</span>
+                            <span v-if="auth.user.level==='Provincial'">Province of Davao de Oro</span>
+                        </h2>
+
+
+                    <div class="peers">
+                        <div class="peer">
+
+                        </div>
+                        <div class="peer">
+                            <button class="btn btn-primary btn-sm mL-2 text-white" @click="showFilter()">Filter</button>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-md-12" v-if="bar || mun || year">
+                <span >Filters:&nbsp;&nbsp;</span>
+                <span>
+                    <span v-if="year"
+                    class="
+                        d-ib
+                        lh-0
+                        va-m
+                        fw-600
+                        bdrs-10em
+                        pX-15
+                        pY-15
+                        bgc-red-50
+                        c-red-500
+                    "
+                    >{{ year }}</span
+                >&nbsp;&nbsp;
+                </span>
+                <span>
+                    <span v-if="mun"
+                    class="
+                        d-ib
+                        lh-0
+                        va-m
+                        fw-600
+                        bdrs-10em
+                        pX-15
+                        pY-15
+                        bgc-yellow-50
+                        c-black-500
+                    "
+                    >{{ mun }}</span
+                >&nbsp;&nbsp;
+                </span>
+                <span v-if="bar"
+                    class="
+                        d-ib
+                        lh-0
+                        va-m
+                        fw-600
+                        bdrs-10em
+                        pX-15
+                        pY-15
+                        bgc-green-50
+                        c-green-500
+                    "
+                    >
+                    {{ bar }}
+                </span>&nbsp;&nbsp;
+                    <!-- <button
+                    class="
+                        d-ib
+                        lh-0
+                        va-m
+                        fw-600
+                        bdrs-10em
+                        pX-15
+                        pY-15
+                        bgc-red-500
+                        c-red-50
+                    " @click="clearFilter"
+                    >X </button
+                > -->
+
+            </div>
                 <!-- TOTAL HOUSEHOLDS -->
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="layers bd bgc-white p-20">
                         <div class="layer w-100 mB-10">
                             <h6 class="lh-1">
@@ -29,12 +110,11 @@
                             </h6>
                             <hr>
                             <h2 style="color: red; font-weight: bold; text-align: center">{{ format_number(number_of_households,0,true) }}</h2>
-                            <p style="text-align: center">{{ format_number(100*(with_toilets/190000),2,true) }}% of households in Davao de Oro have responded to the survey in 2023.<br>&nbsp;</p>
                         </div>
                     </div>
                 </div>
                 <!-- WITH TOILETS -->
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="layers bd bgc-white p-20">
                         <div class="layer w-100 mB-10">
                             <h6 class="lh-1">
@@ -52,15 +132,12 @@
                             </h6>
                             <hr>
                             <h2 style="color: #756e04; font-weight: bold;  text-align: center">{{ format_number(with_toilets,0,true) }}</h2>
-
-                            <p>Of the {{ format_number(number_of_households,0,true) }} respondents, {{ format_number(with_toilets,0,true) }}
-                                ({{ format_number(100*(with_toilets/number_of_households),2,true) }}%) have toilets.<br>&nbsp;</p>
                         </div>
 
                     </div>
                 </div>
                 <!-- WITH FUNCTIONAL TOILETS -->
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="layers bd bgc-white p-20">
                         <div class="layer w-100 mB-10">
                             <h6 class="lh-1">
@@ -76,43 +153,20 @@
                                 </table>
                             </h6>
                             <hr>
-                            <h2 style="color: blue; font-weight: bold; text-align: center">{{ format_number(with_functional_toilet,0,true) }}</h2>
-                            <p>Of the {{ format_number(number_of_households,0,true) }} respondents, {{ format_number(with_toilets,0,true) }}
-                                ({{ format_number(100*(with_functional_toilet/number_of_households),2,true) }}%) have functional and well-maintained toilets.</p>
+                            <h2 style="color: #02ab75; font-weight: bold; text-align: center">{{ format_number(with_functional_toilet,0,true) }}</h2>
+
                         </div>
 
                     </div>
                 </div>
-                <!-- PRACTICE WASTE SEGREGATION AND/OR COMPOSTING -->
-                <div class="col-md-3">
-                    <div class="layers bd bgc-white p-20">
-                        <div class="layer w-100 mB-10">
-                            <h6 class="lh-1">
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-recycle" viewBox="0 0 16 16">
-                                            <path d="M9.302 1.256a1.5 1.5 0 0 0-2.604 0l-1.704 2.98a.5.5 0 0 0 .869.497l1.703-2.981a.5.5 0 0 1 .868 0l2.54 4.444-1.256-.337a.5.5 0 1 0-.26.966l2.415.647a.5.5 0 0 0 .613-.353l.647-2.415a.5.5 0 1 0-.966-.259l-.333 1.242zM2.973 7.773l-1.255.337a.5.5 0 1 1-.26-.966l2.416-.647a.5.5 0 0 1 .612.353l.647 2.415a.5.5 0 0 1-.966.259l-.333-1.242-2.545 4.454a.5.5 0 0 0 .434.748H5a.5.5 0 0 1 0 1H1.723A1.5 1.5 0 0 1 .421 12.24zm10.89 1.463a.5.5 0 1 0-.868.496l1.716 3.004a.5.5 0 0 1-.434.748h-5.57l.647-.646a.5.5 0 1 0-.708-.707l-1.5 1.5a.5.5 0 0 0 0 .707l1.5 1.5a.5.5 0 1 0 .708-.707l-.647-.647h5.57a1.5 1.5 0 0 0 1.302-2.244z"/>
-                                            </svg>&nbsp;&nbsp;&nbsp;
-                                        </td>
-                                        <td><h5 href="/details/demographics" target="_blank">Practice Waste Segregation/Composting</h5></td>
-                                    </tr>
-                                </table>
-                            </h6>
-                            <hr>
-                            <h2 style="color: #756e04; font-weight: bold; text-align: center">{{ format_number(_8_composting,0,true) }}</h2>
-                            <p style="text-align:center">Of the {{ format_number(number_of_households,0,true) }} respondents, {{ format_number(_8_composting,0,true) }}
-                                ({{ format_number(100*(_8_composting/number_of_households),2,true) }}%) practice segregation/composting.</p>
-                        </div>
 
-                    </div>
-                </div>
                 <!-- RISK ASSESSMENT -CHART -->
                 <div class="col-md-6 ">
                     <div class="layers bd bgc-white p-20">
                         <div class="layer w-100 mB-10">
                             Risk Assessment Chart
                             <RiskAssessmentChart
+                                :key="componentKey"
                                 :chartData="chartDataType"
                                 :chartLabel="data_by_mun_label"
                                 :plugins="chartOptionCom" >
@@ -124,15 +178,49 @@
                 <div class="col-md-6 ">
                     <div class="layers bd bgc-white p-20">
                         <div class="layer w-100 mB-10">
+
                             <table class="table table-sm table-bordered table-striped table-hover" >
                                 <thead class="thead-dark">
                                     <tr >
                                         <th colspan="6" style="background-color: grey; color: white">
-                                            <b>RISK LEVEL DISTRIBUTION BY MUNICIPALITY</b>
+                                            <b> RISK LEVEL DISTRIBUTION BY LOCATION
+                                                <!-- <span v-if="auth.user.level==='Barangay'">PUROK/SITIO</span>
+                                                <span v-if="auth.user.level==='Municipal'">BARANGAY
+                                                    <span v-if="bar!==''">PUROK/SITIO</span>
+                                                    <span v-if="bar===''&&pur==='' ">BARANGAY</span>
+                                                </span>
+                                                <span v-if="auth.user.level==='Provincial'">
+                                                    <span v-if="bar!==''">PUROK/SITIO</span>
+                                                    <span v-if="mun!=='' && (pur===''&&pur===NULL)">BARANGAY</span>
+                                                    <span v-if="mun==='' && bar===''&&pur==='' ">MUNICIPALITY</span>
+                                                </span> -->
+                                                 <!-- <span v-if="auth.user.level === 'Barangay'">PUROK/SITIO</span>
+                                                <span v-else-if="auth.user.level === 'Municipal'">
+                                                    <span v-if="bar">PUROK/SITIO</span>
+                                                    <span v-else>BARANGAY</span>
+                                                </span>
+                                                <span v-else-if="auth.user.level === 'Provincial'">
+                                                    <span v-if="bar">PUROK/SITIO</span>
+                                                    <span v-else-if="mun && pur!==''">BARANGAY</span>
+                                                    <span v-else>MUNICIPALITY</span>
+                                                </span> -->
+                                            </b>
                                         </th>
                                     </tr>
                                     <tr style="background-color: #c1c9c4">
-                                        <th>Municipality</th>
+                                        <th>
+                                            <!-- <span v-if="auth.user.level==='Barangay'">PUROK/SITIO</span>
+                                            <span v-if="auth.user.level==='Municipal'">BARANGAY
+                                                <span v-if="bar!==''">PUROK/SITIO</span>
+                                                <span v-if="bar===''&&pur==='' ">BARANGAY</span>
+                                            </span>
+                                            <span v-if="auth.user.level==='Provincial'">
+                                                <span v-if="bar!==''">PUROK/SITIO</span>
+                                                <span v-if="mun!==''">BARANGAY</span>
+                                                <span v-if="mun==='' && bar===''&&pur==='' ">MUNICIPALITY</span>
+                                            </span> -->
+                                            Location
+                                        </th>
                                         <th>Open Defecation -G0</th>
                                         <th>Zero Open Defecation -G1</th>
                                         <th>Basic Sanitation G2</th>
@@ -141,13 +229,51 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="result in results">
+                                    <!-- <tr v-for="result in results">
                                         <td>{{ result.municipality }}</td>
-                                        <td>{{ result.Open_Defecation_G0 }}</td>
+                                        <td>{{ result.Open_Defecation_G0 }}
+
+                                        </td>
                                         <td>{{ result.Zero_Open_Defecation_G1 }}</td>
                                         <td>{{ result.Basic_Sanitation_G2 }}</td>
                                         <td>{{ result.Safely_Managed_G3 }}</td>
                                         <td>{{ result.total }}</td>
+                                    </tr> -->
+                                    <tr v-for="result in results" :key="result.municipality">
+                                        <th>{{ result.municipality }}</th>
+                                        <td>
+                                            <a :href="generateUrl('G0', result.municipality)" target="_blank">
+                                                {{ result.Open_Defecation_G0 }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a :href="generateUrl('G1', result.municipality)" target="_blank">
+                                                {{ result.Zero_Open_Defecation_G1 }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a :href="generateUrl('G2', result.municipality)" target="_blank">
+                                                {{ result.Basic_Sanitation_G2 }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a :href="generateUrl('G3', result.municipality)" target="_blank">
+                                                {{ result.Safely_Managed_G3 }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a :href="generateUrl('ALL', result.municipality)" target="_blank">
+                                                {{ result.total }}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total</th>
+                                        <td>{{ totalG0 }}</td>
+                                        <td>{{ totalG1 }}</td>
+                                        <td>{{ totalG2 }}</td>
+                                        <td>{{ totalG3 }}</td>
+                                        <td>{{ totalOverall }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -160,39 +286,73 @@
 
                 </div>
 
+
+                <filtering v-if="filter" @closeFilter="filter=false" title="DATA FILTERS">
+
+                    <h4>FILTERS<br></h4>
+                    <b>Year:</b>
+                    <select class="form-control" v-model="year" @change="filter_me('year')">
+                        <option></option>
+                        <option>2023</option>
+                        <option>2024</option>
+                        <option>2025</option>
+                        <option>2026</option>
+                        <option>2027</option>
+                    </select>
+                    <!-- <hr> -->
+                    <span v-if="auth.user.level==='Provincial'">
+                        <b>Municipality:</b> &nbsp;
+                        <select class="form-control" v-model="mun" @change="filter_me('mun')">
+                            <option></option>
+                            <option v-for="municipality in municipalities">
+                                {{ municipality }}
+                            </option>
+                        </select>
+                    </span>
+
+
+                    &nbsp;
+                    <span v-if="auth.user.level!=='Barangay'">
+                        <b>Barangays: </b>
+                        <select class="form-control"  v-model="bar" @change="filter_me('bar')">
+                            <option></option>
+                            <option v-for="barangay in barangays">
+                                {{ barangay }}
+                            </option>
+                        </select>
+                    </span>
+
+                    &nbsp;
+                    <!-- <b>Puroks: </b>
+                    <select class="form-control"  v-model="pur" @change="filter_me('pur')">
+                        <option></option>
+                        <option v-for="purok in puroks">
+                            {{ purok }}
+                        </option>
+                    </select> -->
+                    &nbsp;
+                    <hr>
+                    <button class="btn btn-danger text-white" @click="clearFilter">Clear Filters</button>
+
+                </filtering>
             </div>
 
-            <!-- <form @submit.prevent="submit">
-                {{ import_selection }}
-                <select v-model="import_selection" >
-                    <option value="1">PHATTS</option>
-                    <option value="2">Municipalities/Barangays/Puroks</option>
-                    <option value="h">Households</option>
-                    <option value="a">Schools</option>
-                    <option value="b">Child Development Centers</option>
-                    <option value="c">Health Facilities</option>
-                    <option value="3">Export PhATSS</option>
-                </select>
-                <input type="file" @input="form.myfile = $event.target.files[0]" @change="onFileChanged()"/>
-                <progress v-if="form.progress" class="form-control"  :value="form.progress.percentage" max="100">
-                    {{ form.progress.percentage }}%
-                </progress>
-                <button type="submit" class="btn btn-primary btn-sm mL-2 text-white" >Submit</button>
-            </form> -->
-            <!-- {{ dt_g3 }}
-            {{ total }} -->
+
         </div>
 
     </div>
 </template>
 <script>
 import RiskAssessmentChart from '@/Shared/BarChart.vue';
-
+import Filtering from "@/Shared/FilterT";
 import { ref } from 'vue';
 
 const componentKey=ref(0);
+const videoUrl = "/images/pho_ddo.mp4"; // Relative path to the video
+
 export default {
     props: {
+        auth: Object,
         with_toilets: Number,
         with_functional_toilet: Number,
         _8_composting: Number,
@@ -202,14 +362,21 @@ export default {
         dt_g3: Object,
         total: Object,
         data_by_mun_label: Object,
-        results: Object
+        results: Object,
+        barangays: Object,
+        municipalities: Object,
+        puroks: Object,
     },
     components: {
-        RiskAssessmentChart
+        RiskAssessmentChart, Filtering
     },
     data() {
         return{
-
+            mun: '',
+            bar: '',
+            year: '',
+            purok: '',
+            filter: false,
         }
     },
     computed: {
@@ -217,23 +384,23 @@ export default {
             return[
                 {
                     label: 'G0',
-                    backgroundColor: '#025da6',
+                    backgroundColor: '#fc1303',
                     data: this.dt_g0,
                 },
                 {
                     label: 'G1',
-                    backgroundColor: '#2196f3',
+                    backgroundColor: '#fc7600',
                     data: this.dt_g1,
                 },
                 {
                     label: 'G2',
-                    backgroundColor: '#f44336',
+                    backgroundColor: '#d1f505',
                     data: this.dt_g2
                 },
                 {
                     //#D4D468
                     label: 'G3',
-                    backgroundColor: '#c8cf04',
+                    backgroundColor: '#02ab75',
                     data: this.dt_g3
                 },
                 // {
@@ -253,11 +420,97 @@ export default {
         },
         number_of_households(){
             return this.total.reduce((sum, value) => sum + value, 0);
+        },
+        totalG0() {
+            return this.results.reduce((sum, r) => sum + parseFloat(r.Open_Defecation_G0 || 0), 0);
+        },
+        totalG1() {
+            return this.results.reduce((sum, r) => sum + parseFloat(r.Zero_Open_Defecation_G1 || 0), 0);
+        },
+        totalG2() {
+            return this.results.reduce((sum, r) => sum + parseFloat(r.Basic_Sanitation_G2 || 0), 0);
+        },
+        totalG3() {
+            return this.results.reduce((sum, r) => sum + parseFloat(r.Safely_Managed_G3 || 0), 0);
+        },
+        totalOverall() {
+            return this.results.reduce((sum, r) => sum + parseFloat(r.total || 0), 0);
         }
+
     },
     methods: {
 
+        async filter_me(type){
+            // alert(this.mun)
+            if(type==='mun'){
+                // alert(type);
+                this.bar="";
+                this.pur="";
+            }
+            if(type==='bar'){
+                this.pur="";
+            }
 
+            this.$inertia.get(
+                    "/",
+                    {
+                        mun: this.mun,
+                        bar: this.bar,
+                        pur: this.pur,
+                        year: this.year,
+                        // division: this.division_selected
+                    },
+                    {
+                        preserveScroll: true,
+                        preserveState: true,
+                        replace: true,
+                        onSuccess: () => {
+                            this.componentKey++; // Force re-render of chart
+                        }
+                        // onSuccess: () => {
+                        //     window.location.reload();
+                        // },
+                    }
+                );
+        },
+        showFilter() {
+            this.filter = !this.filter
+        },
+        clearFilter(){
+            this.bar="";
+            this.mun="";
+            this.pur="";
+            this.year="";
+            this.filter_me("clear");
+        },
+        generateUrl(riskLevel, municipality) {
+            const bar = this.bar;
+            const mun = this.mun;
+            const year = this.year;
+
+            const params = new URLSearchParams();
+
+            if (bar) {
+                params.append('pur', municipality);
+                // params.append('mun', NULL);
+            } else if (mun) {
+                // params.append('bar', '');
+                params.append('bar', municipality);
+            } else {
+                // fallback if neither bar nor mun is set
+                // params.append('bar', NULL);
+                params.append('mun', municipality);
+            }
+
+            params.append('relrisk', riskLevel);
+            params.append('year_survey', year);
+
+            // return `http://127.0.0.1:8000/households?${params.toString()}`;
+            // Dynamic base URL using browser location
+            const baseUrl = `${window.location.origin}/households`;
+
+            return `${baseUrl}?${params.toString()}`;
+        }
     }
 };
 </script>

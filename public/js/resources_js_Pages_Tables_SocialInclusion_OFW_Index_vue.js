@@ -335,7 +335,7 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   fill: "currentColor",
   stroke: "none"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
-  d: "M1200 7229 c-30 -4 -74 -15 -97 -23 -39 -14 -364 -251 -362 -265 0\n                        -3 776 -493 1723 -1089 l1724 -1083 367 -375 c202 -206 366 -376 364 -378 -2\n                        -2 -236 -47 -519 -101 -283 -53 -631 -119 -773 -146 -143 -27 -264 -49 -271\n                        -49 -7 0 -222 226 -479 502 -285 307 -491 520 -528 547 -75 54 -216 128 -262\n                        136 -35 7 -336 -40 -348 -53 -3 -4 14 -225 37 -492 24 -267 42 -492 41 -501\n                        -2 -18 3 -20 -832 376 -264 125 -507 236 -540 247 -135 44 -332 14 -407 -62\n                        -21 -21 -38 -46 -38 -57 0 -12 223 -228 641 -619 352 -329 655 -611 672 -626\n                        l32 -27 -39 -32 c-50 -42 -76 -99 -76 -171 0 -51 3 -59 30 -82 51 -42 195 -77\n                        365 -88 l40 -3 312 -415 c171 -228 322 -423 334 -432 32 -27 161 -25 235 3\n                        108 40 105 34 185 379 39 168 72 306 73 308 2 1 99 -5 217 -13 353 -24 765\n                        -35 1319 -35 687 0 980 12 1503 61 120 11 229 19 243 17 18 -2 155 -117 415\n                        -348 l388 -345 1 -947 c0 -522 2 -948 4 -948 2 0 104 9 226 20 241 22 298 36\n                        375 91 25 18 63 58 83 89 44 66 13 -1 730 1565 504 1100 581 1261 602 1267 14\n                        4 84 14 155 23 300 38 858 140 1295 236 1377 305 2214 666 2396 1033 36 74 39\n                        86 39 166 0 76 -3 92 -33 152 -62 126 -162 183 -482 277 -269 79 -291 87 -466\n                        170 -175 83 -233 98 -429 111 -294 20 -523 -21 -865 -155 -74 -29 -144 -55\n                        -155 -59 -11 -4 -114 -25 -230 -47 -115 -22 -363 -69 -550 -104 -1056 -199\n                        -1355 -255 -1373 -255 -11 0 -316 115 -678 256 -2365 919 -4352 1691 -5713\n                        2220 -505 196 -492 193 -621 173z"
+  d: "M1200 7229 c-30 -4 -74 -15 -97 -23 -39 -14 -364 -251 -362 -265 0\r\n                        -3 776 -493 1723 -1089 l1724 -1083 367 -375 c202 -206 366 -376 364 -378 -2\r\n                        -2 -236 -47 -519 -101 -283 -53 -631 -119 -773 -146 -143 -27 -264 -49 -271\r\n                        -49 -7 0 -222 226 -479 502 -285 307 -491 520 -528 547 -75 54 -216 128 -262\r\n                        136 -35 7 -336 -40 -348 -53 -3 -4 14 -225 37 -492 24 -267 42 -492 41 -501\r\n                        -2 -18 3 -20 -832 376 -264 125 -507 236 -540 247 -135 44 -332 14 -407 -62\r\n                        -21 -21 -38 -46 -38 -57 0 -12 223 -228 641 -619 352 -329 655 -611 672 -626\r\n                        l32 -27 -39 -32 c-50 -42 -76 -99 -76 -171 0 -51 3 -59 30 -82 51 -42 195 -77\r\n                        365 -88 l40 -3 312 -415 c171 -228 322 -423 334 -432 32 -27 161 -25 235 3\r\n                        108 40 105 34 185 379 39 168 72 306 73 308 2 1 99 -5 217 -13 353 -24 765\r\n                        -35 1319 -35 687 0 980 12 1503 61 120 11 229 19 243 17 18 -2 155 -117 415\r\n                        -348 l388 -345 1 -947 c0 -522 2 -948 4 -948 2 0 104 9 226 20 241 22 298 36\r\n                        375 91 25 18 63 58 83 89 44 66 13 -1 730 1565 504 1100 581 1261 602 1267 14\r\n                        4 84 14 155 23 300 38 858 140 1295 236 1377 305 2214 666 2396 1033 36 74 39\r\n                        86 39 166 0 76 -3 92 -33 152 -62 126 -162 183 -482 277 -269 79 -291 87 -466\r\n                        170 -175 83 -233 98 -429 111 -294 20 -523 -21 -865 -155 -74 -29 -144 -55\r\n                        -155 -59 -11 -4 -114 -25 -230 -47 -115 -22 -363 -69 -550 -104 -1056 -199\r\n                        -1355 -255 -1373 -255 -11 0 -316 115 -678 256 -2365 919 -4352 1691 -5713\r\n                        2220 -505 196 -492 193 -621 173z"
 })])])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Overseas Filipino Workers ")], -1
 /* HOISTED */
 );
@@ -790,7 +790,7 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNod
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Link");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" \n            I intend to recreate a simple pagination [simplePaginate()] for performance purpose \n            read https://laravel.com/docs/8.x/pagination#simple-pagination\n\n            If you think you will not have huge dataset in the future you can use\n            the paginate() by uncommenting below and in the actual component.\n        "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Component \n            :is=\"link.url ? 'Link' : 'span'\"\n            v-for=\"link in links\" \n            :href=\"link.url\" \n            v-html=\"link.label\"\n            class=\"p-3 text-decoration-none\"\n            :class=\"{'text-muted' : !link.url, 'fw-bold' : link.active}\"\n        /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_2, [$props.prev ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Link, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" \r\n            I intend to recreate a simple pagination [simplePaginate()] for performance purpose \r\n            read https://laravel.com/docs/8.x/pagination#simple-pagination\r\n\r\n            If you think you will not have huge dataset in the future you can use\r\n            the paginate() by uncommenting below and in the actual component.\r\n        "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Component \r\n            :is=\"link.url ? 'Link' : 'span'\"\r\n            v-for=\"link in links\" \r\n            :href=\"link.url\" \r\n            v-html=\"link.label\"\r\n            class=\"p-3 text-decoration-none\"\r\n            :class=\"{'text-muted' : !link.url, 'fw-bold' : link.active}\"\r\n        /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_2, [$props.prev ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Link, {
     key: 0,
     "class": "page-link",
     href: $props.prev,
@@ -901,13 +901,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Index_vue_vue_type_template_id_712f3542__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Index.vue?vue&type=template&id=712f3542 */ "./resources/js/Pages/Tables/SocialInclusion/OFW/Index.vue?vue&type=template&id=712f3542");
 /* harmony import */ var _Index_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Index.vue?vue&type=script&lang=js */ "./resources/js/Pages/Tables/SocialInclusion/OFW/Index.vue?vue&type=script&lang=js");
-/* harmony import */ var C_xampp_htdocs_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_xampp_htdocs_PhATSS_ML_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,C_xampp_htdocs_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Index_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Index_vue_vue_type_template_id_712f3542__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Pages/Tables/SocialInclusion/OFW/Index.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_xampp_htdocs_PhATSS_ML_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Index_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Index_vue_vue_type_template_id_712f3542__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Pages/Tables/SocialInclusion/OFW/Index.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -929,7 +929,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Filter_vue_vue_type_template_id_09f80c58__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Filter.vue?vue&type=template&id=09f80c58 */ "./resources/js/Shared/Filter.vue?vue&type=template&id=09f80c58");
 /* harmony import */ var _Filter_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Filter.vue?vue&type=script&lang=js */ "./resources/js/Shared/Filter.vue?vue&type=script&lang=js");
 /* harmony import */ var _Filter_vue_vue_type_style_index_0_id_09f80c58_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Filter.vue?vue&type=style&index=0&id=09f80c58&lang=css */ "./resources/js/Shared/Filter.vue?vue&type=style&index=0&id=09f80c58&lang=css");
-/* harmony import */ var C_xampp_htdocs_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_xampp_htdocs_PhATSS_ML_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -937,7 +937,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,C_xampp_htdocs_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_Filter_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Filter_vue_vue_type_template_id_09f80c58__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Shared/Filter.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_xampp_htdocs_PhATSS_ML_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_Filter_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Filter_vue_vue_type_template_id_09f80c58__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Shared/Filter.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -958,13 +958,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Pagination_vue_vue_type_template_id_7ed7fa14__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pagination.vue?vue&type=template&id=7ed7fa14 */ "./resources/js/Shared/Pagination.vue?vue&type=template&id=7ed7fa14");
 /* harmony import */ var _Pagination_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pagination.vue?vue&type=script&lang=js */ "./resources/js/Shared/Pagination.vue?vue&type=script&lang=js");
-/* harmony import */ var C_xampp_htdocs_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_xampp_htdocs_PhATSS_ML_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,C_xampp_htdocs_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Pagination_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Pagination_vue_vue_type_template_id_7ed7fa14__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Shared/Pagination.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_xampp_htdocs_PhATSS_ML_PhATSS_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Pagination_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Pagination_vue_vue_type_template_id_7ed7fa14__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Shared/Pagination.vue"]])
 /* hot reload */
 if (false) {}
 
