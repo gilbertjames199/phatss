@@ -264,8 +264,18 @@ class IssueController extends Controller
         // $request->validate([
         //     'number_of_patients' => 'required|integer',
         // ]);
+
         $issue = Issue::where('id', $id)->first();
-        $issue->number_of_patients = $request->number_of_patients;
+        if ($request->number_of_patients) {
+            if (floatval($request->number_of_patients) > 0) {
+                $issue->number_of_patients = $request->number_of_patients;
+            } else {
+                dd("zero ang number of patients");
+                $issue->number_of_patients = null;
+            }
+        } else {
+            $issue->number_of_patients = $request->number_of_patients;
+        }
         $issue->save();
         return redirect()->back()->with('message', 'Number of patients updated successfully');
     }

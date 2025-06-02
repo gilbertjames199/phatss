@@ -1,6 +1,6 @@
 <template>
 
-    <h1>Heat Map Backup</h1>
+    <h1>Heat Map</h1>
     <div class="row gap-20 masonry pos-r">
         <div class="masonry-item w-100">
             <div class="row gap-20">

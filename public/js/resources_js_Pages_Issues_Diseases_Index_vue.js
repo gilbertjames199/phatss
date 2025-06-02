@@ -97,14 +97,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     saveQuantity: function saveQuantity(id, index) {
+      var _this2 = this;
+
       axios.post("/issue/diseases/update_quantity/".concat(id), {
         number_of_patients: this.number_of_patients[index]
       }).then(function (response) {
+        _this2.$inertia.reload({
+          only: ['notifs']
+        });
+
         console.log(response.data.message);
       })["catch"](function (error) {
         var _error$response;
 
         console.error("Error updating:", ((_error$response = error.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || error);
+      });
+      this.$inertia.reload({
+        only: ['notifs']
       });
     }
   }
