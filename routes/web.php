@@ -135,6 +135,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('/map')->group(function () {
         Route::get('/', [MapPlotterController::class, 'index']);
         Route::get('/heat', [MapPlotterController::class, 'heat_map']);
+        Route::get('/chloropleth/heat/map', [MapPlotterController::class, 'chloropleth']);
         Route::get('/route/optimize', [MapPlotterController::class, 'route_optimize']);
         Route::get('/k/means/training', [MapPlotterController::class, 'kmeans']);
     });
@@ -220,6 +221,8 @@ Route::middleware(['auth'])->group(function () {
     //HOUSEHOLDS
     Route::prefix('/households')->group(function () {
         Route::get('/', [HouseHoldController::class, 'index']);
+        Route::get('/create', [HouseHoldController::class, 'create']);
+        Route::get('/{id}/view/dataset', [HouseHoldController::class, 'view']);
         Route::get('/create', [HouseHoldController::class, 'create']);
         Route::get('/{id}/view/dataset', [HouseHoldController::class, 'view']);
         Route::get('/create', [HouseHoldController::class, 'create']);

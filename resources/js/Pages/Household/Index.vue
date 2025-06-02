@@ -142,12 +142,12 @@
                                             </svg>
                                         </button>
                                         <ul class="dropdown-menu action-dropdown" aria-labelledby="dropdownMenuButton1">
-                                            <!-- <li>
+                                            <li>
                                                 <Link class="dropdown-item"
                                                     :href="`/households/${dat.id}/view/dataset`">
                                                 View
                                                 </Link>
-                                            </li> -->
+                                            </li>
                                             <li>
                                                 <Link class="dropdown-item"
                                                     :href="`/households/${dat.id}/edit`">
