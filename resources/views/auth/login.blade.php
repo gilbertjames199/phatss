@@ -17,7 +17,7 @@
         <div class="d-n@sm- peer peer-greed h-100 pos-r bgr-n bgpX-c bgpY-c bgsz-cv"
             style='background-image:url("images/bg.jpg")'>
             <div class="pos-a centerXY">
-                <div class="row" style="color:#2c8291">
+                <div class="row" style="color:#60e4fb">
                     <h1 class="text-center text-title"><span class="display-1">SANITATION </h1>
                     <h1 class="text-center text-title">MANAGEMENT SYSTEM</h1>
                 </div>
