@@ -18,8 +18,8 @@
             style='background-image:url("images/bg.jpg")'>
             <div class="pos-a centerXY">
                 <div class="row" style="color:#60e4fb">
-                    <h1 class="text-center text-title"><span class="display-1">SANITATION </h1>
-                    <h1 class="text-center text-title">MANAGEMENT SYSTEM</h1>
+                    <h1 class="text-center text-title"><span class="display-1"><b>SANITATION</b> </h1>
+                    <h1 class="text-center text-title"><b>MANAGEMENT SYSTEM</b></h1>
                 </div>
                 <div class="row text-center">
                     <div>
