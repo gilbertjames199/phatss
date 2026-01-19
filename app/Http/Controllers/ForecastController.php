@@ -79,8 +79,9 @@ class ForecastController extends Controller
                 $total_score = array_sum($queryParams);
 
                 // Call the API
-                $response = Http::get("http://eservices.dvodeoro.ph:5030/predict-svm", $queryParams);
+                // $response = Http::get("http://eservices.dvodeoro.ph:5030/predict-svm", $queryParams);
 
+                $response = Http::get("https://sanitation-api.davaodeoro.gov.ph/predict-svm", $queryParams);
                 // Extract risk assessment value
                 $sanitation_status = "Good Sanitation";
                 if ($response->successful() && isset($response->json()['predicted_relative_risk_assessment'])) {

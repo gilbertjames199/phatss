@@ -142,9 +142,7 @@ class MapPlotterController extends Controller
             })
             ->where('_Location_latitude', '<>', '')
             ->where('_Location_longitude', '<>', '')
-            ->distinct(
-                '_uuid'
-            );
+            ->distinct('_uuid');
         // ->select(
         //     '_uuid',
         //     'relative_risk_assessment',
@@ -165,7 +163,17 @@ class MapPlotterController extends Controller
         // 'MIDDLENAME',
         // 'purok_sitio',
         // 'barangay'
-        $count = $data->get()->count();
+        // dd("ererererervfsdgsdfggf");
+        // dd($data->get());
+        // dd($data);
+        //
+        // ->distinct(
+        //     '_uuid'
+        // )
+        // ->select('_uuid')->distinct('_uuid')
+        $data_clone=$data;
+        $count = $data_clone->get()->count();
+
         // dd($count);
         // $dataG0 = $this->dataGetter($request, 'Open Defecation G0');
         // $dataG1 = $this->dataGetter($request, 'Zero Open Defecation G1');
@@ -182,6 +190,7 @@ class MapPlotterController extends Controller
         if (!empty($request->pur)) {
             $cluster_size = '0.00009'; // Approx. 10m
         }
+
         $data = $data->selectRaw("
                MIN(_Location_latitude) AS _Location_latitude,
                 MIN(_Location_longitude) AS _Location_longitude,
@@ -214,6 +223,7 @@ class MapPlotterController extends Controller
                 GROUP_CONCAT(id) AS household_ids
             ")
             ->groupBy('cluster_lat', 'cluster_long')->get()->map(function ($item) {
+                // dd("dasdsadasdasda");
                 $count = (float) $item->risk_level * (float) $item->risk_level;
                 $count = 10;
                 if ($item->relative_risk_assessment == 'Basic Sanitation G2') {
@@ -276,6 +286,7 @@ class MapPlotterController extends Controller
                 ->orderBy('purok_sitio', 'ASC')
                 ->pluck('purok_sitio');
         }
+        // dd($data);
         return inertia('MapThem/heatMap', [
             "p_data" => $data,
             // "g0" => $dataG0,
